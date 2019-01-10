@@ -1363,4 +1363,83 @@ Public Class Inventário_Excel
             MsgBox("Erro ao Carregar Excel!", MsgBoxStyle.Critical)
         End Try
     End Sub
+
+    Public Sub Layout_Excel()
+        Dim xlApp As Excel.Application
+        Dim xlWorkBook As Excel.Workbook
+        Dim Sh_T As Excel.Worksheet
+        Dim misValue As Object = System.Reflection.Missing.Value
+
+        Try
+            xlApp = New Excel.Application
+            xlWorkBook = xlApp.Workbooks.Add(misValue)
+            Sh_T = xlWorkBook.Sheets(1)
+            Sh_T.Name = "Carga"
+            Sh_T.Range("a1").Value = "ID"
+            Sh_T.Range("b1").Value = "Sequencial"
+            Sh_T.Range("c1").Value = "Local"
+            Sh_T.Range("d1").Value = "ODI"
+            Sh_T.Range("e1").Value = "Código TI"
+            Sh_T.Range("f1").Value = "TI"
+            Sh_T.Range("g1").Value = "Bay"
+            Sh_T.Range("h1").Value = "Código TUC"
+            Sh_T.Range("i1").Value = "Descrição TUC"
+            Sh_T.Range("j1").Value = "Código Tipo de Bem"
+            Sh_T.Range("k1").Value = "Descrição Tipo de Bem"
+            Sh_T.Range("l1").Value = "Código UAR"
+            Sh_T.Range("m1").Value = "Descrição UAR"
+            Sh_T.Range("n1").Value = "Código A2"
+            Sh_T.Range("o1").Value = "Descrição A2"
+            Sh_T.Range("p1").Value = "Código A3"
+            Sh_T.Range("q1").Value = "Descrição A3"
+            Sh_T.Range("r1").Value = "Código A4"
+            Sh_T.Range("s1").Value = "Descrição A4"
+            Sh_T.Range("t1").Value = "Código A5"
+            Sh_T.Range("u1").Value = "Descrição A5"
+            Sh_T.Range("v1").Value = "Código A6"
+            Sh_T.Range("w1").Value = "Descrição A6"
+            Sh_T.Range("x1").Value = "Código CM1"
+            Sh_T.Range("y1").Value = "Descrição CM1"
+            Sh_T.Range("z1").Value = "Código CM2"
+            Sh_T.Range("aa1").Value = "Descrição CM2"
+            Sh_T.Range("ab1").Value = "Código CM3"
+            Sh_T.Range("ac1").Value = "Descrição CM3"
+            Sh_T.Range("ad1").Value = "Descrição"
+            Sh_T.Range("ae1").Value = "Fabricante"
+            Sh_T.Range("af1").Value = "Modelo"
+            Sh_T.Range("ag1").Value = "N° de Série"
+            Sh_T.Range("ah1").Value = "N° de Manutenção"
+            Sh_T.Range("ai1").Value = "Observação"
+            Sh_T.Range("aj1").Value = "Quantidade"
+            Sh_T.Range("ak1").Value = "Unidade de Medida"
+            Sh_T.Range("al1").Value = "Ano de Fabricação"
+            Sh_T.Range("am1").Value = "Mês de Fabricação"
+            Sh_T.Range("an1").Value = "Dia de Fabricação"
+            Sh_T.Range("ao1").Value = "Status do Bem"
+            Sh_T.Range("ap1").Value = "Estado do Bem"
+            Sh_T.Range("aq1").Value = "Altura"
+            Sh_T.Range("ar1").Value = "Largura"
+            Sh_T.Range("as1").Value = "Comprimento"
+            Sh_T.Range("at1").Value = "Área"
+            Sh_T.Range("au1").Value = "Pé Direito"
+            Sh_T.Range("av1").Value = "Esforço"
+            Sh_T.Range("aw1").Value = "Observacao Civil"
+            Sh_T.Range("ax1").Value = "Foto"
+            Sh_T.Range("ay1").Value = "Consultor"
+            Sh_T.Range("az1").Value = "Líder"
+            Sh_T.Range("ba1").Value = "Data/Hora"
+
+            Sh_T.Range("a1:ba1").Font.Bold = True
+            Sh_T.Range("a1:ba1").Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue)
+
+            'Arrumar colunas
+            'DS.Tables(0).Columns(50).SetOrdinal(33)
+            'DS.Tables(0).Columns(51).SetOrdinal(47)
+
+            Sh_T.Columns.AutoFit()
+            xlApp.Visible = True
+        Catch
+            MsgBox("Erro ao Carregar Excel!", MsgBoxStyle.Critical)
+        End Try
+    End Sub
 End Class

@@ -797,7 +797,8 @@ Public Class Frm_Inventário
         V_Atual_TB = TB.Value
     End Sub
 
-    Private Sub CarregarBaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CarregarBaseToolStripMenuItem.Click
+
+    Private Sub BaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BaseToolStripMenuItem.Click
         On Error Resume Next
         Dim dr As DialogResult = Me.OFD.ShowDialog()
         Dim Caminho As String
@@ -808,5 +809,9 @@ Public Class Frm_Inventário
         End If
         'Carga
         I_E.Carga_Sistema(Caminho)
+    End Sub
+
+    Private Sub LayoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LayoutToolStripMenuItem.Click
+        I_E.Layout_Excel()
     End Sub
 End Class
