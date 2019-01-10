@@ -2,8 +2,90 @@
 Imports Microsoft.Office.Interop
 
 Public Class Inventário_Excel
-    Dim connstr As String = "Data Source=C:\Users\Public\INVENTARIO.db;;Version=3;New=True;Compress=True;Pooling=True"
+    Dim connstr As String = "Data Source=C:\Users\Public\INVENTARIO_PADRAO.db;;Version=3;New=True;Compress=True;Pooling=True"
     Public DS As New DataSet
+
+    Public Sub Preencher_CMB(CmbLocal As ComboBox, CmbEndereco As ComboBox)
+        Dim DT As New DataTable
+        Try
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            connection.Open()
+            'DT.Load(Command.ExecuteReader(CommandBehavior.CloseConnection))
+            DA.SelectCommand = New SQLite.SQLiteCommand("select * from Localidade;", connection)
+            DA.Fill(DT)
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        'Inserir nos CMB
+        Try
+            For i = 0 To DT.Rows.Count
+                If DT.Rows(i)(0) <> "" Then
+                    CmbLocal.Items.Add(DT.Rows(i)(0))
+                End If
+                If DT.Rows(i)(1) <> "" Then
+                    CmbEndereco.Items.Add(DT.Rows(i)(1))
+                End If
+            Next i
+        Catch
+        End Try
+    End Sub
+
+    Public Sub Carga_Sistema(Caminho As String)
+        'Coloca os dados do Excel no DT
+        Dim DT As New DataTable
+        Try
+            Dim connection As New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Extended Properties='Excel 12.0;HDR=YES;IMEX=1';DATA SOURCE=" & Caminho & ";")
+            Dim DA As New OleDb.OleDbDataAdapter
+            connection.Open()
+            'DT.Load(Command.ExecuteReader(CommandBehavior.CloseConnection))
+            DA.SelectCommand = New OleDb.OleDbCommand("select * from [Carga$];", connection)
+            DA.Fill(DT)
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        'Limpa a base e insere com os dados DT
+        Try
+            Dim connectionS As New SQLite.SQLiteConnection(connstr)
+            Dim cmd As New SQLite.SQLiteCommand
+            connectionS.Open()
+            cmd.Connection = connectionS
+            cmd.CommandText = "delete from Localidade;"
+            cmd.ExecuteNonQuery()
+            cmd.Dispose()
+            connectionS.Close()
+            connectionS.Dispose()
+        Catch
+            MsgBox("Erro ao limpar Base", MsgBoxStyle.Critical)
+        End Try
+
+        Try
+            Dim connectionS As New SQLite.SQLiteConnection(connstr)
+            Dim cmd As New SQLite.SQLiteCommand
+            connectionS.Open()
+            cmd.Connection = connectionS
+            For i = 0 To DT.Rows.Count - 1
+                cmd.CommandText = "insert into Localidade (Local,Endereco,Supervisor) values ('" & DT.Rows(i)(0) & "','" & DT.Rows(i)(1) & "','" & DT.Rows(i)(2) & "');"
+                cmd.ExecuteNonQuery()
+            Next i
+            cmd.Dispose()
+            connectionS.Close()
+            connectionS.Dispose()
+            MsgBox("Base carregada com Sucesso", MsgBoxStyle.Information)
+        Catch
+            MsgBox("Erro ao inserir Base", MsgBoxStyle.Critical)
+        End Try
+    End Sub
 
     Public Function Contar_Cadastro_TUC_TI_A3(TUC As String, TI As String, A3 As String) As Integer
         Try

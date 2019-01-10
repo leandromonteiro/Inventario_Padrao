@@ -228,16 +228,17 @@ Public Class Frm_Inventário
     Private Sub FrmInventario_Novo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Panel_Picture_Consulta.Controls.Add(PictureBox_Consulta)
-        ID = I_E.Buscar_Ultimo_ID() + 1
-        TxtSeq_Civil.Text = ID
-        TxtSeq_Desc.Text = ID
-        TxtSeq_Local.Text = ID
+        'ID = I_E.Buscar_Ultimo_ID() + 1
+        'TxtSeq_Civil.Text = ID
+        'TxtSeq_Desc.Text = ID
+        'TxtSeq_Local.Text = ID
 
-        I_E.Consulta_TUC(CmbTUC)
-        I_E.Consulta_CM(CmbCm1, CmbCm2, CmbCm3)
-        I_E.Consulta_TI_Geral(CmbTI_Geral)
-
+        'I_E.Consulta_TUC(CmbTUC)
+        'I_E.Consulta_CM(CmbCm1, CmbCm2, CmbCm3)
+        'I_E.Consulta_TI_Geral(CmbTI_Geral)
         PB_Excel.Visible = False
+        'Preencher ComboBoxes
+        I_E.Preencher_CMB(CmbTI_Geral, CmbTI)
 
     End Sub
 
@@ -341,14 +342,6 @@ Public Class Frm_Inventário
 
     Private Sub CmbTI_Geral_Click(sender As Object, e As EventArgs) Handles CmbTI_Geral.Click
         CmbTI.Text = ""
-    End Sub
-    Private Sub CmbTI_Geral_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbTI_Geral.SelectedIndexChanged
-        TI_Cod_Geral_Todos = I_E.Buscar_TI_Geral(CmbTI_Geral)
-        I_E.Consulta_TI(CmbTI, TI_Cod_Geral_Todos)
-    End Sub
-
-    Private Sub CmbTI_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbTI.SelectedIndexChanged
-        TI = I_E.Buscar_TI(CmbTI, TI_Cod_Geral_Todos)
     End Sub
 
     Private Sub CmbUAR_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbUAR.SelectedIndexChanged
@@ -804,21 +797,16 @@ Public Class Frm_Inventário
         V_Atual_TB = TB.Value
     End Sub
 
-    Private Sub Label10_Click(sender As Object, e As EventArgs) Handles Label10.Click
-
+    Private Sub CarregarBaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CarregarBaseToolStripMenuItem.Click
+        On Error Resume Next
+        Dim dr As DialogResult = Me.OFD.ShowDialog()
+        Dim Caminho As String
+        If dr = System.Windows.Forms.DialogResult.OK Then
+            Caminho = OFD.FileName
+        Else
+            Exit Sub
+        End If
+        'Carga
+        I_E.Carga_Sistema(Caminho)
     End Sub
-
-    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles Label11.Click
-
-    End Sub
-
-    Private Sub TxtConsultor_TextChanged(sender As Object, e As EventArgs) Handles TxtConsultor.TextChanged
-
-    End Sub
-
-    Private Sub TxtLider_TextChanged(sender As Object, e As EventArgs) Handles TxtLider.TextChanged
-
-    End Sub
-
-
 End Class
