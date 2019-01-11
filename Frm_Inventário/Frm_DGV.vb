@@ -92,12 +92,6 @@
             Frm_Inventário.PictureBox_Consulta.ImageLocation = Frm_Inventário.Caminho & "\" & Frm_Inventário.A_Fotos_Inventario(0)
         End If
 
-        'Ajuste A1
-        Frm_Inventário.Ajuste_A1()
-
-        'Consulta TI_Geral
-        Frm_Inventário.CmbTI_Geral.Text = I_E.Consulta_TI_Geral(Frm_Inventário.TI)
-
         Frm_Inventário.BtnS_Multi.Enabled = False
         Frm_Inventário.BtnCopiar.Enabled = False
         Alterado = True

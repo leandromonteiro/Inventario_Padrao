@@ -211,20 +211,6 @@ Public Class Frm_Inventário
         Foto = ""
     End Sub
 
-    Public Sub Ajuste_A1()
-        A1 = I_E.Buscar_A1(CmbA1, TUC)
-        I_E.Consulta_A2_A6(CmbA2, TUC, A1, "Desc_A2")
-        I_E.Consulta_A2_A6(CmbA3, TUC, A1, "Desc_A3")
-        I_E.Consulta_A2_A6(CmbA4, TUC, A1, "Desc_A4")
-        I_E.Consulta_A2_A6(CmbA5, TUC, A1, "Desc_A5")
-        I_E.Consulta_A2_A6(CmbA6, TUC, A1, "Desc_A6")
-        I_E.Buscar_Tabela(LblA2, TUC, A1, "Desc_A2")
-        I_E.Buscar_Tabela(LblA3, TUC, A1, "Desc_A3")
-        I_E.Buscar_Tabela(LblA4, TUC, A1, "Desc_A4")
-        I_E.Buscar_Tabela(LblA5, TUC, A1, "Desc_A5")
-        I_E.Buscar_Tabela(LblA6, TUC, A1, "Desc_A6")
-    End Sub
-
     Private Sub FrmInventario_Novo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Panel_Picture_Consulta.Controls.Add(PictureBox_Consulta)
@@ -242,197 +228,6 @@ Public Class Frm_Inventário
 
     End Sub
 
-    Private Sub CmbTUC_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbTUC.SelectedIndexChanged
-        TUC = I_E.Buscar_TUC(CmbTUC)
-        I_E.Consulta_UAR(CmbUAR, TUC)
-        I_E.Consulta_A1(CmbA1, TUC)
-        'Limpar
-        CmbUAR.Text = ""
-        CmbA1.Text = ""
-        CmbA2.Text = ""
-        CmbA3.Text = ""
-        CmbA4.Text = ""
-        CmbA5.Text = ""
-        CmbA6.Text = ""
-        A2 = ""
-        A3 = ""
-        A4 = ""
-        A5 = ""
-        A6 = ""
-        CmbA2.Items.Clear()
-        CmbA3.Items.Clear()
-        CmbA4.Items.Clear()
-        CmbA5.Items.Clear()
-        CmbA6.Items.Clear()
-        CmbA2.Enabled = True
-        CmbA3.Enabled = True
-        CmbA4.Enabled = True
-        CmbA5.Enabled = True
-        CmbA6.Enabled = True
-        LblA2.Text = "A2:"
-        LblA3.Text = "A3:"
-        LblA4.Text = "A4:"
-        LblA5.Text = "A5:"
-        LblA6.Text = "A6:"
-        Colocar_Desc()
-        If I_E.Contar_Unidade_TUC(TUC) = 1 Then
-            CmbUm.Text = I_E.Unidade_TUC(TUC)
-        End If
-        'CADASTRO
-        If I_E.Contar_Cadastro_TUC(TUC) = 1 Then
-            LblCadastro.Text = I_E.Cadastro_TUC(TUC)
-            Exit Sub
-        End If
-
-        If I_E.Contar_Cadastro_TUC_TI(TUC, TI) = 1 Then
-            LblCadastro.Text = I_E.Cadastro_TUC_TI(TUC, TI)
-        Else
-            LblCadastro.Text = ""
-        End If
-    End Sub
-
-    Private Sub Colocar_Desc()
-        If CmbA2.Text = "" Then
-            TxtDesc.Text = CmbTUC.Text & "; " & CmbA1.Text & " (" & CmbUAR.Text & ")"
-            Exit Sub
-        End If
-        If CmbA3.Text = "" Then
-            TxtDesc.Text = CmbTUC.Text & "; " & CmbA1.Text & "; " & CmbA2.Text & " (" & CmbUAR.Text & ")"
-            Exit Sub
-        End If
-        If CmbA4.Text = "" Then
-            TxtDesc.Text = CmbTUC.Text & "; " & CmbA1.Text & "; " & CmbA2.Text & "; " & CmbA3.Text & " (" & CmbUAR.Text & ")"
-            Exit Sub
-        End If
-        If CmbA5.Text = "" Then
-            TxtDesc.Text = CmbTUC.Text & "; " & CmbA1.Text & "; " & CmbA2.Text & "; " & CmbA3.Text & "; " & CmbA4.Text & " (" & CmbUAR.Text & ")"
-            Exit Sub
-        End If
-        If CmbA6.Text = "" Then
-            TxtDesc.Text = CmbTUC.Text & "; " & CmbA1.Text & "; " & CmbA2.Text & "; " & CmbA3.Text & "; " & CmbA4.Text & "; " &
-                CmbA5.Text & " (" & CmbUAR.Text & ")"
-        Else
-            TxtDesc.Text = CmbTUC.Text & "; " & CmbA1.Text & "; " & CmbA2.Text & "; " & CmbA3.Text & "; " & CmbA4.Text & "; " &
-                CmbA5.Text & "; " & CmbA6.Text & " (" & CmbUAR.Text & ")"
-        End If
-    End Sub
-    Private Sub CmbCm1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbCm1.SelectedIndexChanged
-        If CmbCm1.Text = "NÃO APLICÁVEL" Then
-            CM1 = "9"
-        Else
-            CM1 = I_E.Buscar_CM1(CmbCm1)
-        End If
-    End Sub
-
-    Private Sub CmbCm2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbCm2.SelectedIndexChanged
-        If CmbCm2.Text = "NÃO APLICÁVEL" Then
-            CM2 = "9"
-        Else
-            CM2 = I_E.Buscar_CM2(CmbCm2)
-        End If
-    End Sub
-
-    Private Sub CmbCm3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbCm3.SelectedIndexChanged
-        If CmbCm3.Text = "NÃO APLICÁVEL" Then
-            CM3 = "9"
-        Else
-            CM3 = I_E.Buscar_CM3(CmbCm3)
-        End If
-    End Sub
-
-    Private Sub CmbTI_Geral_Click(sender As Object, e As EventArgs) Handles CmbTI_Geral.Click
-        CmbTI.Text = ""
-    End Sub
-
-    Private Sub CmbUAR_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbUAR.SelectedIndexChanged
-        UAR = I_E.Buscar_UAR(CmbUAR, TUC)
-        Colocar_Desc()
-    End Sub
-
-    Private Sub CmbA1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbA1.SelectedIndexChanged
-        Me.Cursor = Cursors.WaitCursor
-        Ajuste_A1()
-        'Limpar
-        CmbA2.Text = ""
-        CmbA3.Text = ""
-        CmbA4.Text = ""
-        CmbA5.Text = ""
-        CmbA6.Text = ""
-        A2 = ""
-        A3 = ""
-        A4 = ""
-        A5 = ""
-        A6 = ""
-        Colocar_Desc()
-        If I_E.Contar_Unidade_A1(TUC, A1) = 1 Then
-            CmbUm.Text = I_E.Unidade_A1(TUC, A1)
-        End If
-
-        Me.Cursor = Cursors.Default
-    End Sub
-
-    Private Sub CmbA2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbA2.SelectedIndexChanged
-        A2 = I_E.Buscar_A2_A6(CmbA2)
-        Colocar_Desc()
-        'CADASTRO
-        If I_E.Contar_Cadastro_TUC_A1_A2(TUC, A1, A2) = 1 Then
-            LblCadastro.Text = I_E.Cadastro_TUC_A1_A2(TUC, A1, A2)
-            Exit Sub
-        End If
-
-        If I_E.Contar_Cadastro_TUC_A2(TUC, A2) = 1 Then
-            LblCadastro.Text = I_E.Cadastro_TUC_A2(TUC, A2)
-            Exit Sub
-        End If
-
-        If I_E.Contar_Cadastro_TUC_TI_A2(TUC, TI, A2) = 1 Then
-            LblCadastro.Text = I_E.Cadastro_TUC_TI_A2(TUC, TI, A2)
-            Exit Sub
-        End If
-        If I_E.Contar_Cadastro_TUC_TI(TUC, TI) = 1 Then
-            LblCadastro.Text = I_E.Cadastro_TUC_TI(TUC, TI)
-        End If
-    End Sub
-
-    Private Sub CmbA3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbA3.SelectedIndexChanged
-        A3 = I_E.Buscar_A2_A6(CmbA3)
-        Colocar_Desc()
-        If I_E.Contar_Unidade_A3(TUC, A1, A3) = 1 Then
-            CmbUm.Text = I_E.Unidade_A3(TUC, A1, A3)
-        End If
-        'CADASTRO
-        If I_E.Contar_Cadastro_TUC_A3(TUC, A3) = 1 Then
-            LblCadastro.Text = I_E.Cadastro_TUC_A3(TUC, A3)
-            Exit Sub
-        End If
-        If I_E.Contar_Cadastro_TUC_TI_A3(TUC, TI, A3) = 1 Then
-            LblCadastro.Text = I_E.Cadastro_TUC_TI_A3(TUC, TI, A3)
-            Exit Sub
-        End If
-        If I_E.Contar_Cadastro_TUC_TI(TUC, TI) = 1 Then
-            LblCadastro.Text = I_E.Cadastro_TUC_TI(TUC, TI)
-        End If
-    End Sub
-
-    Private Sub CmbA4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbA4.SelectedIndexChanged
-        A4 = I_E.Buscar_A2_A6(CmbA4)
-        Colocar_Desc()
-        If I_E.Contar_Unidade_A4(TUC, A4) = 1 Then
-            CmbUm.Text = I_E.Unidade_A4(TUC, A4)
-        End If
-    End Sub
-
-    Private Sub CmbA5_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbA5.SelectedIndexChanged
-        A5 = I_E.Buscar_A2_A6(CmbA5)
-        Colocar_Desc()
-    End Sub
-
-    Private Sub CmbA6_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbA6.SelectedIndexChanged
-        A6 = I_E.Buscar_A2_A6(CmbA6)
-        Colocar_Desc()
-    End Sub
-
-
     Private Sub BtnAnterior_Click(sender As Object, e As EventArgs) Handles BtnAnterior.Click
         N_Foto_Principal = C_I.Anterior_Foto(A_Fotos_Principal, PictureBox, N_Foto_Principal, Caminho)
     End Sub
@@ -448,13 +243,6 @@ Public Class Frm_Inventário
     Private Sub Btn_Avancar10_Click(sender As Object, e As EventArgs) Handles Btn_Avancar10.Click
         N_Foto_Principal = C_I.Proxima_Foto(A_Fotos_Principal, PictureBox, N_Foto_Principal + 9, Caminho)
     End Sub
-
-    'Private Sub BtnZoom_Click(sender As Object, e As EventArgs) Handles BtnZoom.Click
-    '    Dim p As New Process()
-    '    p.StartInfo.FileName = "rundll32.exe"
-    '    p.StartInfo.Arguments = Path.Combine(Environment.SystemDirectory, "shimgvw.dll" & ",ImageView_Fullscreen " & PictureBox.ImageLocation)
-    '    p.Start()
-    'End Sub
 
     Private Sub BtnSalvar_Click(sender As Object, e As EventArgs) Handles BtnSalvar.Click
         'Validação de Dados
@@ -635,9 +423,6 @@ Public Class Frm_Inventário
                                      CmbA5, CmbA6, CM1, CmbCm1, CM2, CmbCm2, CM3, CmbCm3, TxtDesc, TxtFabricante, TxtModelo, TxtObs,
                                      TxtQtd, CmbUm, CmbAno, CmbMes, CmbDia, CmbStatus, CmbEstado, TxtAltura, TxtLargura, TxtComprimento,
                                      TxtArea, TxtPe, TxtObsCivil, TxtEsforco, TxtSerie, TxtTag)
-        'Consultar A2 a A6
-        Ajuste_A1()
-        I_E.Consulta_UAR(CmbUAR, TUC)
         ID += 1
         TxtSeq_Civil.Text = ID
         TxtSeq_Desc.Text = ID
