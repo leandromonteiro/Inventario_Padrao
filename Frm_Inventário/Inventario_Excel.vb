@@ -5,14 +5,16 @@ Public Class Inventário_Excel
     Dim connstr As String = "Data Source=C:\Users\Public\INVENTARIO_PADRAO.db;;Version=3;New=True;Compress=True;Pooling=True"
     Public DS As New DataSet
 
-    Public Sub Preencher_CMB(CmbLocal As ComboBox, CmbEndereco As ComboBox)
+    Public Sub Preencher_CMB(CmbCC As ComboBox, CmbInstall As ComboBox, CmbLocal As ComboBox, CmbTag As ComboBox,
+                             CmbDesc As ComboBox, CmbFabricante As ComboBox, CmbModelo As ComboBox,
+                             CmbLocalFisico As ComboBox, CmbConsultor As ComboBox, CmbResponsavel As ComboBox, A_Install As ArrayList)
         Dim DT As New DataTable
         Try
             Dim connection As New SQLite.SQLiteConnection(connstr)
             Dim DA As New SQLite.SQLiteDataAdapter
             connection.Open()
             'DT.Load(Command.ExecuteReader(CommandBehavior.CloseConnection))
-            DA.SelectCommand = New SQLite.SQLiteCommand("select * from Localidade;", connection)
+            DA.SelectCommand = New SQLite.SQLiteCommand("select * from Carga_Cmb;", connection)
             DA.Fill(DT)
             connection.Close()
             connection.Dispose()
@@ -25,18 +27,98 @@ Public Class Inventário_Excel
         'Inserir nos CMB
         Try
             For i = 0 To DT.Rows.Count
-                If DT.Rows(i)(0) <> "" Then
-                    CmbLocal.Items.Add(DT.Rows(i)(0))
+                If Not DT.Rows(i)(0) = "" Then
+                    CmbCC.Items.Add(DT.Rows(i)(0))
                 End If
-                If DT.Rows(i)(1) <> "" Then
-                    CmbEndereco.Items.Add(DT.Rows(i)(1))
+                If Not DT.Rows(i)(1) = "" Then
+                    CmbInstall.Items.Add(DT.Rows(i)(2))
+                    A_Install.Add(DT.Rows(i)(1))
+                End If
+                If Not DT.Rows(i)(3) = "" Then
+                    CmbLocal.Items.Add(DT.Rows(i)(3))
+                End If
+                If Not DT.Rows(i)(4) = "" Then
+                    CmbTag.Items.Add(DT.Rows(i)(4))
+                End If
+                If Not DT.Rows(i)(5) = "" Then
+                    CmbDesc.Items.Add(DT.Rows(i)(5))
+                End If
+                If Not DT.Rows(i)(6) = "" Then
+                    CmbFabricante.Items.Add(DT.Rows(i)(6))
+                End If
+                If Not DT.Rows(i)(7) = "" Then
+                    CmbModelo.Items.Add(DT.Rows(i)(7))
+                End If
+                If Not DT.Rows(i)(8) = "" Then
+                    CmbLocalFisico.Items.Add(DT.Rows(i)(8))
+                End If
+                If Not DT.Rows(i)(9) = "" Then
+                    CmbConsultor.Items.Add(DT.Rows(i)(9))
+                End If
+                If Not DT.Rows(i)(10) = "" Then
+                    CmbResponsavel.Items.Add(DT.Rows(i)(10))
                 End If
             Next i
         Catch
         End Try
     End Sub
 
-    Public Sub Carga_Sistema(Caminho As String)
+    Public Sub Carga_Cmb(Caminho As String)
+        'Coloca os dados do Excel no DT
+        Dim DT As New DataTable
+        Try
+            Dim connection As New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Extended Properties='Excel 12.0;HDR=YES;IMEX=1';DATA SOURCE=" & Caminho & ";")
+            Dim DA As New OleDb.OleDbDataAdapter
+            connection.Open()
+            'DT.Load(Command.ExecuteReader(CommandBehavior.CloseConnection))
+            DA.SelectCommand = New OleDb.OleDbCommand("select * from [Carga$];", connection)
+            DA.Fill(DT)
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        'Limpa a base e insere com os dados DT
+        Try
+            Dim connectionS As New SQLite.SQLiteConnection(connstr)
+            Dim cmd As New SQLite.SQLiteCommand
+            connectionS.Open()
+            cmd.Connection = connectionS
+            cmd.CommandText = "delete from Carga_Cmb;"
+            cmd.ExecuteNonQuery()
+            cmd.Dispose()
+            connectionS.Close()
+            connectionS.Dispose()
+        Catch
+            MsgBox("Erro ao limpar Base", MsgBoxStyle.Critical)
+        End Try
+
+        Try
+            Dim connectionS As New SQLite.SQLiteConnection(connstr)
+            Dim cmd As New SQLite.SQLiteCommand
+            connectionS.Open()
+            cmd.Connection = connectionS
+            For i = 0 To DT.Rows.Count - 1
+                cmd.CommandText = "insert into Carga_Cmb (Centro_Custo,Cod_Instalacao,Desc_Instalacao,Local," &
+                    "Tag,Descricao,Fabricante,Modelo,Local_Fisico,Consultor,Responsável) values ('" &
+                    DT.Rows(i)(0) & "','" & DT.Rows(i)(1) & "','" & DT.Rows(i)(2) & "','" & DT.Rows(i)(3) & "','" &
+                    DT.Rows(i)(4) & "','" & DT.Rows(i)(5) & "','" & DT.Rows(i)(6) & "','" & DT.Rows(i)(7) & "','" &
+                    DT.Rows(i)(8) & "','" & DT.Rows(i)(9) & "','" & DT.Rows(i)(10) & "');"
+                cmd.ExecuteNonQuery()
+            Next i
+            cmd.Dispose()
+            connectionS.Close()
+            connectionS.Dispose()
+            MsgBox("Base carregada com Sucesso", MsgBoxStyle.Information)
+        Catch
+            MsgBox("Erro ao inserir Base", MsgBoxStyle.Critical)
+        End Try
+    End Sub
+
+    Public Sub Carga_Inventario(Caminho As String)
         'Coloca os dados do Excel no DT
         Dim DT As New DataTable
         Try
@@ -115,15 +197,15 @@ Public Class Inventário_Excel
             cmba1.Text = leitor("desc_tipo_bem")
             cod_uar = leitor("cod_uar")
             Cmbuar.Text = leitor("desc_uar")
-            Frm_Inventário.A2 = leitor("cod_a2")
-            Cmba2.Text = leitor("desc_a2")
-            Frm_Inventário.A3 = leitor("cod_a3")
-            Cmba3.Text = leitor("desc_a3")
-            Frm_Inventário.A4 = leitor("cod_a4")
-            Cmba4.Text = leitor("desc_a4")
-            Frm_Inventário.A5 = leitor("cod_a5")
-            Cmba5.Text = leitor("desc_a5")
-            Frm_Inventário.A6 = leitor("cod_a6")
+            'Frm_Inventário.A2 = leitor("cod_a2")
+            'Cmba2.Text = leitor("desc_a2")
+            'Frm_Inventário.A3 = leitor("cod_a3")
+            'Cmba3.Text = leitor("desc_a3")
+            'Frm_Inventário.A4 = leitor("cod_a4")
+            'Cmba4.Text = leitor("desc_a4")
+            'Frm_Inventário.A5 = leitor("cod_a5")
+            'Cmba5.Text = leitor("desc_a5")
+            'Frm_Inventário.A6 = leitor("cod_a6")
             Cmba6.Text = leitor("desc_a6")
             cod_cm1 = leitor("cod_cm1")
             Cmbcm1.Text = leitor("desc_cm1")
@@ -353,7 +435,7 @@ Public Class Inventário_Excel
             Dim DA As New SQLite.SQLiteDataAdapter
             Dim DT As New DataTable
             connection.Open()
-            DA.SelectCommand = New SQLite.SQLiteCommand("select * from Localidade;", connection)
+            DA.SelectCommand = New SQLite.SQLiteCommand("select * from Inventario;", connection)
             DA.Fill(DT)
             DGV.DataSource = DT
             connection.Close()
@@ -372,7 +454,7 @@ Public Class Inventário_Excel
             Dim cmd As New SQLite.SQLiteCommand
             connection.Open()
             cmd.Connection = connection
-            cmd.CommandText = "select ID from INVENTARIO order by ID DESC;"
+            cmd.CommandText = "select ID from Inventario order by ID DESC;"
             leitor = cmd.ExecuteReader
             leitor.Read()
             Dim a As String
@@ -400,60 +482,42 @@ Public Class Inventário_Excel
             Sh_T.Name = "Inventario"
             Sh_T.Range("a1").Value = "ID"
             Sh_T.Range("b1").Value = "Sequencial"
-            Sh_T.Range("c1").Value = "Local"
-            Sh_T.Range("d1").Value = "ODI"
-            Sh_T.Range("e1").Value = "Código TI"
-            Sh_T.Range("f1").Value = "TI"
-            Sh_T.Range("g1").Value = "Bay"
-            Sh_T.Range("h1").Value = "Código TUC"
-            Sh_T.Range("i1").Value = "Descrição TUC"
-            Sh_T.Range("j1").Value = "Código Tipo de Bem"
-            Sh_T.Range("k1").Value = "Descrição Tipo de Bem"
-            Sh_T.Range("l1").Value = "Código UAR"
-            Sh_T.Range("m1").Value = "Descrição UAR"
-            Sh_T.Range("n1").Value = "Código A2"
-            Sh_T.Range("o1").Value = "Descrição A2"
-            Sh_T.Range("p1").Value = "Código A3"
-            Sh_T.Range("q1").Value = "Descrição A3"
-            Sh_T.Range("r1").Value = "Código A4"
-            Sh_T.Range("s1").Value = "Descrição A4"
-            Sh_T.Range("t1").Value = "Código A5"
-            Sh_T.Range("u1").Value = "Descrição A5"
-            Sh_T.Range("v1").Value = "Código A6"
-            Sh_T.Range("w1").Value = "Descrição A6"
-            Sh_T.Range("x1").Value = "Código CM1"
-            Sh_T.Range("y1").Value = "Descrição CM1"
-            Sh_T.Range("z1").Value = "Código CM2"
-            Sh_T.Range("aa1").Value = "Descrição CM2"
-            Sh_T.Range("ab1").Value = "Código CM3"
-            Sh_T.Range("ac1").Value = "Descrição CM3"
-            Sh_T.Range("ad1").Value = "Descrição"
-            Sh_T.Range("ae1").Value = "Fabricante"
-            Sh_T.Range("af1").Value = "Modelo"
-            Sh_T.Range("ag1").Value = "N° de Série"
-            Sh_T.Range("ah1").Value = "N° de Manutenção"
-            Sh_T.Range("ai1").Value = "Observação"
-            Sh_T.Range("aj1").Value = "Quantidade"
-            Sh_T.Range("ak1").Value = "Unidade de Medida"
-            Sh_T.Range("al1").Value = "Ano de Fabricação"
-            Sh_T.Range("am1").Value = "Mês de Fabricação"
-            Sh_T.Range("an1").Value = "Dia de Fabricação"
-            Sh_T.Range("ao1").Value = "Status do Bem"
-            Sh_T.Range("ap1").Value = "Estado do Bem"
-            Sh_T.Range("aq1").Value = "Altura"
-            Sh_T.Range("ar1").Value = "Largura"
-            Sh_T.Range("as1").Value = "Comprimento"
-            Sh_T.Range("at1").Value = "Área"
-            Sh_T.Range("au1").Value = "Pé Direito"
-            Sh_T.Range("av1").Value = "Esforço"
-            Sh_T.Range("aw1").Value = "Observacao Civil"
-            Sh_T.Range("ax1").Value = "Foto"
-            Sh_T.Range("ay1").Value = "Consultor"
-            Sh_T.Range("az1").Value = "Líder"
-            Sh_T.Range("ba1").Value = "Data/Hora"
+            Sh_T.Range("c1").Value = "Centro de Custo"
+            Sh_T.Range("d1").Value = "Código de Instalação"
+            Sh_T.Range("e1").Value = "Descrição de Instalação"
+            Sh_T.Range("f1").Value = "Local"
+            Sh_T.Range("g1").Value = "N° de Manutenção Antigo"
+            Sh_T.Range("h1").Value = "N° de Manutenção Novo"
+            Sh_T.Range("i1").Value = "Descrição Simples"
+            Sh_T.Range("j1").Value = "Descrição Detalhada"
+            Sh_T.Range("k1").Value = "Fabricante"
+            Sh_T.Range("l1").Value = "Modelo"
+            Sh_T.Range("m1").Value = "N° de Série"
+            Sh_T.Range("n1").Value = "Descrição Unificada"
+            Sh_T.Range("o1").Value = "Local Físico"
+            Sh_T.Range("p1").Value = "Quantidade"
+            Sh_T.Range("q1").Value = "Unidade de Medida"
+            Sh_T.Range("r1").Value = "Ano de Fabricação"
+            Sh_T.Range("s1").Value = "Mês de Fabricação"
+            Sh_T.Range("t1").Value = "Dia de Fabricação"
+            Sh_T.Range("u1").Value = "Status do Bem"
+            Sh_T.Range("v1").Value = "Estado do Bem"
+            Sh_T.Range("w1").Value = "Validação"
+            Sh_T.Range("x1").Value = "Observação"
+            Sh_T.Range("y1").Value = "Altura"
+            Sh_T.Range("aa1").Value = "Largura"
+            Sh_T.Range("ab1").Value = "Comprimento"
+            Sh_T.Range("ac1").Value = "Área"
+            Sh_T.Range("ad1").Value = "Pé Direito"
+            Sh_T.Range("ae1").Value = "Esforço"
+            Sh_T.Range("af1").Value = "Observação Civil"
+            Sh_T.Range("ag1").Value = "Foto"
+            Sh_T.Range("ah1").Value = "Consultor"
+            Sh_T.Range("ai1").Value = "Responsável"
+            Sh_T.Range("aj1").Value = "Data/Hora"
 
-            Sh_T.Range("a1:ba1").Font.Bold = True
-            Sh_T.Range("a1:ba1").Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue)
+            Sh_T.Range("a1:aj1").Font.Bold = True
+            Sh_T.Range("a1:aj1").Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue)
 
             'Arrumar colunas
             'DS.Tables(0).Columns(50).SetOrdinal(33)
@@ -466,46 +530,12 @@ Public Class Inventário_Excel
             For i = 0 To Linhas - 1
                 For j = 0 To DS.Tables(0).Columns.Count - 1
                     'Colunas anteriores
-                    If j <= 32 Then
-                        'Colocar '0 nos cod atributos
-                        If j = 9 Or j = 13 Or j = 15 Or j = 17 Or j = 19 Or j = 21 Then
-                            Sh_T.Cells(i + 2, j + 1) = "'" & DS.Tables(0).Rows(i).Item(j)
-                        Else
-                            Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(j)
-                        End If
-
-                    End If
-                    'TAG
-                    If j = 33 Then
-                        Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(50)
-                    End If
-                    'Meio
-                    If j >= 34 And j <= 46 Then
-                        Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(j - 1)
-                    End If
-                    'Esforço
-                    If j = 47 Then
-                        Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(51)
-                    End If
-                    'Obs. Civil
-                    If j = 48 Then
-                        Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(46)
+                    If j <= 30 Or j >= 32 Then
+                        Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(j)
                     End If
                     'fotos
-                    If j = 49 Then
-                        Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(52).ToString.Replace(".bmp", "").Replace(".jpg", "").Replace(".png", "").Replace("|", ", ")
-                    End If
-                    'Consultor, líder, data hora
-                    If j = 50 Then
-                        Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(47)
-                    End If
-                    If j = 51 Then
-                        Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(48)
-                    End If
-                    If j = 52 Then
-                        Sh_T.Cells(i + 2, j + 1) = Mid(DS.Tables(0).Rows(i).Item(49), 4, 2) & "/" &
-                            Mid(DS.Tables(0).Rows(i).Item(49), 1, 2) & "/" &
-                            Mid(DS.Tables(0).Rows(i).Item(49), 7, 4) & " " & Mid(DS.Tables(0).Rows(i).Item(49), 12, 10)
+                    If j = 31 Then
+                        Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(31).ToString.Replace(".bmp", "").Replace(".jpg", "").Replace(".png", "").Replace("|", ", ")
                     End If
                 Next
                 Frm_Inventário.PB_Excel.Value = ((i + 1) / Linhas) * 100
@@ -532,60 +562,71 @@ Public Class Inventário_Excel
             Sh_T.Name = "Carga"
             Sh_T.Range("a1").Value = "ID"
             Sh_T.Range("b1").Value = "Sequencial"
-            Sh_T.Range("c1").Value = "Local"
-            Sh_T.Range("d1").Value = "ODI"
-            Sh_T.Range("e1").Value = "Código TI"
-            Sh_T.Range("f1").Value = "TI"
-            Sh_T.Range("g1").Value = "Bay"
-            Sh_T.Range("h1").Value = "Código TUC"
-            Sh_T.Range("i1").Value = "Descrição TUC"
-            Sh_T.Range("j1").Value = "Código Tipo de Bem"
-            Sh_T.Range("k1").Value = "Descrição Tipo de Bem"
-            Sh_T.Range("l1").Value = "Código UAR"
-            Sh_T.Range("m1").Value = "Descrição UAR"
-            Sh_T.Range("n1").Value = "Código A2"
-            Sh_T.Range("o1").Value = "Descrição A2"
-            Sh_T.Range("p1").Value = "Código A3"
-            Sh_T.Range("q1").Value = "Descrição A3"
-            Sh_T.Range("r1").Value = "Código A4"
-            Sh_T.Range("s1").Value = "Descrição A4"
-            Sh_T.Range("t1").Value = "Código A5"
-            Sh_T.Range("u1").Value = "Descrição A5"
-            Sh_T.Range("v1").Value = "Código A6"
-            Sh_T.Range("w1").Value = "Descrição A6"
-            Sh_T.Range("x1").Value = "Código CM1"
-            Sh_T.Range("y1").Value = "Descrição CM1"
-            Sh_T.Range("z1").Value = "Código CM2"
-            Sh_T.Range("aa1").Value = "Descrição CM2"
-            Sh_T.Range("ab1").Value = "Código CM3"
-            Sh_T.Range("ac1").Value = "Descrição CM3"
-            Sh_T.Range("ad1").Value = "Descrição"
-            Sh_T.Range("ae1").Value = "Fabricante"
-            Sh_T.Range("af1").Value = "Modelo"
-            Sh_T.Range("ag1").Value = "N° de Série"
-            Sh_T.Range("ah1").Value = "N° de Manutenção"
-            Sh_T.Range("ai1").Value = "Observação"
-            Sh_T.Range("aj1").Value = "Quantidade"
-            Sh_T.Range("ak1").Value = "Unidade de Medida"
-            Sh_T.Range("al1").Value = "Ano de Fabricação"
-            Sh_T.Range("am1").Value = "Mês de Fabricação"
-            Sh_T.Range("an1").Value = "Dia de Fabricação"
-            Sh_T.Range("ao1").Value = "Status do Bem"
-            Sh_T.Range("ap1").Value = "Estado do Bem"
-            Sh_T.Range("aq1").Value = "Altura"
-            Sh_T.Range("ar1").Value = "Largura"
-            Sh_T.Range("as1").Value = "Comprimento"
-            Sh_T.Range("at1").Value = "Área"
-            Sh_T.Range("au1").Value = "Pé Direito"
-            Sh_T.Range("av1").Value = "Esforço"
-            Sh_T.Range("aw1").Value = "Observacao Civil"
-            Sh_T.Range("ax1").Value = "Foto"
-            Sh_T.Range("ay1").Value = "Consultor"
-            Sh_T.Range("az1").Value = "Líder"
-            Sh_T.Range("ba1").Value = "Data/Hora"
+            Sh_T.Range("c1").Value = "Centro de Custo"
+            Sh_T.Range("d1").Value = "Código de Instalação"
+            Sh_T.Range("e1").Value = "Descrição de Instalação"
+            Sh_T.Range("f1").Value = "Local"
+            Sh_T.Range("g1").Value = "Tag"
+            Sh_T.Range("h1").Value = "Descrição Simples"
+            Sh_T.Range("i1").Value = "Descrição Detalhada"
+            Sh_T.Range("j1").Value = "Fabricante"
+            Sh_T.Range("k1").Value = "Modelo"
+            Sh_T.Range("l1").Value = "Série"
+            Sh_T.Range("m1").Value = "Local Físico"
+            Sh_T.Range("n1").Value = "Quantidade"
+            Sh_T.Range("o1").Value = "Unidade de Medida"
+            Sh_T.Range("p1").Value = "Ano de Fabricação"
+            Sh_T.Range("q1").Value = "Mês de Fabricação"
+            Sh_T.Range("r1").Value = "Dia de Fabricação"
+            Sh_T.Range("s1").Value = "Status do Bem"
+            Sh_T.Range("t1").Value = "Estado do Bem"
+            Sh_T.Range("u1").Value = "Observação"
+            Sh_T.Range("v1").Value = "Altura"
+            Sh_T.Range("w1").Value = "Largura"
+            Sh_T.Range("x1").Value = "Comprimento"
+            Sh_T.Range("y1").Value = "Área"
+            Sh_T.Range("z1").Value = "Pé Direito"
+            Sh_T.Range("aa1").Value = "Esforço"
+            Sh_T.Range("ab1").Value = "Observação Civil"
+            Sh_T.Range("ac1").Value = "Consultor"
+            Sh_T.Range("ad1").Value = "Responsável"
 
-            Sh_T.Range("a1:ba1").Font.Bold = True
-            Sh_T.Range("a1:ba1").Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue)
+            Sh_T.Range("a1:ad1").Font.Bold = True
+            Sh_T.Range("a1:ad1").Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue)
+
+
+            Sh_T.Columns.AutoFit()
+            xlApp.Visible = True
+        Catch
+            MsgBox("Erro ao Carregar Excel!", MsgBoxStyle.Critical)
+        End Try
+    End Sub
+
+    Public Sub Layout_Excel_Cmb()
+        Dim xlApp As Excel.Application
+        Dim xlWorkBook As Excel.Workbook
+        Dim Sh_T As Excel.Worksheet
+        Dim misValue As Object = System.Reflection.Missing.Value
+
+        Try
+            xlApp = New Excel.Application
+            xlWorkBook = xlApp.Workbooks.Add(misValue)
+            Sh_T = xlWorkBook.Sheets(1)
+            Sh_T.Name = "Carga"
+            Sh_T.Range("a1").Value = "Centro de Custo"
+            Sh_T.Range("b1").Value = "Código de Instalação"
+            Sh_T.Range("c1").Value = "Descrição de Instalação"
+            Sh_T.Range("d1").Value = "Local"
+            Sh_T.Range("e1").Value = "Tag"
+            Sh_T.Range("f1").Value = "Descrição"
+            Sh_T.Range("g1").Value = "Fabricante"
+            Sh_T.Range("h1").Value = "Modelo"
+            Sh_T.Range("i1").Value = "Local Físico"
+            Sh_T.Range("j1").Value = "Consultor"
+            Sh_T.Range("k1").Value = "Responsável"
+
+            Sh_T.Range("a1:k1").Font.Bold = True
+            Sh_T.Range("a1:k1").Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue)
 
             'Arrumar colunas
             'DS.Tables(0).Columns(50).SetOrdinal(33)
