@@ -126,6 +126,7 @@ Partial Class Frm_Inventário
         Me.OFD = New System.Windows.Forms.OpenFileDialog()
         Me.CmbConsultor = New System.Windows.Forms.ComboBox()
         Me.CmbResponsavel = New System.Windows.Forms.ComboBox()
+        Me.ConsultarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TpLocal.SuspendLayout()
@@ -154,7 +155,7 @@ Partial Class Frm_Inventário
         '
         'DadosToolStripMenuItem
         '
-        Me.DadosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExcluirDadosAnterioresToolStripMenuItem, Me.CaminhoFotosToolStripMenuItem, Me.ExtrairToolStripMenuItem, Me.CarregarBaseToolStripMenuItem, Me.LayoutToolStripMenuItem1})
+        Me.DadosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExcluirDadosAnterioresToolStripMenuItem, Me.CaminhoFotosToolStripMenuItem, Me.ExtrairToolStripMenuItem, Me.CarregarBaseToolStripMenuItem, Me.LayoutToolStripMenuItem1, Me.ConsultarToolStripMenuItem})
         Me.DadosToolStripMenuItem.Name = "DadosToolStripMenuItem"
         Me.DadosToolStripMenuItem.Size = New System.Drawing.Size(59, 20)
         Me.DadosToolStripMenuItem.Text = "Opções"
@@ -1187,6 +1188,12 @@ Partial Class Frm_Inventário
         Me.CmbResponsavel.Size = New System.Drawing.Size(436, 21)
         Me.CmbResponsavel.TabIndex = 28
         '
+        'ConsultarToolStripMenuItem
+        '
+        Me.ConsultarToolStripMenuItem.Name = "ConsultarToolStripMenuItem"
+        Me.ConsultarToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.ConsultarToolStripMenuItem.Text = "Consultar"
+        '
         'Frm_Inventário
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1335,4 +1342,5 @@ Partial Class Frm_Inventário
     Friend WithEvents LayoutToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents InventárioToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CargaToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ConsultarToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -247,7 +247,6 @@ Public Class Frm_Inventário
             Exit Sub
         End If
 
-        BtnS_Multi.Enabled = True
         BtnCopiar.Enabled = True
 
         If TxtSeq_Local.Text.Count = 1 Then
@@ -538,5 +537,10 @@ Public Class Frm_Inventário
 
     Private Sub CmbInstall_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbInstall.SelectedIndexChanged
         Cod_Instal = A_Instal(CmbInstall.SelectedIndex)
+    End Sub
+
+    Private Sub ConsultarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsultarToolStripMenuItem.Click
+        'Colocar InputBox para escolher TAG, caso tenha faça a consulta SqLite na tela, senão dá uma mensagem falando que não foi localizado
+
     End Sub
 End Class

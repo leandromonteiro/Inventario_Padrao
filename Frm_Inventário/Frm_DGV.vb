@@ -92,7 +92,6 @@
             Frm_Inventário.PictureBox_Consulta.ImageLocation = Frm_Inventário.Caminho & "\" & Frm_Inventário.A_Fotos_Inventario(0)
         End If
 
-        Frm_Inventário.BtnS_Multi.Enabled = False
         Frm_Inventário.BtnCopiar.Enabled = False
         Alterado = True
         Me.Close()
