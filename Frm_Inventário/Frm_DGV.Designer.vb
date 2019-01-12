@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Frm_DGV
     Inherits System.Windows.Forms.Form
 
     'Descartar substituições de formulário para limpar a lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,14 +20,14 @@ Partial Class Frm_DGV
     'OBSERVAÇÃO: o procedimento a seguir é exigido pelo Windows Form Designer
     'Pode ser modificado usando o Windows Form Designer.  
     'Não o modifique usando o editor de códigos.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_DGV))
         Me.LblLinhas = New System.Windows.Forms.Label()
         Me.DGV_Consulta = New System.Windows.Forms.DataGridView()
         Me.CMS_DGV = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.ExcluirDadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CopiarDadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.DGV_Consulta, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.CMS_DGV.SuspendLayout()
         Me.SuspendLayout()
@@ -62,21 +62,15 @@ Partial Class Frm_DGV
         'CMS_DGV
         '
         Me.CMS_DGV.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.CMS_DGV.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExcluirDadosToolStripMenuItem, Me.CopiarDadosToolStripMenuItem})
+        Me.CMS_DGV.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExcluirDadosToolStripMenuItem})
         Me.CMS_DGV.Name = "CMS_DGV"
-        Me.CMS_DGV.Size = New System.Drawing.Size(146, 48)
+        Me.CMS_DGV.Size = New System.Drawing.Size(145, 26)
         '
         'ExcluirDadosToolStripMenuItem
         '
         Me.ExcluirDadosToolStripMenuItem.Name = "ExcluirDadosToolStripMenuItem"
-        Me.ExcluirDadosToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
+        Me.ExcluirDadosToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExcluirDadosToolStripMenuItem.Text = "Excluir Dados"
-        '
-        'CopiarDadosToolStripMenuItem
-        '
-        Me.CopiarDadosToolStripMenuItem.Name = "CopiarDadosToolStripMenuItem"
-        Me.CopiarDadosToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
-        Me.CopiarDadosToolStripMenuItem.Text = "Copiar Dados"
         '
         'Frm_DGV
         '
@@ -85,6 +79,7 @@ Partial Class Frm_DGV
         Me.ClientSize = New System.Drawing.Size(911, 450)
         Me.Controls.Add(Me.LblLinhas)
         Me.Controls.Add(Me.DGV_Consulta)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Frm_DGV"
         Me.Text = "Consulta"
         CType(Me.DGV_Consulta, System.ComponentModel.ISupportInitialize).EndInit()
@@ -97,5 +92,4 @@ Partial Class Frm_DGV
     Friend WithEvents DGV_Consulta As DataGridView
     Friend WithEvents CMS_DGV As ContextMenuStrip
     Friend WithEvents ExcluirDadosToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CopiarDadosToolStripMenuItem As ToolStripMenuItem
 End Class

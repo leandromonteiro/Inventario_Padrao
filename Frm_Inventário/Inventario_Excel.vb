@@ -134,39 +134,109 @@ Public Class Inventário_Excel
             GC.Collect()
         Catch
             MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+            Exit Sub
         End Try
 
         'Limpa a base e insere com os dados DT
-        Try
-            Dim connectionS As New SQLite.SQLiteConnection(connstr)
-            Dim cmd As New SQLite.SQLiteCommand
-            connectionS.Open()
-            cmd.Connection = connectionS
-            cmd.CommandText = "delete from Localidade;"
-            cmd.ExecuteNonQuery()
-            cmd.Dispose()
-            connectionS.Close()
-            connectionS.Dispose()
-        Catch
-            MsgBox("Erro ao limpar Base", MsgBoxStyle.Critical)
-        End Try
+        Excluir_Tudo()
 
-        Try
-            Dim connectionS As New SQLite.SQLiteConnection(connstr)
+        'Inserir Dados
+
+        Using connectionS As New SQLite.SQLiteConnection(connstr)
+            SQLite.SQLiteConnection.ClearAllPools()
             Dim cmd As New SQLite.SQLiteCommand
-            connectionS.Open()
+            If connectionS.State = ConnectionState.Closed Then
+                connectionS.Open()
+            End If
             cmd.Connection = connectionS
+            'Variaveis
+            Dim V_ID As Integer
+            Dim V_Seq As String
+            Dim V_CC As String
+            Dim V_C_Inst As String
+            Dim V_D_Inst As String
+            Dim V_Local As String
+            Dim V_Tag As String
+            Dim V_D_Simp As String
+            Dim V_D_Det As String
+            Dim V_Fab As String
+            Dim V_Mod As String
+            Dim V_Serie As String
+            Dim V_LocalF As String
+            Dim V_Qtd As Decimal
+            Dim V_Um As String
+            Dim V_Ano As Integer
+            Dim V_Mes As Integer
+            Dim V_Dia As Integer
+            Dim V_Status As String
+            Dim V_Estado As String
+            Dim V_Obs As String
+            Dim V_Alt As Decimal
+            Dim V_Larg As Decimal
+            Dim V_Comp As Decimal
+            Dim V_Area As Decimal
+            Dim V_Pe As Decimal
+            Dim V_Esforco As Decimal
+            Dim V_Obs_C As String
+            Dim V_Consultor As String
+            Dim V_Responsavel As String
+
             For i = 0 To DT.Rows.Count - 1
-                cmd.CommandText = "insert into Localidade (Local,Endereco,Supervisor) values ('" & DT.Rows(i)(0) & "','" & DT.Rows(i)(1) & "','" & DT.Rows(i)(2) & "');"
-                cmd.ExecuteNonQuery()
+                Try
+                    V_ID = DT.Rows(i)(0)
+                    V_Seq = DT.Rows(i)(1)
+                    V_CC = DT.Rows(i)(2)
+                    V_C_Inst = DT.Rows(i)(3)
+                    V_D_Inst = DT.Rows(i)(4)
+                    V_Local = DT.Rows(i)(5)
+                    V_Tag = DT.Rows(i)(6)
+                    V_D_Simp = DT.Rows(i)(7)
+                    V_D_Det = IIf(IsDBNull(DT.Rows(i)(8)), "", DT.Rows(i)(8))
+                    V_Fab = IIf(IsDBNull(DT.Rows(i)(9)), "", DT.Rows(i)(9))
+                    V_Mod = IIf(IsDBNull(DT.Rows(i)(10)), "", DT.Rows(i)(10))
+                    V_Serie = IIf(IsDBNull(DT.Rows(i)(11)), "", DT.Rows(i)(11))
+                    V_LocalF = DT.Rows(i)(12)
+                    V_Qtd = DT.Rows(i)(13)
+                    V_Um = DT.Rows(i)(14)
+                    V_Ano = IIf(IsDBNull(DT.Rows(i)(15)), 0, DT.Rows(i)(15))
+                    V_Mes = IIf(IsDBNull(DT.Rows(i)(16)), 0, DT.Rows(i)(16))
+                    V_Dia = IIf(IsDBNull(DT.Rows(i)(17)), 0, DT.Rows(i)(17))
+                    V_Status = DT.Rows(i)(18)
+                    V_Estado = DT.Rows(i)(19)
+                    V_Obs = IIf(IsDBNull(DT.Rows(i)(20)), "", DT.Rows(i)(20))
+                    V_Alt = IIf(IsDBNull(DT.Rows(i)(21)), 0, DT.Rows(i)(21))
+                    V_Larg = IIf(IsDBNull(DT.Rows(i)(22)), 0, DT.Rows(i)(22))
+                    V_Comp = IIf(IsDBNull(DT.Rows(i)(23)), 0, DT.Rows(i)(23))
+                    V_Area = IIf(IsDBNull(DT.Rows(i)(24)), 0, DT.Rows(i)(24))
+                    V_Pe = IIf(IsDBNull(DT.Rows(i)(25)), 0, DT.Rows(i)(25))
+                    V_Esforco = IIf(IsDBNull(DT.Rows(i)(26)), 0, DT.Rows(i)(26))
+                    V_Obs_C = IIf(IsDBNull(DT.Rows(i)(27)), "", DT.Rows(i)(27))
+                    V_Consultor = DT.Rows(i)(28)
+                    V_Responsavel = DT.Rows(i)(29)
+
+                    cmd.CommandText = "insert into Inventario (ID,Sequencial,Centro_Custo,Cod_Instalacao,Desc_Instalacao," &
+                    "Local,Tag_Antigo,Tag_Novo,Desc_Simples,Desc_Detalhada,Fabricante,Modelo,Serie,Desc_Unificada," &
+                    "Local_Fisico,Quantidade,Um,Ano,Mes,Dia,Status,Estado,Validacao,Observacao,Altura,Largura," &
+                    "Comprimento,Area,Pe,Esforco,Obs_Civil,Foto,Consultor,Responsavel,Data_Hora" &
+                    ") values(" & V_ID & ", '" & V_Seq & "', '" & V_CC & "', '" & V_C_Inst & "', '" & V_D_Inst & "', '" & V_Local &
+                "', '" & V_Tag & "','', '" & V_D_Simp & "', '" & V_D_Det & "', '" & V_Fab & "', '" & V_Mod & "', '" & V_Serie & "','', '" &
+                V_LocalF & "', " & V_Qtd & ", '" & V_Um & "', " & V_Ano & ", " & V_Mes & ", " & V_Dia & ", '" &
+                V_Status & "', '" & V_Estado & "', 'INSERIDO','" & V_Obs & "', " & V_Alt & ", " & V_Larg & ", " & V_Comp & ", " &
+                V_Area & ", " & V_Pe & ", " & V_Esforco & ", '" & V_Obs_C & "','','" & V_Consultor & "', '" & V_Responsavel & "','" & Now & "');"
+
+                    cmd.ExecuteNonQuery()
+                Catch
+                    MsgBox("Erro na Carga", vbCritical)
+                    Exit Sub
+                End Try
             Next i
             cmd.Dispose()
             connectionS.Close()
             connectionS.Dispose()
-            MsgBox("Base carregada com Sucesso", MsgBoxStyle.Information)
-        Catch
-            MsgBox("Erro ao inserir Base", MsgBoxStyle.Critical)
-        End Try
+            GC.Collect()
+        End Using
+
+        MsgBox("Dados Inseridos Com Sucesso", vbInformation)
     End Sub
 
     Public Sub Consulta_Descricao_Civil(ID As Integer, TxtBay As TextBox, cod_tuc As Integer, Cmbtuc As ComboBox, cod_tipo_bem As String, cmba1 As ComboBox,
@@ -296,40 +366,45 @@ Public Class Inventário_Excel
     End Sub
 
 
-    Public Sub Inserir_Dados(ID As Integer, Sequencial As String, Local As String, odi As String, cod_ti As Integer, ti As String, bay As String, cod_tuc As Integer, tuc As String,
-                             cod_tipo_bem As String, tipo_bem As String, cod_uar As String, uar As String, cod_a2 As String, desc_a2 As String, cod_a3 As String, desc_a3 As String,
-                             cod_a4 As String, desc_a4 As String, cod_a5 As String, desc_a5 As String, cod_a6 As String, desc_a6 As String, cod_cm1 As Integer, desc_cm1 As String,
-                             cod_cm2 As Integer, desc_cm2 As String, cod_cm3 As Integer, desc_cm3 As String, descricao As String, fabricante As String, modelo As String, serie As String,
-                             observacao As String, quantidade As Decimal, unidade As String, ano As Integer, mes As Integer, dia As Integer, status_bem As String, estado_bem As String,
-                             altura As Decimal, largura As Decimal, comprimento As Decimal, area As Decimal, pe As Decimal, esforco As Decimal, obs_civil As String, consultor As String,
-                             lider As String, Num_Manutencao As String, Foto As String)
-        Try
-            Using connection As New SQLite.SQLiteConnection(connstr)
+    Public Sub Inserir_Dados(ID As Integer, Sequencial As String, Centro_Custo As String, Cod_Inst As String,
+                             Desc_Inst As Integer, Local As String, Tag_Antiga As String, Tag_Nova As String, Desc_Simples As Integer,
+                             Desc_Detalhada As String, fabricante As String, modelo As String, serie As String,
+                             Local_Fisico As String, observacao As String, quantidade As Decimal, unidade As String,
+                             ano As Integer, mes As Integer, dia As Integer, status_bem As String,
+                             estado_bem As String, altura As Decimal, largura As Decimal, comprimento As Decimal,
+                             area As Decimal, pe As Decimal, esforco As Decimal, obs_civil As String, Validacao As String,
+                             Consultor As String, Responsavel As String, Foto As String,
+                             Desc_Unificada As String)
+        'Try
+        Using connection As New SQLite.SQLiteConnection(connstr)
                 SQLite.SQLiteConnection.ClearAllPools()
                 Dim cmd As New SQLite.SQLiteCommand
                 If connection.State = ConnectionState.Closed Then
                     connection.Open()
                 End If
                 cmd.Connection = connection
-                cmd.CommandText = "insert into Inventario (ID,Sequencial,Local,odi,cod_ti,ti,bay,cod_tuc,desc_tuc,cod_tipo_bem,desc_tipo_bem,cod_uar,desc_uar,cod_a2,desc_a2," &
-                                  "cod_a3,desc_a3,cod_a4,desc_a4,cod_a5,desc_a5,cod_a6,desc_a6,cod_cm1,desc_cm1,cod_cm2,desc_cm2,cod_cm3,desc_cm3,descricao,fabricante,modelo,serie," &
-                                  "observacao,quantidade,unidade_medida,ano,mes,dia,status_bem,estado_bem,altura,largura,comprimento,area,pe_direito,esforco,obs_civil,consultor," &
-                                  "lider,data_hora,Numero_Manutencao,foto) values(" & ID & ",'" & Sequencial & "','" & Local & "','" & odi & "'," & cod_ti & ",'" & ti & "','" & bay &
-                                  "'," & cod_tuc & ",'" & tuc & "','" & cod_tipo_bem & "','" & tipo_bem & "', '" & cod_uar & "','" & uar & "','" & cod_a2 & "','" & desc_a2 & "','" &
-                                  cod_a3 & "','" & desc_a3 & "','" & cod_a4 & "','" & desc_a4 & "','" & cod_a5 & "','" & desc_a5 & "','" & cod_a6 & "','" & desc_a6 & "'," & cod_cm1 &
-                                  ",'" & desc_cm1 & "'," & cod_cm2 & ",'" & desc_cm2 & "'," & cod_cm3 & ",'" & desc_cm3 & "','" & descricao & "','" & fabricante & "','" & modelo & "','" &
-                                  serie & "','" & observacao & "'," & Replace(CStr(quantidade), ",", ".") & ", '" & unidade & "'," & ano & ", " & mes & "," & dia & ",'" & status_bem & "','" & estado_bem &
-                                  "'," & Replace(CStr(altura), ",", ".") & "," & Replace(CStr(largura), ",", ".") & "," & Replace(CStr(comprimento), ",", ".") & "," & Replace(CStr(area), ",", ".") & "," & Replace(CStr(pe), ",", ".") & "," & Replace(CStr(esforco), ",", ".") & ",'" & obs_civil & "','" & consultor & "','" &
-                                  lider & "','" & Now & "','" & Num_Manutencao & "','" & Foto & "');"
+                cmd.CommandText = "insert into Inventario (ID,Sequencial,Centro_Custo,Cod_Instalacao,Desc_Instalacao," &
+                    "Local,Tag_Antigo,Tag_Novo,Desc_Simples,Desc_Detalhada,Fabricante,Modelo,Serie,Desc_Unificada," &
+                    "Local_Fisico,Quantidade,Um,Ano,Mes,Dia,Status,Estado,Validacao,Observacao,Altura,Largura," &
+                    "Comprimento,Area,Pe,Esforco,Obs_Civil,Foto,Consultor,Responsavel,Data_Hora " &
+                    ") values(" & ID & ",'" & Sequencial & "','" & Centro_Custo & "','" & Cod_Inst & "','" & Desc_Inst &
+                    "','" & Local & "','" & Tag_Antiga & "','" & Tag_Nova & "','" & Desc_Simples & "','" & Desc_Detalhada &
+                    "','" & fabricante & "', '" & modelo & "','" & serie & "','" & Desc_Unificada & "','" &
+                    Local_Fisico & "'," & Replace(CStr(quantidade), ",", ".") & ", '" & unidade & "'," & ano & ", " &
+                    mes & "," & dia & ",'" & status_bem & "','" & estado_bem & "','" & Validacao & "','" & observacao &
+                    "'," & Replace(CStr(altura), ",", ".") & "," & Replace(CStr(largura), ",", ".") & "," &
+                    Replace(CStr(comprimento), ",", ".") & "," & Replace(CStr(area), ",", ".") & "," &
+                    Replace(CStr(pe), ",", ".") & "," & Replace(CStr(esforco), ",", ".") & ",'" & obs_civil & "','" &
+                    Foto & "','" & "','" & Consultor & "','" & Responsavel & "','" & Now & "');"
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
                 connection.Close()
                 connection.Dispose()
                 GC.Collect()
             End Using
-        Catch
-            MsgBox("Erro ao inserir dados", MsgBoxStyle.Critical)
-        End Try
+        'Catch
+        '    MsgBox("Erro ao inserir dados", MsgBoxStyle.Critical)
+        'End Try
     End Sub
 
     Public Sub Update_Inventario(ID As Integer, seq As String, local As String, odi As String, cod_ti As String, ti As String, bay As String,
@@ -371,6 +446,29 @@ Public Class Inventário_Excel
             MsgBox("Erro ao atualizar dados", MsgBoxStyle.Critical)
         End Try
     End Sub
+
+    Public Sub Excluir_Carga_Cmb()
+        Try
+            Using connection As New SQLite.SQLiteConnection(connstr)
+                SQLite.SQLiteConnection.ClearAllPools()
+                Dim cmd As New SQLite.SQLiteCommand
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                cmd.Connection = connection
+                cmd.CommandText = "Delete from Carga_Cmb;"
+                cmd.ExecuteNonQuery()
+                cmd.Dispose()
+                connection.Close()
+                connection.Dispose()
+            End Using
+            MsgBox("Dados Excluídos com Sucesso", MsgBoxStyle.Information)
+        Catch
+            MsgBox("Erro ao excluir dados", MsgBoxStyle.Critical)
+            Frm_Inventário.Erro_Excluir = True
+        End Try
+    End Sub
+
     Public Sub Excluir_Tudo()
         Try
             Using connection As New SQLite.SQLiteConnection(connstr)
@@ -386,9 +484,10 @@ Public Class Inventário_Excel
                 connection.Close()
                 connection.Dispose()
             End Using
-            MsgBox("Dados Excluídos com Sucesso", MsgBoxStyle.Information)
+            'MsgBox("Dados Excluídos com Sucesso", MsgBoxStyle.Information)
         Catch
             MsgBox("Erro ao excluir dados", MsgBoxStyle.Critical)
+            Frm_Inventário.Erro_Excluir = True
         End Try
     End Sub
 

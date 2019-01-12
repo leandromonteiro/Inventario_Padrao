@@ -22,9 +22,12 @@ Partial Class Frm_Inventário
     'Não o modifique usando o editor de códigos.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Frm_Inventário))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.DadosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExcluirDadosAnterioresToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InventárioToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CaixaDeSeleçãoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CaminhoFotosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExtrairToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExcelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -34,6 +37,7 @@ Partial Class Frm_Inventário
         Me.LayoutToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.InventárioToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CargaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConsultarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PB_Excel = New System.Windows.Forms.ProgressBar()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TpLocal = New System.Windows.Forms.TabPage()
@@ -126,7 +130,6 @@ Partial Class Frm_Inventário
         Me.OFD = New System.Windows.Forms.OpenFileDialog()
         Me.CmbConsultor = New System.Windows.Forms.ComboBox()
         Me.CmbResponsavel = New System.Windows.Forms.ComboBox()
-        Me.ConsultarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TpLocal.SuspendLayout()
@@ -155,60 +158,73 @@ Partial Class Frm_Inventário
         '
         'DadosToolStripMenuItem
         '
-        Me.DadosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExcluirDadosAnterioresToolStripMenuItem, Me.CaminhoFotosToolStripMenuItem, Me.ExtrairToolStripMenuItem, Me.CarregarBaseToolStripMenuItem, Me.LayoutToolStripMenuItem1, Me.ConsultarToolStripMenuItem})
+        Me.DadosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CaminhoFotosToolStripMenuItem, Me.CarregarBaseToolStripMenuItem, Me.ConsultarToolStripMenuItem, Me.ExcluirDadosAnterioresToolStripMenuItem, Me.ExtrairToolStripMenuItem, Me.LayoutToolStripMenuItem1})
         Me.DadosToolStripMenuItem.Name = "DadosToolStripMenuItem"
         Me.DadosToolStripMenuItem.Size = New System.Drawing.Size(59, 20)
         Me.DadosToolStripMenuItem.Text = "Opções"
         '
         'ExcluirDadosAnterioresToolStripMenuItem
         '
+        Me.ExcluirDadosAnterioresToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InventárioToolStripMenuItem1, Me.CaixaDeSeleçãoToolStripMenuItem})
         Me.ExcluirDadosAnterioresToolStripMenuItem.Name = "ExcluirDadosAnterioresToolStripMenuItem"
-        Me.ExcluirDadosAnterioresToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
-        Me.ExcluirDadosAnterioresToolStripMenuItem.Text = "Excluir Dados Anteriores"
+        Me.ExcluirDadosAnterioresToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExcluirDadosAnterioresToolStripMenuItem.Text = "Excluir Base"
+        '
+        'InventárioToolStripMenuItem1
+        '
+        Me.InventárioToolStripMenuItem1.Name = "InventárioToolStripMenuItem1"
+        Me.InventárioToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.InventárioToolStripMenuItem1.Text = "Inventário"
+        '
+        'CaixaDeSeleçãoToolStripMenuItem
+        '
+        Me.CaixaDeSeleçãoToolStripMenuItem.Name = "CaixaDeSeleçãoToolStripMenuItem"
+        Me.CaixaDeSeleçãoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CaixaDeSeleçãoToolStripMenuItem.Text = "Caixa de Seleção"
         '
         'CaminhoFotosToolStripMenuItem
         '
         Me.CaminhoFotosToolStripMenuItem.Name = "CaminhoFotosToolStripMenuItem"
-        Me.CaminhoFotosToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.CaminhoFotosToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.CaminhoFotosToolStripMenuItem.Text = "Caminho Fotos"
         '
         'ExtrairToolStripMenuItem
         '
         Me.ExtrairToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExcelToolStripMenuItem})
         Me.ExtrairToolStripMenuItem.Name = "ExtrairToolStripMenuItem"
-        Me.ExtrairToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.ExtrairToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExtrairToolStripMenuItem.Text = "Extrair"
         '
         'ExcelToolStripMenuItem
         '
         Me.ExcelToolStripMenuItem.Name = "ExcelToolStripMenuItem"
-        Me.ExcelToolStripMenuItem.Size = New System.Drawing.Size(100, 22)
+        Me.ExcelToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExcelToolStripMenuItem.Text = "Excel"
         '
         'CarregarBaseToolStripMenuItem
         '
         Me.CarregarBaseToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BaseToolStripMenuItem, Me.LayoutToolStripMenuItem})
         Me.CarregarBaseToolStripMenuItem.Name = "CarregarBaseToolStripMenuItem"
-        Me.CarregarBaseToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.CarregarBaseToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.CarregarBaseToolStripMenuItem.Text = "Carregar"
         '
         'BaseToolStripMenuItem
         '
         Me.BaseToolStripMenuItem.Name = "BaseToolStripMenuItem"
-        Me.BaseToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.BaseToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.BaseToolStripMenuItem.Text = "Inventário"
         '
         'LayoutToolStripMenuItem
         '
         Me.LayoutToolStripMenuItem.Name = "LayoutToolStripMenuItem"
-        Me.LayoutToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.LayoutToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.LayoutToolStripMenuItem.Text = "Caixas de Seleção"
         '
         'LayoutToolStripMenuItem1
         '
         Me.LayoutToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InventárioToolStripMenuItem, Me.CargaToolStripMenuItem})
         Me.LayoutToolStripMenuItem1.Name = "LayoutToolStripMenuItem1"
-        Me.LayoutToolStripMenuItem1.Size = New System.Drawing.Size(201, 22)
+        Me.LayoutToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.LayoutToolStripMenuItem1.Text = "Layout"
         '
         'InventárioToolStripMenuItem
@@ -222,6 +238,12 @@ Partial Class Frm_Inventário
         Me.CargaToolStripMenuItem.Name = "CargaToolStripMenuItem"
         Me.CargaToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
         Me.CargaToolStripMenuItem.Text = "Caixas de Seleção"
+        '
+        'ConsultarToolStripMenuItem
+        '
+        Me.ConsultarToolStripMenuItem.Name = "ConsultarToolStripMenuItem"
+        Me.ConsultarToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ConsultarToolStripMenuItem.Text = "Consultar"
         '
         'PB_Excel
         '
@@ -241,7 +263,7 @@ Partial Class Frm_Inventário
         Me.TabControl1.Location = New System.Drawing.Point(6, 30)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(907, 487)
+        Me.TabControl1.Size = New System.Drawing.Size(907, 501)
         Me.TabControl1.TabIndex = 17
         '
         'TpLocal
@@ -257,7 +279,7 @@ Partial Class Frm_Inventário
         Me.TpLocal.Location = New System.Drawing.Point(4, 22)
         Me.TpLocal.Name = "TpLocal"
         Me.TpLocal.Padding = New System.Windows.Forms.Padding(3)
-        Me.TpLocal.Size = New System.Drawing.Size(899, 461)
+        Me.TpLocal.Size = New System.Drawing.Size(899, 475)
         Me.TpLocal.TabIndex = 0
         Me.TpLocal.Text = "Local"
         Me.TpLocal.UseVisualStyleBackColor = True
@@ -269,7 +291,7 @@ Partial Class Frm_Inventário
         Me.CmbLocal.Location = New System.Drawing.Point(221, 99)
         Me.CmbLocal.Name = "CmbLocal"
         Me.CmbLocal.Size = New System.Drawing.Size(331, 21)
-        Me.CmbLocal.TabIndex = 6
+        Me.CmbLocal.TabIndex = 4
         '
         'CmbCC
         '
@@ -278,7 +300,7 @@ Partial Class Frm_Inventário
         Me.CmbCC.Location = New System.Drawing.Point(221, 42)
         Me.CmbCC.Name = "CmbCC"
         Me.CmbCC.Size = New System.Drawing.Size(331, 21)
-        Me.CmbCC.TabIndex = 5
+        Me.CmbCC.TabIndex = 2
         '
         'CmbInstall
         '
@@ -287,7 +309,7 @@ Partial Class Frm_Inventário
         Me.CmbInstall.Location = New System.Drawing.Point(221, 72)
         Me.CmbInstall.Name = "CmbInstall"
         Me.CmbInstall.Size = New System.Drawing.Size(331, 21)
-        Me.CmbInstall.TabIndex = 4
+        Me.CmbInstall.TabIndex = 3
         '
         'TxtSeq_Local
         '
@@ -342,7 +364,7 @@ Partial Class Frm_Inventário
         Me.TpDesc.Location = New System.Drawing.Point(4, 22)
         Me.TpDesc.Name = "TpDesc"
         Me.TpDesc.Padding = New System.Windows.Forms.Padding(3)
-        Me.TpDesc.Size = New System.Drawing.Size(899, 467)
+        Me.TpDesc.Size = New System.Drawing.Size(899, 481)
         Me.TpDesc.TabIndex = 1
         Me.TpDesc.Text = "Descrição"
         Me.TpDesc.UseVisualStyleBackColor = True
@@ -384,7 +406,7 @@ Partial Class Frm_Inventário
         Me.Panel_Desc.Location = New System.Drawing.Point(4, 5)
         Me.Panel_Desc.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel_Desc.Name = "Panel_Desc"
-        Me.Panel_Desc.Size = New System.Drawing.Size(899, 498)
+        Me.Panel_Desc.Size = New System.Drawing.Size(899, 530)
         Me.Panel_Desc.TabIndex = 48
         '
         'CmbModelo
@@ -394,7 +416,7 @@ Partial Class Frm_Inventário
         Me.CmbModelo.Location = New System.Drawing.Point(358, 159)
         Me.CmbModelo.Name = "CmbModelo"
         Me.CmbModelo.Size = New System.Drawing.Size(193, 21)
-        Me.CmbModelo.TabIndex = 56
+        Me.CmbModelo.TabIndex = 6
         '
         'CmbFabricante
         '
@@ -403,7 +425,7 @@ Partial Class Frm_Inventário
         Me.CmbFabricante.Location = New System.Drawing.Point(81, 159)
         Me.CmbFabricante.Name = "CmbFabricante"
         Me.CmbFabricante.Size = New System.Drawing.Size(202, 21)
-        Me.CmbFabricante.TabIndex = 55
+        Me.CmbFabricante.TabIndex = 5
         '
         'CmbDesc
         '
@@ -412,7 +434,7 @@ Partial Class Frm_Inventário
         Me.CmbDesc.Location = New System.Drawing.Point(81, 71)
         Me.CmbDesc.Name = "CmbDesc"
         Me.CmbDesc.Size = New System.Drawing.Size(470, 21)
-        Me.CmbDesc.TabIndex = 54
+        Me.CmbDesc.TabIndex = 3
         '
         'Label8
         '
@@ -429,7 +451,7 @@ Partial Class Frm_Inventário
         Me.TxtObs.MaxLength = 500
         Me.TxtObs.Name = "TxtObs"
         Me.TxtObs.Size = New System.Drawing.Size(472, 47)
-        Me.TxtObs.TabIndex = 51
+        Me.TxtObs.TabIndex = 9
         Me.TxtObs.Text = ""
         '
         'LblNomeCadastro
@@ -460,7 +482,7 @@ Partial Class Frm_Inventário
         Me.TxtDetalhada.MaxLength = 500
         Me.TxtDetalhada.Name = "TxtDetalhada"
         Me.TxtDetalhada.Size = New System.Drawing.Size(471, 47)
-        Me.TxtDetalhada.TabIndex = 14
+        Me.TxtDetalhada.TabIndex = 4
         Me.TxtDetalhada.Text = ""
         '
         'GbQtd
@@ -492,7 +514,7 @@ Partial Class Frm_Inventário
         Me.CmbStatus.Location = New System.Drawing.Point(111, 166)
         Me.CmbStatus.Name = "CmbStatus"
         Me.CmbStatus.Size = New System.Drawing.Size(191, 21)
-        Me.CmbStatus.TabIndex = 26
+        Me.CmbStatus.TabIndex = 15
         Me.CmbStatus.Text = "EM USO"
         '
         'CmbEstado
@@ -502,7 +524,7 @@ Partial Class Frm_Inventário
         Me.CmbEstado.Location = New System.Drawing.Point(111, 196)
         Me.CmbEstado.Name = "CmbEstado"
         Me.CmbEstado.Size = New System.Drawing.Size(191, 21)
-        Me.CmbEstado.TabIndex = 27
+        Me.CmbEstado.TabIndex = 16
         Me.CmbEstado.Text = "BOM"
         '
         'CmbDia
@@ -512,7 +534,7 @@ Partial Class Frm_Inventário
         Me.CmbDia.Location = New System.Drawing.Point(111, 136)
         Me.CmbDia.Name = "CmbDia"
         Me.CmbDia.Size = New System.Drawing.Size(191, 21)
-        Me.CmbDia.TabIndex = 25
+        Me.CmbDia.TabIndex = 14
         '
         'CmbMes
         '
@@ -521,7 +543,7 @@ Partial Class Frm_Inventário
         Me.CmbMes.Location = New System.Drawing.Point(111, 106)
         Me.CmbMes.Name = "CmbMes"
         Me.CmbMes.Size = New System.Drawing.Size(191, 21)
-        Me.CmbMes.TabIndex = 24
+        Me.CmbMes.TabIndex = 13
         '
         'CmbAno
         '
@@ -530,7 +552,7 @@ Partial Class Frm_Inventário
         Me.CmbAno.Location = New System.Drawing.Point(111, 76)
         Me.CmbAno.Name = "CmbAno"
         Me.CmbAno.Size = New System.Drawing.Size(191, 21)
-        Me.CmbAno.TabIndex = 23
+        Me.CmbAno.TabIndex = 12
         '
         'CmbUm
         '
@@ -539,7 +561,7 @@ Partial Class Frm_Inventário
         Me.CmbUm.Location = New System.Drawing.Point(111, 46)
         Me.CmbUm.Name = "CmbUm"
         Me.CmbUm.Size = New System.Drawing.Size(191, 21)
-        Me.CmbUm.TabIndex = 22
+        Me.CmbUm.TabIndex = 11
         Me.CmbUm.Text = "UN"
         '
         'TxtQtd
@@ -548,7 +570,7 @@ Partial Class Frm_Inventário
         Me.TxtQtd.MaxLength = 10
         Me.TxtQtd.Name = "TxtQtd"
         Me.TxtQtd.Size = New System.Drawing.Size(191, 20)
-        Me.TxtQtd.TabIndex = 21
+        Me.TxtQtd.TabIndex = 10
         Me.TxtQtd.Text = "1"
         '
         'Label27
@@ -621,16 +643,16 @@ Partial Class Frm_Inventário
         Me.CmbLocalFisico.Location = New System.Drawing.Point(358, 189)
         Me.CmbLocalFisico.Name = "CmbLocalFisico"
         Me.CmbLocalFisico.Size = New System.Drawing.Size(193, 21)
-        Me.CmbLocalFisico.TabIndex = 13
+        Me.CmbLocalFisico.TabIndex = 8
         '
         'Btn_Avancar10
         '
         Me.Btn_Avancar10.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_Avancar10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_Avancar10.Location = New System.Drawing.Point(803, 491)
+        Me.Btn_Avancar10.Location = New System.Drawing.Point(803, 459)
         Me.Btn_Avancar10.Name = "Btn_Avancar10"
         Me.Btn_Avancar10.Size = New System.Drawing.Size(47, 23)
-        Me.Btn_Avancar10.TabIndex = 47
+        Me.Btn_Avancar10.TabIndex = 0
         Me.Btn_Avancar10.TabStop = False
         Me.Btn_Avancar10.Text = ">>"
         Me.Btn_Avancar10.UseVisualStyleBackColor = True
@@ -642,7 +664,7 @@ Partial Class Frm_Inventário
         Me.CmbTagAntigo.Location = New System.Drawing.Point(80, 41)
         Me.CmbTagAntigo.Name = "CmbTagAntigo"
         Me.CmbTagAntigo.Size = New System.Drawing.Size(204, 21)
-        Me.CmbTagAntigo.TabIndex = 12
+        Me.CmbTagAntigo.TabIndex = 1
         '
         'LblObs
         '
@@ -661,7 +683,7 @@ Partial Class Frm_Inventário
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox.Location = New System.Drawing.Point(562, 269)
         Me.PictureBox.Name = "PictureBox"
-        Me.PictureBox.Size = New System.Drawing.Size(101, 211)
+        Me.PictureBox.Size = New System.Drawing.Size(235, 184)
         Me.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox.TabIndex = 0
         Me.PictureBox.TabStop = False
@@ -670,10 +692,10 @@ Partial Class Frm_Inventário
         '
         Me.Btn_Voltar10.Cursor = System.Windows.Forms.Cursors.Hand
         Me.Btn_Voltar10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_Voltar10.Location = New System.Drawing.Point(644, 491)
+        Me.Btn_Voltar10.Location = New System.Drawing.Point(644, 459)
         Me.Btn_Voltar10.Name = "Btn_Voltar10"
         Me.Btn_Voltar10.Size = New System.Drawing.Size(47, 23)
-        Me.Btn_Voltar10.TabIndex = 46
+        Me.Btn_Voltar10.TabIndex = 0
         Me.Btn_Voltar10.TabStop = False
         Me.Btn_Voltar10.Text = "<<"
         Me.Btn_Voltar10.UseVisualStyleBackColor = True
@@ -686,7 +708,7 @@ Partial Class Frm_Inventário
         Me.TxtSerie.MaxLength = 50
         Me.TxtSerie.Name = "TxtSerie"
         Me.TxtSerie.Size = New System.Drawing.Size(203, 20)
-        Me.TxtSerie.TabIndex = 18
+        Me.TxtSerie.TabIndex = 7
         '
         'Label36
         '
@@ -701,10 +723,10 @@ Partial Class Frm_Inventário
         '
         Me.BtnAnterior.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnAnterior.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnAnterior.Location = New System.Drawing.Point(697, 491)
+        Me.BtnAnterior.Location = New System.Drawing.Point(697, 459)
         Me.BtnAnterior.Name = "BtnAnterior"
         Me.BtnAnterior.Size = New System.Drawing.Size(47, 23)
-        Me.BtnAnterior.TabIndex = 28
+        Me.BtnAnterior.TabIndex = 0
         Me.BtnAnterior.TabStop = False
         Me.BtnAnterior.Text = "<"
         Me.BtnAnterior.UseVisualStyleBackColor = True
@@ -713,10 +735,10 @@ Partial Class Frm_Inventário
         '
         Me.BtnProximo.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnProximo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnProximo.Location = New System.Drawing.Point(750, 491)
+        Me.BtnProximo.Location = New System.Drawing.Point(750, 459)
         Me.BtnProximo.Name = "BtnProximo"
         Me.BtnProximo.Size = New System.Drawing.Size(47, 23)
-        Me.BtnProximo.TabIndex = 29
+        Me.BtnProximo.TabIndex = 0
         Me.BtnProximo.TabStop = False
         Me.BtnProximo.Text = ">"
         Me.BtnProximo.UseVisualStyleBackColor = True
@@ -734,10 +756,10 @@ Partial Class Frm_Inventário
         '
         Me.BtnAdd.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnAdd.Location = New System.Drawing.Point(562, 491)
+        Me.BtnAdd.Location = New System.Drawing.Point(562, 459)
         Me.BtnAdd.Name = "BtnAdd"
         Me.BtnAdd.Size = New System.Drawing.Size(75, 23)
-        Me.BtnAdd.TabIndex = 27
+        Me.BtnAdd.TabIndex = 0
         Me.BtnAdd.TabStop = False
         Me.BtnAdd.Text = "Adicionar"
         Me.BtnAdd.UseVisualStyleBackColor = True
@@ -839,7 +861,7 @@ Partial Class Frm_Inventário
         Me.TpCivil.Controls.Add(Me.Label6)
         Me.TpCivil.Location = New System.Drawing.Point(4, 22)
         Me.TpCivil.Name = "TpCivil"
-        Me.TpCivil.Size = New System.Drawing.Size(899, 467)
+        Me.TpCivil.Size = New System.Drawing.Size(899, 481)
         Me.TpCivil.TabIndex = 2
         Me.TpCivil.Text = "Civil"
         Me.TpCivil.UseVisualStyleBackColor = True
@@ -986,10 +1008,10 @@ Partial Class Frm_Inventário
         '
         Me.BtnSalvar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnSalvar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BtnSalvar.Location = New System.Drawing.Point(672, 553)
+        Me.BtnSalvar.Location = New System.Drawing.Point(675, 584)
         Me.BtnSalvar.Name = "BtnSalvar"
         Me.BtnSalvar.Size = New System.Drawing.Size(83, 37)
-        Me.BtnSalvar.TabIndex = 19
+        Me.BtnSalvar.TabIndex = 0
         Me.BtnSalvar.Text = "Salvar"
         Me.BtnSalvar.UseVisualStyleBackColor = True
         '
@@ -997,10 +1019,10 @@ Partial Class Frm_Inventário
         '
         Me.BtnCopiar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnCopiar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BtnCopiar.Location = New System.Drawing.Point(761, 553)
+        Me.BtnCopiar.Location = New System.Drawing.Point(777, 583)
         Me.BtnCopiar.Name = "BtnCopiar"
         Me.BtnCopiar.Size = New System.Drawing.Size(136, 37)
-        Me.BtnCopiar.TabIndex = 20
+        Me.BtnCopiar.TabIndex = 0
         Me.BtnCopiar.Text = "Copiar dados anteriores"
         Me.BtnCopiar.UseVisualStyleBackColor = True
         '
@@ -1053,7 +1075,7 @@ Partial Class Frm_Inventário
         Me.BtnRemover_Fotos.Location = New System.Drawing.Point(6, 523)
         Me.BtnRemover_Fotos.Name = "BtnRemover_Fotos"
         Me.BtnRemover_Fotos.Size = New System.Drawing.Size(75, 23)
-        Me.BtnRemover_Fotos.TabIndex = 5
+        Me.BtnRemover_Fotos.TabIndex = 0
         Me.BtnRemover_Fotos.Text = "Remover"
         Me.BtnRemover_Fotos.UseVisualStyleBackColor = True
         '
@@ -1068,7 +1090,7 @@ Partial Class Frm_Inventário
         Me.TB.Maximum = 20
         Me.TB.Name = "TB"
         Me.TB.Size = New System.Drawing.Size(549, 45)
-        Me.TB.TabIndex = 10
+        Me.TB.TabIndex = 0
         '
         'BtnAnterior_Consulta
         '
@@ -1078,7 +1100,7 @@ Partial Class Frm_Inventário
         Me.BtnAnterior_Consulta.Location = New System.Drawing.Point(86, 523)
         Me.BtnAnterior_Consulta.Name = "BtnAnterior_Consulta"
         Me.BtnAnterior_Consulta.Size = New System.Drawing.Size(47, 23)
-        Me.BtnAnterior_Consulta.TabIndex = 5
+        Me.BtnAnterior_Consulta.TabIndex = 0
         Me.BtnAnterior_Consulta.Text = "<"
         Me.BtnAnterior_Consulta.UseVisualStyleBackColor = True
         '
@@ -1090,7 +1112,7 @@ Partial Class Frm_Inventário
         Me.BtnProximo_Consulta.Location = New System.Drawing.Point(139, 523)
         Me.BtnProximo_Consulta.Name = "BtnProximo_Consulta"
         Me.BtnProximo_Consulta.Size = New System.Drawing.Size(47, 23)
-        Me.BtnProximo_Consulta.TabIndex = 6
+        Me.BtnProximo_Consulta.TabIndex = 0
         Me.BtnProximo_Consulta.Text = ">"
         Me.BtnProximo_Consulta.UseVisualStyleBackColor = True
         '
@@ -1102,7 +1124,7 @@ Partial Class Frm_Inventário
         Me.BtnGirar.Location = New System.Drawing.Point(192, 523)
         Me.BtnGirar.Name = "BtnGirar"
         Me.BtnGirar.Size = New System.Drawing.Size(70, 23)
-        Me.BtnGirar.TabIndex = 8
+        Me.BtnGirar.TabIndex = 0
         Me.BtnGirar.Text = "Girar"
         Me.BtnGirar.UseVisualStyleBackColor = True
         '
@@ -1133,7 +1155,7 @@ Partial Class Frm_Inventário
         Me.BtnConsultar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnConsultar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnConsultar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnConsultar.Location = New System.Drawing.Point(7, 518)
+        Me.BtnConsultar.Location = New System.Drawing.Point(10, 536)
         Me.BtnConsultar.Name = "BtnConsultar"
         Me.BtnConsultar.Size = New System.Drawing.Size(907, 23)
         Me.BtnConsultar.TabIndex = 21
@@ -1145,7 +1167,7 @@ Partial Class Frm_Inventário
         Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(4, 550)
+        Me.Label10.Location = New System.Drawing.Point(7, 576)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(64, 13)
         Me.Label10.TabIndex = 22
@@ -1156,7 +1178,7 @@ Partial Class Frm_Inventário
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(4, 576)
+        Me.Label11.Location = New System.Drawing.Point(7, 603)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(84, 13)
         Me.Label11.TabIndex = 25
@@ -1173,26 +1195,20 @@ Partial Class Frm_Inventário
         Me.CmbConsultor.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CmbConsultor.DropDownWidth = 500
         Me.CmbConsultor.FormattingEnabled = True
-        Me.CmbConsultor.Location = New System.Drawing.Point(120, 553)
+        Me.CmbConsultor.Location = New System.Drawing.Point(120, 573)
         Me.CmbConsultor.Name = "CmbConsultor"
         Me.CmbConsultor.Size = New System.Drawing.Size(436, 21)
-        Me.CmbConsultor.TabIndex = 27
+        Me.CmbConsultor.TabIndex = 1
         '
         'CmbResponsavel
         '
         Me.CmbResponsavel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CmbResponsavel.DropDownWidth = 500
         Me.CmbResponsavel.FormattingEnabled = True
-        Me.CmbResponsavel.Location = New System.Drawing.Point(120, 582)
+        Me.CmbResponsavel.Location = New System.Drawing.Point(120, 600)
         Me.CmbResponsavel.Name = "CmbResponsavel"
         Me.CmbResponsavel.Size = New System.Drawing.Size(436, 21)
-        Me.CmbResponsavel.TabIndex = 28
-        '
-        'ConsultarToolStripMenuItem
-        '
-        Me.ConsultarToolStripMenuItem.Name = "ConsultarToolStripMenuItem"
-        Me.ConsultarToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
-        Me.ConsultarToolStripMenuItem.Text = "Consultar"
+        Me.CmbResponsavel.TabIndex = 2
         '
         'Frm_Inventário
         '
@@ -1211,6 +1227,7 @@ Partial Class Frm_Inventário
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.PB_Excel)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Frm_Inventário"
         Me.Text = "Inventário Físico"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -1343,4 +1360,6 @@ Partial Class Frm_Inventário
     Friend WithEvents InventárioToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CargaToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConsultarToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents InventárioToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents CaixaDeSeleçãoToolStripMenuItem As ToolStripMenuItem
 End Class

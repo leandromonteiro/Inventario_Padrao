@@ -12,9 +12,6 @@ Public Class Frm_Inventário
     Public A_Instal As New ArrayList
     Public Cod_Instal As String
 
-    Public CM1 As String
-    Public CM2 As String
-    Public CM3 As String
 
     Public consultor As String
     Public lider As String
@@ -30,6 +27,8 @@ Public Class Frm_Inventário
     Public Caminho As String
 
     Dim Invalidos As Boolean
+
+    Public Erro_Excluir As Boolean
 
     Dim F_DGV As New Frm_DGV
 
@@ -442,17 +441,6 @@ Public Class Frm_Inventário
         Me.Hide()
     End Sub
 
-    Private Sub ExcluirDadosAnterioresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExcluirDadosAnterioresToolStripMenuItem.Click
-        Dim Result As DialogResult = MessageBox.Show("Deseja excluir os dados anteriores?", "Dados", MessageBoxButtons.YesNo)
-        If Result = vbYes Then
-            I_E.Excluir_Tudo()
-            ID = 1
-            TxtSeq_Civil.Text = ID
-            TxtSeq_Desc.Text = ID
-            TxtSeq_Local.Text = ID
-        End If
-    End Sub
-
     Private Sub CaminhoFotosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CaminhoFotosToolStripMenuItem.Click
         FBD.ShowDialog()
         Caminho = FBD.SelectedPath
@@ -511,7 +499,7 @@ Public Class Frm_Inventário
             Exit Sub
         End If
         'Carga
-        'I_E.Carga_Sistema(CaminhoI)
+        I_E.Carga_Inventario(CaminhoI)
     End Sub
 
     Private Sub LayoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LayoutToolStripMenuItem.Click
@@ -542,5 +530,27 @@ Public Class Frm_Inventário
     Private Sub ConsultarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsultarToolStripMenuItem.Click
         'Colocar InputBox para escolher TAG, caso tenha faça a consulta SqLite na tela, senão dá uma mensagem falando que não foi localizado
 
+    End Sub
+
+    Private Sub InventárioToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles InventárioToolStripMenuItem1.Click
+        Dim Result As DialogResult = MessageBox.Show("Deseja excluir os dados anteriores?", "Dados", MessageBoxButtons.YesNo)
+        If Result = vbYes Then
+            I_E.Excluir_Tudo()
+            If Erro_Excluir = False Then
+                MsgBox("Dados Excluídos com Sucesso", vbInformation)
+            End If
+
+            ID = 1
+            TxtSeq_Civil.Text = ID
+            TxtSeq_Desc.Text = ID
+            TxtSeq_Local.Text = ID
+        End If
+    End Sub
+
+    Private Sub CaixaDeSeleçãoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CaixaDeSeleçãoToolStripMenuItem.Click
+        Dim Result As DialogResult = MessageBox.Show("Deseja excluir os dados anteriores?", "Dados", MessageBoxButtons.YesNo)
+        If Result = vbYes Then
+            I_E.Excluir_Carga_Cmb()
+        End If
     End Sub
 End Class
