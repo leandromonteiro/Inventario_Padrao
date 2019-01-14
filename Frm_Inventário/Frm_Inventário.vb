@@ -258,10 +258,9 @@ TxtArea.Text, TxtPe.Text, TxtEsforco.Text, TxtObsCivil.Text, CmbConsultor.Text, 
         Limpar_Tudo()
         'Consultar ID +1
         ID = I_E.Buscar_Ultimo_ID()
-        'I_E.Consulta_Descricao_Civil(ID, TxtTagNovo, TUC, CmbTUC, A1, CmbA1, UAR, CmbUAR, CmbA2, CmbA3, CmbA4,
-        '                             CmbA5, CmbA6, CM1, CmbCm1, CM2, CmbTagAntigo, CM3, CmbLocalFisico, TxtDetalhada, TxtFabricante, TxtModelo, TxtObs,
-        '                             TxtQtd, CmbUm, CmbAno, CmbMes, CmbDia, CmbStatus, CmbEstado, TxtAltura, TxtLargura, TxtComprimento,
-        '                             TxtArea, TxtPe, TxtObsCivil, TxtEsforco, TxtSerie, TxtTag)
+        I_E.Consulta_Descricao_Civil(ID, CmbTagAntigo, TxtTagNovo, CmbDesc, TxtDetalhada, CmbFabricante, CmbModelo, TxtObs,
+                                     TxtQtd, CmbUm, CmbStatus, CmbEstado, TxtAltura, TxtLargura, TxtComprimento,
+                                     TxtArea, TxtPe, TxtEsforco, TxtObsCivil, CmbLocalFisico)
         ID += 1
         TxtSeq_Civil.Text = ID
         TxtSeq_Desc.Text = ID
@@ -452,7 +451,14 @@ TxtArea.Text, TxtPe.Text, TxtEsforco.Text, TxtObsCivil.Text, CmbConsultor.Text, 
 
     Private Sub ConsultarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsultarToolStripMenuItem.Click
         'Colocar InputBox para escolher TAG, caso tenha faça a consulta SqLite na tela, senão dá uma mensagem falando que não foi localizado
+        Dim Consulta_TAG As String
+        Consulta_TAG = InputBox("Escreva o TAG a ser localizado:", "Encontrar")
+        If Consulta_TAG <> "" Then
 
+            I_E.Consulta_Tag(ID, CmbCC, CmbLocal, Cod_Instal, CmbInstall, CmbTagAntigo, TxtTagNovo, CmbDesc, TxtDetalhada, CmbConsultor,
+CmbResponsavel, CmbFabricante, CmbModelo, TxtSerie, TxtObs, TxtQtd, CmbUm, CmbStatus, CmbAno, CmbMes, CmbDia, CmbEstado, TxtAltura,
+TxtLargura, TxtComprimento, TxtArea, TxtPe, TxtEsforco, TxtObsCivil, CmbLocalFisico, Consulta_TAG, TxtSeq_Local, TxtSeq_Desc, TxtSeq_Civil)
+        End If
     End Sub
 
     Private Sub InventárioToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles InventárioToolStripMenuItem1.Click

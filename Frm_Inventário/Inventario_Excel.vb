@@ -239,77 +239,124 @@ Public Class Inventário_Excel
         MsgBox("Dados Inseridos Com Sucesso", vbInformation)
     End Sub
 
-    Public Sub Consulta_Descricao_Civil(ID As Integer, TxtBay As TextBox, cod_tuc As Integer, Cmbtuc As ComboBox, cod_tipo_bem As String, cmba1 As ComboBox,
-                                        cod_uar As Integer, Cmbuar As ComboBox, Cmba2 As ComboBox,
-                                        Cmba3 As ComboBox, Cmba4 As ComboBox, Cmba5 As ComboBox,
-                                        Cmba6 As ComboBox, cod_cm1 As String, Cmbcm1 As ComboBox,
-                                        cod_cm2 As String, Cmbcm2 As ComboBox, cod_cm3 As String, Cmbcm3 As ComboBox, txtdesc As RichTextBox, txtfabric As TextBox,
-                                        txtmodelo As TextBox, txtobs As TextBox, txtqtd As TextBox, cmbun As ComboBox, cmbano As ComboBox, cmbmes As ComboBox,
-                                        cmbdia As ComboBox, cmbstatus As ComboBox, cmbestado As ComboBox, txtaltura As TextBox, txtlarg As TextBox, txtcomp As TextBox,
-                                        txtarea As TextBox, txtpe As TextBox, txtobs_civil As TextBox, txtesforco As TextBox, txtserie As TextBox, txtTag As TextBox)
+    Public Sub Consulta_Descricao_Civil(ID As Integer, CmbTag_A As ComboBox, TxtTag_N As TextBox, CmbDesc As ComboBox, TxtDetal As RichTextBox,
+                                        Cmbfabric As ComboBox, Cmbmodelo As ComboBox, txtobs As RichTextBox, txtqtd As TextBox, cmbun As ComboBox,
+                                        cmbstatus As ComboBox, cmbestado As ComboBox, txtaltura As TextBox, txtlarg As TextBox, txtcomp As TextBox,
+                                        txtarea As TextBox, txtpe As TextBox, txtesforco As TextBox, txtobs_civil As TextBox, CmbLocal_F As ComboBox)
         Try
             Dim leitor As SQLite.SQLiteDataReader
             Dim connection As New SQLite.SQLiteConnection(connstr)
             Dim cmd As New SQLite.SQLiteCommand
             connection.Open()
             cmd.Connection = connection
-            cmd.CommandText = "select bay,cod_tuc,desc_tuc,cod_tipo_bem,desc_tipo_bem,cod_uar,desc_uar,cod_a2,desc_a2," &
-                    "cod_a3,desc_a3,cod_a4,desc_a4,cod_a5,desc_a5,cod_a6,desc_a6,cod_cm1,desc_cm1,cod_cm2," &
-                    "desc_cm2,cod_cm3,desc_cm3,descricao,fabricante,modelo,observacao,quantidade,unidade_medida," &
-                    "ano,mes,dia,status_bem,estado_bem,altura,largura,comprimento,area,pe_direito,obs_civil,esforco " &
+            cmd.CommandText = "select ID,Tag_Antigo,Tag_Novo,Desc_Simples,Desc_Detalhada,Fabricante,Modelo," &
+                        "Local_Fisico,Quantidade,Um,Status,Estado,Observacao,Altura,Largura," &
+                        "Comprimento,Area,Pe,Esforco,Obs_Civil " &
                     "from INVENTARIO where ID=" & ID & ";"
             leitor = cmd.ExecuteReader
             leitor.Read()
-            TxtBay.Text = leitor("bay")
-            cod_tuc = leitor("cod_tuc")
-            Cmbtuc.Text = leitor("desc_tuc")
-            cod_tipo_bem = leitor("cod_tipo_bem")
-            cmba1.Text = leitor("desc_tipo_bem")
-            cod_uar = leitor("cod_uar")
-            Cmbuar.Text = leitor("desc_uar")
-            'Frm_Inventário.A2 = leitor("cod_a2")
-            'Cmba2.Text = leitor("desc_a2")
-            'Frm_Inventário.A3 = leitor("cod_a3")
-            'Cmba3.Text = leitor("desc_a3")
-            'Frm_Inventário.A4 = leitor("cod_a4")
-            'Cmba4.Text = leitor("desc_a4")
-            'Frm_Inventário.A5 = leitor("cod_a5")
-            'Cmba5.Text = leitor("desc_a5")
-            'Frm_Inventário.A6 = leitor("cod_a6")
-            Cmba6.Text = leitor("desc_a6")
-            cod_cm1 = leitor("cod_cm1")
-            Cmbcm1.Text = leitor("desc_cm1")
-            cod_cm2 = leitor("cod_cm2")
-            Cmbcm2.Text = leitor("desc_cm2")
-            cod_cm3 = leitor("cod_cm3")
-            Cmbcm3.Text = leitor("desc_cm3")
-            txtdesc.Text = leitor("descricao")
-            txtfabric.Text = leitor("fabricante")
-            txtmodelo.Text = leitor("modelo")
-            txtserie.Text = ""
-            txtTag.Text = ""
-            txtobs.Text = leitor("observacao")
-            txtqtd.Text = leitor("quantidade")
-            cmbun.Text = leitor("unidade_medida")
-            cmbano.Text = ""
-            cmbmes.Text = ""
-            cmbdia.Text = ""
-            cmbstatus.Text = leitor("status_bem")
-            cmbestado.Text = leitor("estado_bem")
+            CmbLocal_F.Text = leitor("Local_Fisico")
+            CmbTag_A.Text = leitor("Tag_Antigo")
+            TxtTag_N.Text = leitor("Tag_Novo")
+            CmbDesc.Text = leitor("Desc_Simples")
+            TxtDetal.Text = leitor("Desc_Detalhada")
+            Cmbfabric.Text = leitor("Fabricante")
+            Cmbmodelo.Text = leitor("Modelo")
+            txtobs.Text = leitor("Observacao")
+            txtqtd.Text = leitor("Quantidade")
+            cmbun.Text = leitor("Um")
+            cmbstatus.Text = leitor("Status")
+            cmbestado.Text = leitor("Estado")
             txtaltura.Text = leitor("altura")
             txtlarg.Text = leitor("largura")
             txtcomp.Text = leitor("comprimento")
             txtarea.Text = leitor("area")
-            txtpe.Text = leitor("pe_direito")
-            txtobs_civil.Text = leitor("obs_civil")
-            txtesforco.Text = leitor("esforco")
+            txtpe.Text = leitor("Pe")
+            txtobs_civil.Text = leitor("Obs_Civil")
+            txtesforco.Text = leitor("Esforco")
 
             cmd.Dispose()
             connection.Close()
             connection.Dispose()
 
         Catch
-            MsgBox("Erro ao consultar descricao_civil ", MsgBoxStyle.Critical)
+            MsgBox("Erro ao copiar Dados ", MsgBoxStyle.Critical)
+        End Try
+    End Sub
+
+    Public Sub Consulta_Tag(ID As Integer, CmbCC As ComboBox, CmbLocal As ComboBox, Cod_Inst As String, CmbInst As ComboBox, CmbTag_A As ComboBox, TxtTag_N As TextBox,
+                                        CmbDesc As ComboBox, TxtDetal As RichTextBox, CmbConsultor As ComboBox, CmbResp As ComboBox,
+                                        Cmbfabric As ComboBox, Cmbmodelo As ComboBox, TxtSerie As TextBox, txtobs As RichTextBox, txtqtd As TextBox, cmbun As ComboBox,
+                                        cmbstatus As ComboBox, cmbano As ComboBox, cmbmes As ComboBox, cmbdia As ComboBox,
+                                        cmbestado As ComboBox, txtaltura As TextBox, txtlarg As TextBox, txtcomp As TextBox,
+                                        txtarea As TextBox, txtpe As TextBox, txtesforco As TextBox, txtobs_civil As TextBox, CmbLocal_F As ComboBox, Tag As String,
+                                        TxtIDLocal As TextBox, TxtIDDesc As TextBox, TxtIDCivil As TextBox)
+        Try
+            Dim Texto_Foto As String
+
+            Dim leitor As SQLite.SQLiteDataReader
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim cmd As New SQLite.SQLiteCommand
+            connection.Open()
+            cmd.Connection = connection
+            cmd.CommandText = "select ID,Tag_Antigo,Tag_Novo,Desc_Simples,Desc_Detalhada,Fabricante,Modelo,Serie," &
+                        "Local_Fisico,Quantidade,Um,Status,Estado,Ano,Mes,Dia,Observacao,Altura,Largura," &
+                        "Comprimento,Area,Pe,Esforco,Obs_Civil,Centro_Custo,Cod_Instalacao,Desc_Instalacao,Local,Consultor,Responsavel,Foto " &
+                    "from INVENTARIO where Tag_Antigo='" & Tag & "' or Tag_Novo='" & Tag & "';"
+            leitor = cmd.ExecuteReader
+            leitor.Read()
+            CmbCC.Text = leitor("Centro_Custo")
+            Cod_Inst = leitor("Cod_Instalacao")
+            CmbInst.Text = leitor("Desc_Instalacao")
+            CmbLocal.Text = leitor("Local")
+            CmbConsultor.Text = leitor("Consultor")
+            CmbResp.Text = leitor("Responsavel")
+            CmbLocal_F.Text = leitor("Local_Fisico")
+            CmbTag_A.Text = leitor("Tag_Antigo")
+            TxtTag_N.Text = leitor("Tag_Novo")
+            CmbDesc.Text = leitor("Desc_Simples")
+            TxtDetal.Text = leitor("Desc_Detalhada")
+            Cmbfabric.Text = leitor("Fabricante")
+            Cmbmodelo.Text = leitor("Modelo")
+            TxtSerie.Text = leitor("Serie")
+            txtobs.Text = leitor("Observacao")
+            txtqtd.Text = leitor("Quantidade")
+            cmbun.Text = leitor("Um")
+            cmbstatus.Text = leitor("Status")
+            cmbestado.Text = leitor("Estado")
+            cmbano.Text = leitor("Ano")
+            cmbmes.Text = leitor("Mes")
+            cmbdia.Text = leitor("Dia")
+            txtaltura.Text = leitor("altura")
+            txtlarg.Text = leitor("largura")
+            txtcomp.Text = leitor("comprimento")
+            txtarea.Text = leitor("area")
+            txtpe.Text = leitor("Pe")
+            txtobs_civil.Text = leitor("Obs_Civil")
+            txtesforco.Text = leitor("Esforco")
+            TxtIDLocal.Text = leitor("ID")
+            TxtIDDesc.Text = leitor("ID")
+            TxtIDCivil.Text = leitor("ID")
+            Texto_Foto = leitor("Foto")
+
+            Frm_Inventário.A_Fotos_Inventario.Clear()
+            Frm_Inventário.Foto = ""
+            Frm_Inventário.PictureBox_Consulta.ImageLocation = ""
+
+            If Texto_Foto <> "" Then
+                Dim Palavras As String() = Texto_Foto.Split("|")
+                For Each Palavra In Palavras
+                    Frm_Inventário.A_Fotos_Inventario.Add(Palavra)
+                Next
+                Frm_Inventário.PictureBox_Consulta.ImageLocation = Frm_Inventário.Caminho & "\" & Frm_Inventário.A_Fotos_Inventario(0)
+            End If
+
+            cmd.Dispose()
+            connection.Close()
+            connection.Dispose()
+
+        Catch
+            MsgBox("Tag não localizado.", MsgBoxStyle.Information)
         End Try
     End Sub
 

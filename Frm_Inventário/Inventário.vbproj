@@ -127,6 +127,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SS.Designer.vb">
+      <DependentUpon>SS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SS.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Frm_DGV.resx">
@@ -140,6 +146,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SS.resx">
+      <DependentUpon>SS.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
