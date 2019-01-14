@@ -263,7 +263,7 @@ Partial Class Frm_Inventário
         Me.TabControl1.Location = New System.Drawing.Point(6, 30)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(907, 489)
+        Me.TabControl1.Size = New System.Drawing.Size(907, 483)
         Me.TabControl1.TabIndex = 17
         '
         'TpLocal
@@ -279,7 +279,7 @@ Partial Class Frm_Inventário
         Me.TpLocal.Location = New System.Drawing.Point(4, 22)
         Me.TpLocal.Name = "TpLocal"
         Me.TpLocal.Padding = New System.Windows.Forms.Padding(3)
-        Me.TpLocal.Size = New System.Drawing.Size(899, 463)
+        Me.TpLocal.Size = New System.Drawing.Size(899, 457)
         Me.TpLocal.TabIndex = 0
         Me.TpLocal.Text = "Local"
         Me.TpLocal.UseVisualStyleBackColor = True
@@ -861,7 +861,7 @@ Partial Class Frm_Inventário
         Me.TpCivil.Controls.Add(Me.Label6)
         Me.TpCivil.Location = New System.Drawing.Point(4, 22)
         Me.TpCivil.Name = "TpCivil"
-        Me.TpCivil.Size = New System.Drawing.Size(899, 469)
+        Me.TpCivil.Size = New System.Drawing.Size(899, 463)
         Me.TpCivil.TabIndex = 2
         Me.TpCivil.Text = "Civil"
         Me.TpCivil.UseVisualStyleBackColor = True
@@ -1008,7 +1008,7 @@ Partial Class Frm_Inventário
         '
         Me.BtnSalvar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnSalvar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BtnSalvar.Location = New System.Drawing.Point(675, 572)
+        Me.BtnSalvar.Location = New System.Drawing.Point(675, 566)
         Me.BtnSalvar.Name = "BtnSalvar"
         Me.BtnSalvar.Size = New System.Drawing.Size(83, 37)
         Me.BtnSalvar.TabIndex = 0
@@ -1019,7 +1019,7 @@ Partial Class Frm_Inventário
         '
         Me.BtnCopiar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnCopiar.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.BtnCopiar.Location = New System.Drawing.Point(777, 571)
+        Me.BtnCopiar.Location = New System.Drawing.Point(777, 565)
         Me.BtnCopiar.Name = "BtnCopiar"
         Me.BtnCopiar.Size = New System.Drawing.Size(136, 37)
         Me.BtnCopiar.TabIndex = 0
@@ -1155,7 +1155,7 @@ Partial Class Frm_Inventário
         Me.BtnConsultar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.BtnConsultar.Cursor = System.Windows.Forms.Cursors.Hand
         Me.BtnConsultar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BtnConsultar.Location = New System.Drawing.Point(10, 524)
+        Me.BtnConsultar.Location = New System.Drawing.Point(10, 518)
         Me.BtnConsultar.Name = "BtnConsultar"
         Me.BtnConsultar.Size = New System.Drawing.Size(907, 23)
         Me.BtnConsultar.TabIndex = 21
@@ -1167,7 +1167,7 @@ Partial Class Frm_Inventário
         Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(7, 564)
+        Me.Label10.Location = New System.Drawing.Point(7, 558)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(64, 13)
         Me.Label10.TabIndex = 22
@@ -1178,7 +1178,7 @@ Partial Class Frm_Inventário
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(7, 591)
+        Me.Label11.Location = New System.Drawing.Point(7, 585)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(84, 13)
         Me.Label11.TabIndex = 25
@@ -1195,7 +1195,7 @@ Partial Class Frm_Inventário
         Me.CmbConsultor.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CmbConsultor.DropDownWidth = 500
         Me.CmbConsultor.FormattingEnabled = True
-        Me.CmbConsultor.Location = New System.Drawing.Point(120, 561)
+        Me.CmbConsultor.Location = New System.Drawing.Point(120, 555)
         Me.CmbConsultor.Name = "CmbConsultor"
         Me.CmbConsultor.Size = New System.Drawing.Size(436, 21)
         Me.CmbConsultor.TabIndex = 1
@@ -1205,7 +1205,7 @@ Partial Class Frm_Inventário
         Me.CmbResponsavel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CmbResponsavel.DropDownWidth = 500
         Me.CmbResponsavel.FormattingEnabled = True
-        Me.CmbResponsavel.Location = New System.Drawing.Point(120, 588)
+        Me.CmbResponsavel.Location = New System.Drawing.Point(120, 582)
         Me.CmbResponsavel.Name = "CmbResponsavel"
         Me.CmbResponsavel.Size = New System.Drawing.Size(436, 21)
         Me.CmbResponsavel.TabIndex = 2
