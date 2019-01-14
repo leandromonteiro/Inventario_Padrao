@@ -730,19 +730,19 @@ Public Class Inventário_Excel
             Sh_T.Range("w1").Value = "Validação"
             Sh_T.Range("x1").Value = "Observação"
             Sh_T.Range("y1").Value = "Altura"
-            Sh_T.Range("aa1").Value = "Largura"
-            Sh_T.Range("ab1").Value = "Comprimento"
-            Sh_T.Range("ac1").Value = "Área"
-            Sh_T.Range("ad1").Value = "Pé Direito"
-            Sh_T.Range("ae1").Value = "Esforço"
-            Sh_T.Range("af1").Value = "Observação Civil"
-            Sh_T.Range("ag1").Value = "Foto"
-            Sh_T.Range("ah1").Value = "Consultor"
-            Sh_T.Range("ai1").Value = "Responsável"
-            Sh_T.Range("aj1").Value = "Data/Hora"
+            Sh_T.Range("z1").Value = "Largura"
+            Sh_T.Range("aa1").Value = "Comprimento"
+            Sh_T.Range("ab1").Value = "Área"
+            Sh_T.Range("ac1").Value = "Pé Direito"
+            Sh_T.Range("ad1").Value = "Esforço"
+            Sh_T.Range("ae1").Value = "Observação Civil"
+            Sh_T.Range("af1").Value = "Foto"
+            Sh_T.Range("ag1").Value = "Consultor"
+            Sh_T.Range("ah1").Value = "Responsável"
+            Sh_T.Range("ai1").Value = "Data/Hora"
 
-            Sh_T.Range("a1:aj1").Font.Bold = True
-            Sh_T.Range("a1:aj1").Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue)
+            Sh_T.Range("a1:ai1").Font.Bold = True
+            Sh_T.Range("a1:ai1").Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue)
 
             'Arrumar colunas
             'DS.Tables(0).Columns(50).SetOrdinal(33)
@@ -756,7 +756,14 @@ Public Class Inventário_Excel
                 For j = 0 To DS.Tables(0).Columns.Count - 1
                     'Colunas anteriores
                     If j <= 30 Or j >= 32 Then
-                        Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(j)
+                        If j = 34 Then
+                            Sh_T.Cells(i + 2, j + 1) = Mid(DS.Tables(0).Rows(i).Item(j).ToString, 4, 2) & "/" &
+                                Mid(DS.Tables(0).Rows(i).Item(j).ToString, 1, 2) & "/" &
+                                Mid(DS.Tables(0).Rows(i).Item(j).ToString, 7, 4) &
+                                Mid(DS.Tables(0).Rows(i).Item(j).ToString, 11, 20)
+                        Else
+                            Sh_T.Cells(i + 2, j + 1) = DS.Tables(0).Rows(i).Item(j)
+                        End If
                     End If
                     'fotos
                     If j = 31 Then
