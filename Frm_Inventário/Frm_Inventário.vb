@@ -33,161 +33,75 @@ Public Class Frm_Inventário
     Dim F_DGV As New Frm_DGV
 
     Private Sub Validacao_Salvar()
-        'If TxtLocal.Text = "" Or TxtODI.Text = "" Or CmbTI.Text = "" Or CmbInstall.Text = "" Then
-        '    MsgBox("Dados Incompletos na aba local", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbTUC.Text = "" Then
-        '    MsgBox("Preencha TUC", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbA1.Text = "" Then
-        '    MsgBox("Preencha Tipo de Bem", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbUAR.Text = "" Then
-        '    MsgBox("Preencha UAR", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbA2.Text = "" And CmbA2.Enabled = True Then
-        '    MsgBox("Preencha A2", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbA3.Text = "" And CmbA3.Enabled = True Then
-        '    MsgBox("Preencha A3", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbA4.Text = "" And CmbA4.Enabled = True Then
-        '    MsgBox("Preencha A4", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbA5.Text = "" And CmbA5.Enabled = True Then
-        '    MsgBox("Preencha A5", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbA6.Text = "" And CmbA6.Enabled = True Then
-        '    MsgBox("Preencha A6", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbCm1.Text = "" Then
-        '    MsgBox("Preencha cm1", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbTagAntigo.Text = "" Then
-        '    MsgBox("Preencha cm2", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbLocalFisico.Text = "" Then
-        '    MsgBox("Preencha cm3", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If TxtDetalhada.Text = "" Then
-        '    MsgBox("Preencha descrição", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If TxtQtd.Text = "" Then
-        '    MsgBox("Preencha quantidade", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbUm.Text = "" Then
-        '    MsgBox("Preencha unidade de medida", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbStatus.Text = "" Then
-        '    MsgBox("Preencha status do bem", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If CmbEstado.Text = "" Then
-        '    MsgBox("Preencha estado do bem", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If TxtConsultor.Text = "" Then
-        '    MsgBox("Preencha o e-mail do consultor", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        '    Exit Sub
-        'End If
-        'If TxtLider.Text = "" Then
-        '    MsgBox("Preencha o e-mail do líder", MsgBoxStyle.Exclamation)
-        '    Invalidos = True
-        'End If
+        If CmbCC.Text = "" Or CmbInstall.Text = "" Or CmbLocal.Text = "" Then
+            MsgBox("Dados Incompletos na aba local", MsgBoxStyle.Exclamation)
+            Invalidos = True
+            Exit Sub
+        End If
+        If CmbDesc.Text = "" Then
+            MsgBox("Preencha Descrição Simples", MsgBoxStyle.Exclamation)
+            Invalidos = True
+            Exit Sub
+        End If
+        If TxtQtd.Text = "" Then
+            MsgBox("Preencha a Quantidade", MsgBoxStyle.Exclamation)
+            Invalidos = True
+            Exit Sub
+        End If
+
+        If CmbUm.Text = "" Then
+            MsgBox("Preencha unidade de medida", MsgBoxStyle.Exclamation)
+            Invalidos = True
+            Exit Sub
+        End If
+        If CmbStatus.Text = "" Then
+            MsgBox("Preencha status do bem", MsgBoxStyle.Exclamation)
+            Invalidos = True
+            Exit Sub
+        End If
+        If CmbEstado.Text = "" Then
+            MsgBox("Preencha estado do bem", MsgBoxStyle.Exclamation)
+            Invalidos = True
+            Exit Sub
+        End If
+        If CmbConsultor.Text = "" Then
+            MsgBox("Preencha o Consultor", MsgBoxStyle.Exclamation)
+            Invalidos = True
+            Exit Sub
+        End If
+        If CmbResponsavel.Text = "" Then
+            MsgBox("Preencha o Responsável", MsgBoxStyle.Exclamation)
+            Invalidos = True
+        End If
     End Sub
 
     Private Sub Limpar_Tudo()
-        'TxtTagNovo.Text = ""
-        'CmbTUC.Text = ""
-        'A1 = ""
-        'A2 = ""
-        'A3 = ""
-        'A4 = ""
-        'A5 = ""
-        'A6 = ""
-        'CmbA1.Text = ""
-        'CmbA2.Text = ""
-        'CmbA3.Text = ""
-        'CmbA4.Text = ""
-        'CmbA5.Text = ""
-        'CmbA6.Text = ""
-        'CmbUAR.Text = ""
-        'CmbCm1.Text = ""
-        'CmbTagAntigo.Text = ""
-        'CmbLocalFisico.Text = ""
-        'TxtDetalhada.Text = ""
-        'TxtFabricante.Text = ""
-        'TxtModelo.Text = ""
-        'TxtSerie.Text = ""
-        'TxtObs.Text = ""
-        'TxtQtd.Text = 1
-        'CmbUm.Text = "UN"
-        'CmbAno.Text = ""
-        'CmbMes.Text = ""
-        'CmbDia.Text = ""
-        'CmbStatus.Text = ""
-        'CmbEstado.Text = ""
-        'TxtAltura.Text = ""
-        'TxtLargura.Text = ""
-        'TxtComprimento.Text = ""
-        'TxtArea.Text = ""
-        'TxtEsforco.Text = ""
-        'TxtPe.Text = ""
-        'TxtObsCivil.Text = ""
-        'TxtTag.Text = ""
-        'CmbA2.Enabled = True
-        'CmbA3.Enabled = True
-        'CmbA4.Enabled = True
-        'CmbA5.Enabled = True
-        'CmbA6.Enabled = True
-        'CmbA2.Items.Clear()
-        'CmbA3.Items.Clear()
-        'CmbA4.Items.Clear()
-        'CmbA5.Items.Clear()
-        'CmbA6.Items.Clear()
-        'CmbUAR.Items.Clear()
-        'CmbA1.Items.Clear()
-        'LblA2.Text = "A2:"
-        'LblA3.Text = "A3:"
-        'LblA4.Text = "A4:"
-        'LblA5.Text = "A5:"
-        'LblA6.Text = "A6:"
-        'A_Fotos_Inventario.Clear()
-        'Foto = ""
-        'PictureBox_Consulta.ImageLocation = ""
+        TxtTagNovo.Text = ""
+        CmbTagAntigo.Text = ""
+        CmbDesc.Text = ""
+        TxtDetalhada.Text = ""
+        CmbLocalFisico.Text = ""
+        CmbFabricante.Text = ""
+        CmbModelo.Text = ""
+        TxtSerie.Text = ""
+        TxtObs.Text = ""
+        TxtQtd.Text = 1
+        CmbUm.Text = "UN"
+        CmbAno.Text = ""
+        CmbMes.Text = ""
+        CmbDia.Text = ""
+        CmbStatus.Text = ""
+        CmbEstado.Text = ""
+        TxtAltura.Text = ""
+        TxtLargura.Text = ""
+        TxtComprimento.Text = ""
+        TxtArea.Text = ""
+        TxtEsforco.Text = ""
+        TxtPe.Text = ""
+        TxtObsCivil.Text = ""
+        A_Fotos_Inventario.Clear()
+        Foto = ""
+        PictureBox_Consulta.ImageLocation = ""
     End Sub
 
     Private Sub Limpar_Parcial()
@@ -208,10 +122,10 @@ Public Class Frm_Inventário
     Private Sub FrmInventario_Novo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Panel_Picture_Consulta.Controls.Add(PictureBox_Consulta)
-        'ID = I_E.Buscar_Ultimo_ID() + 1
-        'TxtSeq_Civil.Text = ID
-        'TxtSeq_Desc.Text = ID
-        'TxtSeq_Local.Text = ID
+        ID = I_E.Buscar_Ultimo_ID() + 1
+        TxtSeq_Civil.Text = ID
+        TxtSeq_Desc.Text = ID
+        TxtSeq_Local.Text = ID
 
         PB_Excel.Visible = False
         'Preencher ComboBoxes
@@ -262,7 +176,7 @@ Public Class Frm_Inventário
             Seq_At = "AT"
         End If
         'Update BD
-        Sequencial = Seq_At & " - " & TxtSeq_Local.Text
+        Sequencial = Seq_At & TxtSeq_Local.Text
         consultor = CmbConsultor.Text
         lider = CmbResponsavel.Text
 
@@ -305,19 +219,28 @@ Public Class Frm_Inventário
         End If
 
         'Se o ID do cadastro já existir, faça o Update, senão Insert
-        'If ID <= I_E.Buscar_Ultimo_ID Then
-        '    I_E.Update_Inventario(ID, Sequencial, TxtLocal.Text, TxtODI.Text, TI, CmbTI.Text, TxtTagNovo.Text, TUC, CmbTUC.Text, A1, CmbA1.Text,
-        '                      UAR, CmbUAR.Text, A2, CmbA2.Text, A3, CmbA3.Text, A4, CmbA4.Text, A5, CmbA5.Text, A6, CmbA6.Text, CM1, CmbCm1.Text,
-        '                      CM2, CmbTagAntigo.Text, CM3, CmbLocalFisico.Text, TxtDetalhada.Text, TxtFabricante.Text, TxtModelo.Text, TxtSerie.Text, TxtObs.Text,
-        '                      TxtQtd.Text, CmbUm.Text, CmbAno.Text, CmbMes.Text, CmbDia.Text, CmbStatus.Text, CmbEstado.Text, TxtAltura.Text,
-        '                      TxtLargura.Text, TxtComprimento.Text, TxtArea.Text, TxtPe.Text, TxtObsCivil.Text, Foto, consultor, lider, TxtTag.Text, TxtEsforco.Text)
-        'Else
-        '    I_E.Inserir_Dados(ID, Sequencial, TxtLocal.Text, TxtODI.Text, TI, CmbTI.Text, TxtTagNovo.Text, TUC, CmbTUC.Text, A1, CmbA1.Text,
-        '                      UAR, CmbUAR.Text, A2, CmbA2.Text, A3, CmbA3.Text, A4, CmbA4.Text, A5, CmbA5.Text, A6, CmbA6.Text, CM1, CmbCm1.Text,
-        '                      CM2, CmbTagAntigo.Text, CM3, CmbLocalFisico.Text, TxtDetalhada.Text, TxtFabricante.Text, TxtModelo.Text, TxtSerie.Text, TxtObs.Text,
-        '                      TxtQtd.Text, CmbUm.Text, CmbAno.Text, CmbMes.Text, CmbDia.Text, CmbStatus.Text, CmbEstado.Text, TxtAltura.Text,
-        '                      TxtLargura.Text, TxtComprimento.Text, TxtArea.Text, TxtPe.Text, TxtEsforco.Text, TxtObsCivil.Text, consultor, lider, TxtTag.Text, Foto)
-        'End If
+        If ID <= I_E.Buscar_Ultimo_ID Then
+            'Consulta e compara os dados para saber se é Validado ou Alterado
+            Dim Validacao As String
+            If I_E.Consulta_Validar(ID, CmbCC.Text, Cod_Instal, CmbInstall.Text, CmbLocal.Text, CmbTagAntigo.Text, TxtTagNovo.Text,
+CmbDesc.Text, TxtDetalhada.Text, CmbFabricante.Text, CmbModelo.Text, TxtSerie.Text, CmbLocalFisico.Text, TxtQtd.Text, CmbUm.Text,
+CmbAno.Text, CmbMes.Text, CmbDia.Text, CmbStatus.Text, CmbEstado.Text, TxtObs.Text, TxtAltura.Text, TxtLargura.Text, TxtComprimento.Text,
+TxtArea.Text, TxtPe.Text, TxtEsforco.Text, TxtObsCivil.Text, CmbConsultor.Text, CmbResponsavel.Text) = True Then
+                Validacao = "ALTERADO"
+            Else
+                Validacao = "VALIDADO"
+            End If
+
+            I_E.Update_Inventario(ID, CmbLocal.Text, CmbCC.Text, Cod_Instal, CmbInstall.Text, CmbTagAntigo.Text, TxtTagNovo.Text, CmbDesc.Text, TxtDetalhada.Text, CmbFabricante.Text, CmbModelo.Text, TxtSerie.Text, CmbLocalFisico.Text,
+                              TxtObs.Text, Validacao, TxtQtd.Text, CmbUm.Text, CmbAno.Text, CmbMes.Text, CmbDia.Text, CmbStatus.Text, CmbEstado.Text, TxtAltura.Text,
+                              TxtLargura.Text, TxtComprimento.Text, TxtArea.Text, TxtPe.Text, TxtEsforco.Text, TxtObsCivil.Text, Foto, consultor, lider)
+        Else
+            I_E.Inserir_Dados(ID, Sequencial, CmbLocal.Text, CmbCC.Text, Cod_Instal, CmbInstall.Text, CmbTagAntigo.Text,
+                              TxtTagNovo.Text, CmbDesc.Text, TxtDetalhada.Text, CmbFabricante.Text, CmbModelo.Text,
+                              TxtSerie.Text, CmbLocalFisico.Text, TxtObs.Text, "NOVO", TxtQtd.Text, CmbUm.Text, CmbAno.Text,
+                              CmbMes.Text, CmbDia.Text, CmbStatus.Text, CmbEstado.Text, TxtAltura.Text, TxtLargura.Text,
+                              TxtComprimento.Text, TxtArea.Text, TxtPe.Text, TxtEsforco.Text, TxtObsCivil.Text, Foto, consultor, lider)
+        End If
         BtnCopiar.Enabled = True
         'Limpar Dados
         Limpar_Tudo()

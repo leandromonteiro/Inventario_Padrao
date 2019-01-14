@@ -335,25 +335,112 @@ Public Class Inventário_Excel
         'End Try
     End Sub
 
-    Public Sub Consulta_CM(cmb1 As ComboBox, cmb2 As ComboBox, cmb3 As ComboBox)
-        cmb1.Items.Clear()
-        cmb2.Items.Clear()
-        cmb3.Items.Clear()
+    Public Function Consulta_Validar(ID As Integer, CC As String, Cod_Inst As String, Desc_Inst As String, Local As String, Tag_A As String,
+                                     Tag_N As String, Desc_S As String, Desc_D As String, Fabricante As String,
+                                     Modelo As String, Serie As String, Local_F As String, Qtd As Decimal, Um As String,
+                                     Ano As Integer, Mes As Integer, Dia As Integer, Status As String, Estado As String,
+                                     Obs As String, Altura As Decimal, Largura As Decimal, Comp As Decimal, Area As Decimal,
+                                     Pe As Decimal, Esforco As Decimal, Obs_C As String, Consultor As String, Resp As String) As Boolean
         Try
+            Consulta_Validar = False
+
             Dim leitor As SQLite.SQLiteDataReader
             Dim connection As New SQLite.SQLiteConnection(connstr)
             Dim cmd As New SQLite.SQLiteCommand
             connection.Open()
             cmd.Connection = connection
-            cmd.CommandText = "select CM1,CM2,CM3 from CM;"
+            cmd.CommandText = "select Centro_Custo,Cod_Instalacao,Desc_Instalacao," &
+                        "Local,Tag_Antigo,Tag_Novo,Desc_Simples,Desc_Detalhada,Fabricante,Modelo,Serie," &
+                        "Local_Fisico,Quantidade,Um,Ano,Mes,Dia,Status,Estado,Observacao,Altura,Largura," &
+                        "Comprimento,Area,Pe,Esforco,Obs_Civil,Consultor,Responsavel from Inventario Where ID=" & ID & ";"
             leitor = cmd.ExecuteReader
             Do While leitor.Read
-                If Not leitor("CM1") = "" Then
-                    cmb1.Items.Add(leitor("CM1"))
+                If Not leitor("Centro_Custo") = CC Then
+                    Consulta_Validar = True
                 End If
-                cmb2.Items.Add(leitor("CM2"))
-                If Not leitor("CM3") = "" Then
-                    cmb3.Items.Add(leitor("CM3"))
+                If Not leitor("Cod_Instalacao") = Cod_Inst Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Desc_Instalacao") = Desc_Inst Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Local") = Local Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Tag_Antigo") = Tag_A Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Tag_Novo") = Tag_N Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Desc_Simples") = Desc_S Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Desc_Detalhada") = Desc_D Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Fabricante") = Fabricante Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Modelo") = Modelo Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Serie") = Serie Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Local_Fisico") = Local_F Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Quantidade") = Qtd Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Um") = Um Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Ano") = Ano Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Mes") = Mes Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Dia") = Dia Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Status") = Status Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Estado") = Estado Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Observacao") = Obs Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Altura") = Altura Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Largura") = Largura Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Comprimento") = Comp Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Area") = Area Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Pe") = Pe Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Esforco") = Esforco Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Obs_Civil") = Obs_C Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Consultor") = Consultor Then
+                    Consulta_Validar = True
+                End If
+                If Not leitor("Responsavel") = Resp Then
+                    Consulta_Validar = True
                 End If
             Loop
             cmd.Dispose()
@@ -361,60 +448,18 @@ Public Class Inventário_Excel
             connection.Dispose()
             GC.Collect()
         Catch
-            MsgBox("Erro ao buscar dados ", MsgBoxStyle.Critical)
+            Consulta_Validar = False
+            'MsgBox("Erro ao buscar dados ", MsgBoxStyle.Critical)
         End Try
-    End Sub
+    End Function
 
 
-    Public Sub Inserir_Dados(ID As Integer, Sequencial As String, Centro_Custo As String, Cod_Inst As String,
-                             Desc_Inst As Integer, Local As String, Tag_Antiga As String, Tag_Nova As String, Desc_Simples As Integer,
-                             Desc_Detalhada As String, fabricante As String, modelo As String, serie As String,
-                             Local_Fisico As String, observacao As String, quantidade As Decimal, unidade As String,
-                             ano As Integer, mes As Integer, dia As Integer, status_bem As String,
-                             estado_bem As String, altura As Decimal, largura As Decimal, comprimento As Decimal,
-                             area As Decimal, pe As Decimal, esforco As Decimal, obs_civil As String, Validacao As String,
-                             Consultor As String, Responsavel As String, Foto As String,
-                             Desc_Unificada As String)
-        'Try
-        Using connection As New SQLite.SQLiteConnection(connstr)
-                SQLite.SQLiteConnection.ClearAllPools()
-                Dim cmd As New SQLite.SQLiteCommand
-                If connection.State = ConnectionState.Closed Then
-                    connection.Open()
-                End If
-                cmd.Connection = connection
-                cmd.CommandText = "insert into Inventario (ID,Sequencial,Centro_Custo,Cod_Instalacao,Desc_Instalacao," &
-                    "Local,Tag_Antigo,Tag_Novo,Desc_Simples,Desc_Detalhada,Fabricante,Modelo,Serie,Desc_Unificada," &
-                    "Local_Fisico,Quantidade,Um,Ano,Mes,Dia,Status,Estado,Validacao,Observacao,Altura,Largura," &
-                    "Comprimento,Area,Pe,Esforco,Obs_Civil,Foto,Consultor,Responsavel,Data_Hora " &
-                    ") values(" & ID & ",'" & Sequencial & "','" & Centro_Custo & "','" & Cod_Inst & "','" & Desc_Inst &
-                    "','" & Local & "','" & Tag_Antiga & "','" & Tag_Nova & "','" & Desc_Simples & "','" & Desc_Detalhada &
-                    "','" & fabricante & "', '" & modelo & "','" & serie & "','" & Desc_Unificada & "','" &
-                    Local_Fisico & "'," & Replace(CStr(quantidade), ",", ".") & ", '" & unidade & "'," & ano & ", " &
-                    mes & "," & dia & ",'" & status_bem & "','" & estado_bem & "','" & Validacao & "','" & observacao &
-                    "'," & Replace(CStr(altura), ",", ".") & "," & Replace(CStr(largura), ",", ".") & "," &
-                    Replace(CStr(comprimento), ",", ".") & "," & Replace(CStr(area), ",", ".") & "," &
-                    Replace(CStr(pe), ",", ".") & "," & Replace(CStr(esforco), ",", ".") & ",'" & obs_civil & "','" &
-                    Foto & "','" & "','" & Consultor & "','" & Responsavel & "','" & Now & "');"
-                cmd.ExecuteNonQuery()
-                cmd.Dispose()
-                connection.Close()
-                connection.Dispose()
-                GC.Collect()
-            End Using
-        'Catch
-        '    MsgBox("Erro ao inserir dados", MsgBoxStyle.Critical)
-        'End Try
-    End Sub
-
-    Public Sub Update_Inventario(ID As Integer, seq As String, local As String, odi As String, cod_ti As String, ti As String, bay As String,
-                                 cod_tuc As String, tuc As String, cod_tipo_bem As String, tipo_bem As String, cod_uar As String, uar As String,
-                                 cod_a2 As String, a2 As String, cod_a3 As String, a3 As String, cod_a4 As String, a4 As String, cod_a5 As String,
-                                 a5 As String, cod_a6 As String, a6 As String, cod_cm1 As String, cm1 As String, cod_cm2 As String, cm2 As String,
-                                 cod_cm3 As String, cm3 As String, descricao As String, fabricante As String, modelo As String, serie As String,
-                                 obs As String, qtd As Decimal, um As String, ano As String, mes As String, dia As String, status As String,
+    Public Sub Inserir_Dados(ID As Integer, Sequencial As String, local As String, CC As String, cod_Inst As String, Desc_Inst As String, Tag_A As String,
+                                 Tag_N As String, Desc_S As String, Desc_D As String, fabricante As String, modelo As String, serie As String,
+                                 Local_F As String, obs As String, Validacao As String,
+                                 qtd As Decimal, um As String, ano As String, mes As String, dia As String, status As String,
                                  estado_bem As String, altura As Decimal, largura As Decimal, comprimento As Decimal, area As Decimal, pe As Decimal,
-                                 obs_civil As String, foto As String, consultor As String, lider As String, TAG As String, esforco As Decimal)
+                                 esforco As Decimal, obs_civil As String, foto As String, consultor As String, Resp As String)
         Try
             Using connection As New SQLite.SQLiteConnection(connstr)
                 SQLite.SQLiteConnection.ClearAllPools()
@@ -423,18 +468,52 @@ Public Class Inventário_Excel
                     connection.Open()
                 End If
                 cmd.Connection = connection
-                cmd.CommandText = "update Inventario set Sequencial='" & seq & "',Local='" & local & "',ODI='" & odi & "',cod_ti=" &
-                    cod_ti & ",ti='" & ti & "',Bay='" & bay & "',cod_tuc='" & cod_tuc & "',desc_tuc='" & tuc & "',cod_tipo_bem='" &
-                    cod_tipo_bem & "',desc_tipo_bem='" & tipo_bem & "',cod_uar='" & cod_uar & "',desc_uar='" & uar &
-                    "',Cod_A2='" & cod_a2 & "',desc_A2='" & a2 & "',Cod_A3='" & cod_a3 & "',desc_A3='" & a3 & "',cod_A4='" &
-                    cod_a4 & "',Desc_A4='" & a4 & "',Cod_A5='" & cod_a5 & "',Desc_A5='" & a5 & "',Cod_A6='" & cod_a6 &
-                    "',Desc_A6='" & a6 & "',Cod_CM1='" & cod_cm1 & "',Desc_CM1='" & cm1 & "',Cod_CM2='" & cod_cm2 &
-                    "',Desc_CM2='" & cm2 & "',Cod_CM3='" & cod_cm3 & "',Desc_CM3='" & cm3 & "',Descricao='" & descricao &
-                    "',Fabricante='" & fabricante & "',Modelo='" & modelo & "',serie='" & serie & "',Observacao='" & obs & "',Quantidade=" &
-                    Replace(CStr(qtd), ",", ".") & ",Unidade_Medida='" & um & "',Ano='" & ano & "',Mes='" & mes & "',Dia='" & dia &
-                    "',Status_Bem='" & status & "',Estado_Bem='" & estado_bem & "',Altura=" & Replace(CStr(altura), ",", ".") & ",Largura=" & Replace(CStr(largura), ",", ".") & ",Comprimento=" &
-                    Replace(CStr(comprimento), ",", ".") & ",area=" & Replace(CStr(area), ",", ".") & ",Pe_direito=" & Replace(CStr(pe), ",", ".") & ",Obs_Civil='" & obs_civil & "',foto='" & foto & "',Consultor='" & consultor & "',Lider='" &
-                    lider & "',Data_Hora='" & Now & "',Numero_Manutencao='" & TAG & "',esforco=" & Replace(CStr(esforco), ",", ".") & " where ID=" & ID & ";"
+                cmd.CommandText = "insert into Inventario (ID,Sequencial,Centro_Custo,Cod_Instalacao,Desc_Instalacao," &
+                        "Local,Tag_Antigo,Tag_Novo,Desc_Simples,Desc_Detalhada,Fabricante,Modelo,Serie,Desc_Unificada," &
+                        "Local_Fisico,Quantidade,Um,Ano,Mes,Dia,Status,Estado,Validacao,Observacao,Altura,Largura," &
+                        "Comprimento,Area,Pe,Esforco,Obs_Civil,Foto,Consultor,Responsavel,Data_Hora " &
+                        ") values(" & ID & ",'" & Sequencial & "','" & CC & "','" & cod_Inst & "','" & Desc_Inst &
+                        "','" & local & "','" & Tag_A & "','" & Tag_N & "','" & Desc_S & "','" & Desc_D &
+                        "','" & fabricante & "', '" & modelo & "','" & serie & "','" & Desc_S & " | " & Desc_D & " | " & fabricante & " | " & modelo & " | " & serie & "','" &
+                        Local_F & "'," & Replace(CStr(qtd), ",", ".") & ", '" & um & "'," & ano & ", " &
+                        mes & "," & dia & ",'" & status & "','" & estado_bem & "','" & Validacao & "','" & obs &
+                        "'," & Replace(CStr(altura), ",", ".") & "," & Replace(CStr(largura), ",", ".") & "," &
+                        Replace(CStr(comprimento), ",", ".") & "," & Replace(CStr(area), ",", ".") & "," &
+                        Replace(CStr(pe), ",", ".") & "," & Replace(CStr(esforco), ",", ".") & ",'" & obs_civil & "','" &
+                        foto & "','" & consultor & "','" & Resp & "','" & Now & "');"
+                cmd.ExecuteNonQuery()
+                cmd.Dispose()
+                connection.Close()
+                connection.Dispose()
+                GC.Collect()
+            End Using
+        Catch
+            MsgBox("Erro ao inserir dados", MsgBoxStyle.Critical)
+        End Try
+    End Sub
+
+    Public Sub Update_Inventario(ID As Integer, local As String, CC As String, cod_Inst As String, Desc_Inst As String, Tag_A As String,
+                                 Tag_N As String, Desc_S As String, Desc_D As String, fabricante As String, modelo As String, serie As String,
+                                 Local_F As String, obs As String, Validacao As String,
+                                 qtd As Decimal, um As String, ano As String, mes As String, dia As String, status As String,
+                                 estado_bem As String, altura As Decimal, largura As Decimal, comprimento As Decimal, area As Decimal, pe As Decimal,
+                                 esforco As Decimal, obs_civil As String, foto As String, consultor As String, Resp As String)
+        Try
+            Using connection As New SQLite.SQLiteConnection(connstr)
+                SQLite.SQLiteConnection.ClearAllPools()
+                Dim cmd As New SQLite.SQLiteCommand
+                If connection.State = ConnectionState.Closed Then
+                    connection.Open()
+                End If
+                cmd.Connection = connection
+                cmd.CommandText = "update Inventario set Local='" & local & "',Local_Fisico='" & Local_F & "',Centro_Custo='" & CC & "',Cod_Instalacao='" &
+                        cod_Inst & "',Desc_Instalacao='" & Desc_Inst & "',Tag_Antigo='" & Tag_A & "',Tag_Novo='" & Tag_N & "',Desc_Simples='" & Desc_S & "',Desc_Detalhada='" &
+                        Desc_D & "',Fabricante='" & fabricante & "',Modelo='" & modelo & "',serie='" & serie & "',Observacao='" & obs & "',Quantidade=" &
+                        Replace(CStr(qtd), ",", ".") & ",Um='" & um & "',Ano='" & ano & "',Mes='" & mes & "',Dia='" & dia &
+                        "',Status='" & status & "',Estado='" & estado_bem & "',Altura=" & Replace(CStr(altura), ",", ".") & ",Largura=" & Replace(CStr(largura), ",", ".") & ",Comprimento=" &
+                        Replace(CStr(comprimento), ",", ".") & ",area=" & Replace(CStr(area), ",", ".") & ",Pe=" & Replace(CStr(pe), ",", ".") & ",Obs_Civil='" & obs_civil & "',Foto='" & foto & "',Consultor='" & consultor & "',Responsavel='" &
+                        Resp & "',Data_Hora='" & Now & "',Validacao='" & Validacao & "',esforco=" & Replace(CStr(esforco), ",", ".") & ", Desc_Unificada='" &
+                        Desc_S & " | " & Desc_D & " | " & fabricante & " | " & modelo & " | " & serie & "' where ID=" & ID & ";"
 
                 cmd.ExecuteNonQuery()
                 cmd.Dispose()
