@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Revise os valores dos atributos do assembly
 
-<Assembly: AssemblyTitle("Frm_Inventário")>
+<Assembly: AssemblyTitle("Inventário Padrão")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("Microsoft")>
-<Assembly: AssemblyProduct("Frm_Inventário")>
-<Assembly: AssemblyCopyright("Copyright © Microsoft 2019")>
+<Assembly: AssemblyCompany("Átomos")>
+<Assembly: AssemblyProduct("Inventário")>
+<Assembly: AssemblyCopyright("Copyright © Átomos 2019")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
