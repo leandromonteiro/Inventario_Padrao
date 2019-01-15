@@ -121,6 +121,13 @@ Public Class Frm_Inventário
 
     Private Sub FrmInventario_Novo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        I_E.Buscar_Data_Limite()
+
+        If I_E.DTExpira.Rows(0)(0) <= Today Then
+            MsgBox("Data Expirada para Uso do Software. Contate o administrador.", vbCritical)
+            Application.Exit()
+        End If
+
         Panel_Picture_Consulta.Controls.Add(PictureBox_Consulta)
         ID = I_E.Buscar_Ultimo_ID() + 1
         TxtSeq_Civil.Text = ID
@@ -481,5 +488,9 @@ TxtLargura, TxtComprimento, TxtArea, TxtPe, TxtEsforco, TxtObsCivil, CmbLocalFis
         If Result = vbYes Then
             I_E.Excluir_Carga_Cmb()
         End If
+    End Sub
+
+    Private Sub LicençaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LicençaToolStripMenuItem.Click
+        FrmData.Show()
     End Sub
 End Class
