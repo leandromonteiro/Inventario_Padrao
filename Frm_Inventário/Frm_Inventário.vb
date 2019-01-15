@@ -491,6 +491,12 @@ TxtLargura, TxtComprimento, TxtArea, TxtPe, TxtEsforco, TxtObsCivil, CmbLocalFis
     End Sub
 
     Private Sub LicençaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LicençaToolStripMenuItem.Click
-        FrmData.Show()
+
+        If InputBox("Escreva a senha de acesso", "Senha") = "@t0M05I" Then
+            FrmData.Show()
+        Else
+            MsgBox("Senha Incorreta", vbCritical)
+        End If
+
     End Sub
 End Class
