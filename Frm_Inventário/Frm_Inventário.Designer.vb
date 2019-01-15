@@ -254,7 +254,7 @@ Partial Class Frm_Inventário
         '
         'PB_Excel
         '
-        Me.PB_Excel.Location = New System.Drawing.Point(120, 5)
+        Me.PB_Excel.Location = New System.Drawing.Point(10, 5)
         Me.PB_Excel.Margin = New System.Windows.Forms.Padding(2)
         Me.PB_Excel.Name = "PB_Excel"
         Me.PB_Excel.Size = New System.Drawing.Size(211, 19)
