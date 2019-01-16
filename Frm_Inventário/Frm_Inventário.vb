@@ -122,18 +122,23 @@ Public Class Frm_Inventário
     Private Sub FrmInventario_Novo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         I_E.Buscar_Data_Limite()
-
-        If I_E.DTExpira.Rows(0)(0) <= Today Then
-            MsgBox("Data Expirada para Uso do Software. Contate o administrador.", vbCritical)
-            Application.Exit()
+        Dim DataL As String = ""
+        If I_E.DTExpira.Rows.Count > 0 Then
+            DataL = I_E.DTExpira.Rows(0)(0)
+            If CDate(DataL) <= Today Then
+                MsgBox("Data Expirada para Uso do Software. Contate o administrador.", vbCritical)
+                Application.Exit()
+            End If
         End If
 
-        Panel_Picture_Consulta.Controls.Add(PictureBox_Consulta)
-        ID = I_E.Buscar_Ultimo_ID() + 1
-        TxtSeq_Civil.Text = ID
-        TxtSeq_Desc.Text = ID
-        TxtSeq_Local.Text = ID
-
+        Try
+            Panel_Picture_Consulta.Controls.Add(PictureBox_Consulta)
+            ID = I_E.Buscar_Ultimo_ID() + 1
+            TxtSeq_Civil.Text = ID
+            TxtSeq_Desc.Text = ID
+            TxtSeq_Local.Text = ID
+        Catch
+        End Try
         PB_Excel.Visible = False
         'Preencher ComboBoxes
         I_E.Preencher_CMB(CmbCC, CmbInstall, CmbLocal, CmbTagAntigo, CmbDesc, CmbFabricante, CmbModelo,

@@ -84,33 +84,33 @@ Public Class Inventário_Excel
 
         'Limpa a base e insere com os dados DT
         Try
-            Dim connectionS As New SQLite.SQLiteConnection(connstr)
+            Dim connectionD As New SQLite.SQLiteConnection(connstr)
             Dim cmd As New SQLite.SQLiteCommand
-            connectionS.Open()
-            cmd.Connection = connectionS
+            connectionD.Open()
+            cmd.Connection = connectionD
             cmd.CommandText = "delete from Carga_Cmb;"
             cmd.ExecuteNonQuery()
             cmd.Dispose()
-            connectionS.Close()
-            connectionS.Dispose()
+            connectionD.Close()
+            connectionD.Dispose()
         Catch
             MsgBox("Erro ao limpar Base", MsgBoxStyle.Critical)
         End Try
 
         Try
             Dim connectionS As New SQLite.SQLiteConnection(connstr)
-            Dim cmd As New SQLite.SQLiteCommand
+            Dim cmdS As New SQLite.SQLiteCommand
             connectionS.Open()
-            cmd.Connection = connectionS
+            cmdS.Connection = connectionS
             For i = 0 To DT.Rows.Count - 1
-                cmd.CommandText = "insert into Carga_Cmb (Centro_Custo,Cod_Instalacao,Desc_Instalacao,Local," &
-                    "Tag,Descricao,Fabricante,Modelo,Local_Fisico,Consultor,Responsável) values ('" &
-                    DT.Rows(i)(0) & "','" & DT.Rows(i)(1) & "','" & DT.Rows(i)(2) & "','" & DT.Rows(i)(3) & "','" &
-                    UCase(DT.Rows(i)(4)) & "','" & DT.Rows(i)(5) & "','" & DT.Rows(i)(6) & "','" & DT.Rows(i)(7) & "','" &
-                    DT.Rows(i)(8) & "','" & DT.Rows(i)(9) & "','" & DT.Rows(i)(10) & "');"
-                cmd.ExecuteNonQuery()
+                cmdS.CommandText = "insert into Carga_Cmb (Centro_Custo,Cod_Instalacao,Desc_Instalacao,Local," &
+                        "Tag,Descricao,Fabricante,Modelo,Local_Fisico,Consultor,Responsável) values ('" &
+                        DT.Rows(i)(0) & "','" & DT.Rows(i)(1) & "','" & DT.Rows(i)(2) & "','" & DT.Rows(i)(3) & "','" &
+                        UCase(DT.Rows(i)(4)) & "','" & DT.Rows(i)(5) & "','" & DT.Rows(i)(6) & "','" & DT.Rows(i)(7) & "','" &
+                        DT.Rows(i)(8) & "','" & DT.Rows(i)(9) & "','" & DT.Rows(i)(10) & "');"
+                cmdS.ExecuteNonQuery()
             Next i
-            cmd.Dispose()
+            cmdS.Dispose()
             connectionS.Close()
             connectionS.Dispose()
             MsgBox("Base carregada com Sucesso", MsgBoxStyle.Information)
@@ -884,7 +884,7 @@ Public Class Inventário_Excel
             connection.Dispose()
 
         Catch
-            MsgBox("Erro ao buscar data limite", MsgBoxStyle.Critical)
+            'MsgBox("Erro ao buscar data limite", MsgBoxStyle.Critical)
         End Try
     End Sub
 
