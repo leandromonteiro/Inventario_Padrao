@@ -106,7 +106,7 @@ Public Class Inventário_Excel
                 cmd.CommandText = "insert into Carga_Cmb (Centro_Custo,Cod_Instalacao,Desc_Instalacao,Local," &
                     "Tag,Descricao,Fabricante,Modelo,Local_Fisico,Consultor,Responsável) values ('" &
                     DT.Rows(i)(0) & "','" & DT.Rows(i)(1) & "','" & DT.Rows(i)(2) & "','" & DT.Rows(i)(3) & "','" &
-                    DT.Rows(i)(4) & "','" & DT.Rows(i)(5) & "','" & DT.Rows(i)(6) & "','" & DT.Rows(i)(7) & "','" &
+                    UCase(DT.Rows(i)(4)) & "','" & DT.Rows(i)(5) & "','" & DT.Rows(i)(6) & "','" & DT.Rows(i)(7) & "','" &
                     DT.Rows(i)(8) & "','" & DT.Rows(i)(9) & "','" & DT.Rows(i)(10) & "');"
                 cmd.ExecuteNonQuery()
             Next i
@@ -190,7 +190,7 @@ Public Class Inventário_Excel
                     V_C_Inst = DT.Rows(i)(3)
                     V_D_Inst = DT.Rows(i)(4)
                     V_Local = DT.Rows(i)(5)
-                    V_Tag = DT.Rows(i)(6)
+                    V_Tag = UCase(DT.Rows(i)(6))
                     V_D_Simp = DT.Rows(i)(7)
                     V_D_Det = IIf(IsDBNull(DT.Rows(i)(8)), "", DT.Rows(i)(8))
                     V_Fab = IIf(IsDBNull(DT.Rows(i)(9)), "", DT.Rows(i)(9))
@@ -521,7 +521,7 @@ Public Class Inventário_Excel
                         "Local_Fisico,Quantidade,Um,Ano,Mes,Dia,Status,Estado,Validacao,Observacao,Altura,Largura," &
                         "Comprimento,Area,Pe,Esforco,Obs_Civil,Foto,Consultor,Responsavel,Data_Hora " &
                         ") values(" & ID & ",'" & Sequencial & "','" & CC & "','" & cod_Inst & "','" & Desc_Inst &
-                        "','" & local & "','" & Tag_A & "','" & Tag_N & "','" & Desc_S & "','" & Desc_D &
+                        "','" & local & "','" & UCase(Tag_A) & "','" & UCase(Tag_N) & "','" & Desc_S & "','" & Desc_D &
                         "','" & fabricante & "', '" & modelo & "','" & serie & "','" & Desc_S & " | " & Desc_D & " | " & fabricante & " | " & modelo & " | " & serie & "','" &
                         Local_F & "'," & Replace(CStr(qtd), ",", ".") & ", '" & um & "'," & ano & ", " &
                         mes & "," & dia & ",'" & status & "','" & estado_bem & "','" & Validacao & "','" & obs &
@@ -555,7 +555,7 @@ Public Class Inventário_Excel
                 End If
                 cmd.Connection = connection
                 cmd.CommandText = "update Inventario set Local='" & local & "',Local_Fisico='" & Local_F & "',Centro_Custo='" & CC & "',Cod_Instalacao='" &
-                        cod_Inst & "',Desc_Instalacao='" & Desc_Inst & "',Tag_Antigo='" & Tag_A & "',Tag_Novo='" & Tag_N & "',Desc_Simples='" & Desc_S & "',Desc_Detalhada='" &
+                        cod_Inst & "',Desc_Instalacao='" & Desc_Inst & "',Tag_Antigo='" & UCase(Tag_A) & "',Tag_Novo='" & UCase(Tag_N) & "',Desc_Simples='" & Desc_S & "',Desc_Detalhada='" &
                         Desc_D & "',Fabricante='" & fabricante & "',Modelo='" & modelo & "',serie='" & serie & "',Observacao='" & obs & "',Quantidade=" &
                         Replace(CStr(qtd), ",", ".") & ",Um='" & um & "',Ano='" & ano & "',Mes='" & mes & "',Dia='" & dia &
                         "',Status='" & status & "',Estado='" & estado_bem & "',Altura=" & Replace(CStr(altura), ",", ".") & ",Largura=" & Replace(CStr(largura), ",", ".") & ",Comprimento=" &

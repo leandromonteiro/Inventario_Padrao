@@ -459,7 +459,7 @@ TxtArea.Text, TxtPe.Text, TxtEsforco.Text, TxtObsCivil.Text, CmbConsultor.Text, 
     Private Sub ConsultarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsultarToolStripMenuItem.Click
         'Colocar InputBox para escolher TAG, caso tenha faça a consulta SqLite na tela, senão dá uma mensagem falando que não foi localizado
         Dim Consulta_TAG As String
-        Consulta_TAG = InputBox("Escreva o TAG a ser localizado:", "Encontrar")
+        Consulta_TAG = UCase(InputBox("Escreva o TAG a ser localizado:", "Encontrar"))
         If Consulta_TAG <> "" Then
 
             I_E.Consulta_Tag(ID, CmbCC, CmbLocal, Cod_Instal, CmbInstall, CmbTagAntigo, TxtTagNovo, CmbDesc, TxtDetalhada, CmbConsultor,
