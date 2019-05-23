@@ -424,29 +424,43 @@ TxtArea.Text, TxtPe.Text, TxtEsforco.Text, TxtObsCivil.Text, CmbConsultor.Text, 
 
     Private Sub BaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BaseToolStripMenuItem.Click
         'Carregar Inventário
+        DadosToolStripMenuItem.Text = "Aguarde o carregamento!"
+        DadosToolStripMenuItem.Enabled = False
+
         On Error Resume Next
         Dim dr As DialogResult = Me.OFD.ShowDialog()
         Dim CaminhoI As String
         If dr = System.Windows.Forms.DialogResult.OK Then
             CaminhoI = OFD.FileName
         Else
+            DadosToolStripMenuItem.Text = "Opções"
+            DadosToolStripMenuItem.Enabled = True
             Exit Sub
         End If
         'Carga
         I_E.Carga_Inventario(CaminhoI)
+        DadosToolStripMenuItem.Text = "Opções"
+        DadosToolStripMenuItem.Enabled = True
     End Sub
 
     Private Sub LayoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LayoutToolStripMenuItem.Click
         'Carregar ComboBox
+        DadosToolStripMenuItem.Text = "Aguarde o carregamento!"
+        DadosToolStripMenuItem.Enabled = False
+
         On Error Resume Next
         Dim dr As DialogResult = Me.OFD.ShowDialog()
         Dim CaminhoC As String
         If dr = System.Windows.Forms.DialogResult.OK Then
             CaminhoC = OFD.FileName
         Else
+            DadosToolStripMenuItem.Text = "Opções"
+            DadosToolStripMenuItem.Enabled = True
             Exit Sub
         End If
         I_E.Carga_Cmb(CaminhoC)
+        DadosToolStripMenuItem.Text = "Opções"
+        DadosToolStripMenuItem.Enabled = True
     End Sub
 
     Private Sub CargaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CargaToolStripMenuItem.Click

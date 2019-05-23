@@ -28,35 +28,35 @@ Public Class Inventário_Excel
         'Inserir nos CMB
         Try
             For i = 0 To DT.Rows.Count
-                If Not DT.Rows(i)(0) = "" Then
+                If Not IsDBNull(DT.Rows(i)(0)) Then
                     CmbCC.Items.Add(DT.Rows(i)(0))
                 End If
-                If Not DT.Rows(i)(1) = "" Then
+                If Not IsDBNull(DT.Rows(i)(1)) Then
                     CmbInstall.Items.Add(DT.Rows(i)(2))
                     A_Install.Add(DT.Rows(i)(1))
                 End If
-                If Not DT.Rows(i)(3) = "" Then
+                If Not IsDBNull(DT.Rows(i)(3)) Then
                     CmbLocal.Items.Add(DT.Rows(i)(3))
                 End If
-                If Not DT.Rows(i)(4) = "" Then
+                If Not IsDBNull(DT.Rows(i)(4)) Then
                     CmbTag.Items.Add(DT.Rows(i)(4))
                 End If
-                If Not DT.Rows(i)(5) = "" Then
+                If Not IsDBNull(DT.Rows(i)(5)) Then
                     CmbDesc.Items.Add(DT.Rows(i)(5))
                 End If
-                If Not DT.Rows(i)(6) = "" Then
+                If Not IsDBNull(DT.Rows(i)(6)) Then
                     CmbFabricante.Items.Add(DT.Rows(i)(6))
                 End If
-                If Not DT.Rows(i)(7) = "" Then
+                If Not IsDBNull(DT.Rows(i)(7)) Then
                     CmbModelo.Items.Add(DT.Rows(i)(7))
                 End If
-                If Not DT.Rows(i)(8) = "" Then
+                If Not IsDBNull(DT.Rows(i)(8)) Then
                     CmbLocalFisico.Items.Add(DT.Rows(i)(8))
                 End If
-                If Not DT.Rows(i)(9) = "" Then
+                If Not IsDBNull(DT.Rows(i)(9)) Then
                     CmbConsultor.Items.Add(DT.Rows(i)(9))
                 End If
-                If Not DT.Rows(i)(10) = "" Then
+                If Not IsDBNull(DT.Rows(i)(10)) Then
                     CmbResponsavel.Items.Add(DT.Rows(i)(10))
                 End If
             Next i
@@ -103,12 +103,55 @@ Public Class Inventário_Excel
             connectionS.Open()
             cmdS.Connection = connectionS
             For i = 0 To DT.Rows.Count - 1
-                cmdS.CommandText = "insert into Carga_Cmb (Centro_Custo,Cod_Instalacao,Desc_Instalacao,Local," &
-                        "Tag,Descricao,Fabricante,Modelo,Local_Fisico,Consultor,Responsável) values ('" &
-                        DT.Rows(i)(0) & "','" & DT.Rows(i)(1) & "','" & DT.Rows(i)(2) & "','" & DT.Rows(i)(3) & "','" &
-                        UCase(DT.Rows(i)(4)) & "','" & DT.Rows(i)(5) & "','" & DT.Rows(i)(6) & "','" & DT.Rows(i)(7) & "','" &
-                        DT.Rows(i)(8) & "','" & DT.Rows(i)(9) & "','" & DT.Rows(i)(10) & "');"
+                'cmdS.CommandText = "insert into Carga_Cmb (Centro_Custo,Cod_Instalacao,Desc_Instalacao,Local," &
+                '        "Tag,Descricao,Fabricante,Modelo,Local_Fisico,Consultor,Responsável) values ('" &
+                '        DT.Rows(i)(0) & "','" & DT.Rows(i)(1) & "','" & DT.Rows(i)(2) & "','" & DT.Rows(i)(3) & "','" &
+                '        UCase(DT.Rows(i)(4)) & "','" & DT.Rows(i)(5) & "','" & DT.Rows(i)(6) & "','" & DT.Rows(i)(7) & "','" &
+                '        DT.Rows(i)(8) & "','" & DT.Rows(i)(9) & "','" & DT.Rows(i)(10) & "');"
+                'cmdS.ExecuteNonQuery()
+                cmdS.CommandText = "insert into Carga_Cmb (ID) values (" & i + 1 & ");"
                 cmdS.ExecuteNonQuery()
+
+                If Not IsDBNull(DT.Rows(i)(0)) Then
+                    cmdS.CommandText = "update Carga_Cmb set Centro_Custo='" & DT.Rows(i)(0) & "' where ID= " & i + 1 & ";"
+                    cmdS.ExecuteNonQuery()
+                End If
+                If Not IsDBNull(DT.Rows(i)(1)) Then
+                    cmdS.CommandText = "update Carga_Cmb set Cod_Instalacao='" & DT.Rows(i)(1) & "',Desc_Instalacao= '" & DT.Rows(i)(2) & "' where ID= " & i + 1 & ";"
+                    cmdS.ExecuteNonQuery()
+                End If
+                If Not IsDBNull(DT.Rows(i)(3)) Then
+                    cmdS.CommandText = "update Carga_Cmb set Local='" & DT.Rows(i)(3) & "' where ID= " & i + 1 & ";"
+                    cmdS.ExecuteNonQuery()
+                End If
+                If Not IsDBNull(DT.Rows(i)(4)) Then
+                    cmdS.CommandText = "update Carga_Cmb set Tag='" & DT.Rows(i)(4) & "' where ID= " & i + 1 & ";"
+                    cmdS.ExecuteNonQuery()
+                End If
+                If Not IsDBNull(DT.Rows(i)(5)) Then
+                    cmdS.CommandText = "update Carga_Cmb set Descricao='" & DT.Rows(i)(5) & "' where ID= " & i + 1 & ";"
+                    cmdS.ExecuteNonQuery()
+                End If
+                If Not IsDBNull(DT.Rows(i)(6)) Then
+                    cmdS.CommandText = "update Carga_Cmb set Fabricante='" & DT.Rows(i)(6) & "' where ID= " & i + 1 & ";"
+                    cmdS.ExecuteNonQuery()
+                End If
+                If Not IsDBNull(DT.Rows(i)(7)) Then
+                    cmdS.CommandText = "update Carga_Cmb set Modelo='" & DT.Rows(i)(7) & "' where ID= " & i + 1 & ";"
+                    cmdS.ExecuteNonQuery()
+                End If
+                If Not IsDBNull(DT.Rows(i)(8)) Then
+                    cmdS.CommandText = "update Carga_Cmb set Local_Fisico='" & DT.Rows(i)(8) & "' where ID= " & i + 1 & ";"
+                    cmdS.ExecuteNonQuery()
+                End If
+                If Not IsDBNull(DT.Rows(i)(9)) Then
+                    cmdS.CommandText = "update Carga_Cmb set Consultor='" & DT.Rows(i)(9) & "' where ID= " & i + 1 & ";"
+                    cmdS.ExecuteNonQuery()
+                End If
+                If Not IsDBNull(DT.Rows(i)(10)) Then
+                    cmdS.CommandText = "update Carga_Cmb set Responsável='" & DT.Rows(i)(10) & "' where ID= " & i + 1 & ";"
+                    cmdS.ExecuteNonQuery()
+                End If
             Next i
             cmdS.Dispose()
             connectionS.Close()
