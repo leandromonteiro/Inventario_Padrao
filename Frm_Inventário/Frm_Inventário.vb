@@ -395,7 +395,11 @@ TxtArea.Text, TxtPe.Text, TxtEsforco.Text, TxtObsCivil.Text, CmbConsultor.Text, 
     End Sub
 
     Private Sub ExcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExcelToolStripMenuItem.Click
+        DadosToolStripMenuItem.Text = "Aguarde o carregamento!"
+        DadosToolStripMenuItem.Enabled = False
         I_E.Modelo_Excel()
+        DadosToolStripMenuItem.Text = "Opções"
+        DadosToolStripMenuItem.Enabled = True
     End Sub
 
     Private Sub BtnGirar_Click(sender As Object, e As EventArgs) Handles BtnGirar.Click
@@ -464,11 +468,19 @@ TxtArea.Text, TxtPe.Text, TxtEsforco.Text, TxtObsCivil.Text, CmbConsultor.Text, 
     End Sub
 
     Private Sub CargaToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CargaToolStripMenuItem.Click
+        DadosToolStripMenuItem.Text = "Aguarde o carregamento!"
+        DadosToolStripMenuItem.Enabled = False
         I_E.Layout_Excel_Cmb()
+        DadosToolStripMenuItem.Text = "Opções"
+        DadosToolStripMenuItem.Enabled = True
     End Sub
 
     Private Sub InventárioToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InventárioToolStripMenuItem.Click
+        DadosToolStripMenuItem.Text = "Aguarde o carregamento!"
+        DadosToolStripMenuItem.Enabled = False
         I_E.Layout_Excel()
+        DadosToolStripMenuItem.Text = "Opções"
+        DadosToolStripMenuItem.Enabled = True
     End Sub
 
     Private Sub CmbInstall_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CmbInstall.SelectedIndexChanged
