@@ -889,9 +889,7 @@ Public Class Inventário_Excel
             cmd.Connection = connectionD
             cmd.CommandText = "delete from CENTRO_CUSTO;"
             cmd.ExecuteNonQuery()
-            cmd.CommandText = "delete from COD_INSTALL;"
-            cmd.ExecuteNonQuery()
-            cmd.CommandText = "delete from DESC_INSTALL;"
+            cmd.CommandText = "delete from INSTALL;"
             cmd.ExecuteNonQuery()
             cmd.CommandText = "delete from LOCAL;"
             cmd.ExecuteNonQuery()
