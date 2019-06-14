@@ -421,23 +421,17 @@ Public Class Inventário_Excel
     End Sub
 
     Public Sub Carga_Inventario(Caminho As String)
-        'Coloca os dados do Excel no DT
-        Dim DT As New DataTable
-        Try
-            Dim connection As New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Extended Properties='Excel 12.0;HDR=YES;IMEX=1';DATA SOURCE=" & Caminho & ";")
-            Dim DA As New OleDb.OleDbDataAdapter
-            connection.Open()
-            'DT.Load(Command.ExecuteReader(CommandBehavior.CloseConnection))
-            DA.SelectCommand = New OleDb.OleDbCommand("select * from [Carga$];", connection)
-            DA.Fill(DT)
-            connection.Close()
-            connection.Dispose()
-            DA.Dispose()
-            GC.Collect()
-        Catch
-            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
-            Exit Sub
-        End Try
+        Dim xlApp As Excel.Application
+        Dim xlWorkBook As Excel.Workbook
+        Dim Sh_T As Excel.Worksheet
+        Dim Linhas As Single
+
+        xlApp = New Excel.Application
+        xlWorkBook = xlApp.Workbooks.Open(Caminho)
+        xlApp.Visible = False
+        Sh_T = xlWorkBook.Sheets(1)
+
+        Linhas = Sh_T.Range("A1000000").End(Excel.XlDirection.xlUp).Row
 
         'Limpa a base e insere com os dados DT
         Excluir_Tudo()
@@ -483,38 +477,38 @@ Public Class Inventário_Excel
             Dim V_Consultor As String
             Dim V_Responsavel As String
 
-            For i = 0 To DT.Rows.Count - 1
+            For i = 2 To Linhas
                 Try
-                    V_ID = DT.Rows(i)(0)
-                    V_Seq = DT.Rows(i)(1)
-                    V_CC = DT.Rows(i)(2)
-                    V_C_Inst = DT.Rows(i)(3)
-                    V_D_Inst = DT.Rows(i)(4)
-                    V_Local = DT.Rows(i)(5)
-                    V_Tag = UCase(DT.Rows(i)(6))
-                    V_D_Simp = DT.Rows(i)(7)
-                    V_D_Det = IIf(IsDBNull(DT.Rows(i)(8)), "", DT.Rows(i)(8))
-                    V_Fab = IIf(IsDBNull(DT.Rows(i)(9)), "", DT.Rows(i)(9))
-                    V_Mod = IIf(IsDBNull(DT.Rows(i)(10)), "", DT.Rows(i)(10))
-                    V_Serie = IIf(IsDBNull(DT.Rows(i)(11)), "", DT.Rows(i)(11))
-                    V_LocalF = DT.Rows(i)(12)
-                    V_Qtd = DT.Rows(i)(13)
-                    V_Um = DT.Rows(i)(14)
-                    V_Ano = IIf(IsDBNull(DT.Rows(i)(15)), 0, DT.Rows(i)(15))
-                    V_Mes = IIf(IsDBNull(DT.Rows(i)(16)), 0, DT.Rows(i)(16))
-                    V_Dia = IIf(IsDBNull(DT.Rows(i)(17)), 0, DT.Rows(i)(17))
-                    V_Status = DT.Rows(i)(18)
-                    V_Estado = DT.Rows(i)(19)
-                    V_Obs = IIf(IsDBNull(DT.Rows(i)(20)), "", DT.Rows(i)(20))
-                    V_Alt = IIf(IsDBNull(DT.Rows(i)(21)), 0, DT.Rows(i)(21))
-                    V_Larg = IIf(IsDBNull(DT.Rows(i)(22)), 0, DT.Rows(i)(22))
-                    V_Comp = IIf(IsDBNull(DT.Rows(i)(23)), 0, DT.Rows(i)(23))
-                    V_Area = IIf(IsDBNull(DT.Rows(i)(24)), 0, DT.Rows(i)(24))
-                    V_Pe = IIf(IsDBNull(DT.Rows(i)(25)), 0, DT.Rows(i)(25))
-                    V_Esforco = IIf(IsDBNull(DT.Rows(i)(26)), 0, DT.Rows(i)(26))
-                    V_Obs_C = IIf(IsDBNull(DT.Rows(i)(27)), "", DT.Rows(i)(27))
-                    V_Consultor = DT.Rows(i)(28)
-                    V_Responsavel = DT.Rows(i)(29)
+                    V_ID = Sh_T.Cells(i, 1).value
+                    V_Seq = Sh_T.Cells(i, 2).value
+                    V_CC = Sh_T.Cells(i, 3).value
+                    V_C_Inst = Sh_T.Cells(i, 4).value
+                    V_D_Inst = Sh_T.Cells(i, 5).value
+                    V_Local = Sh_T.Cells(i, 6).value
+                    V_Tag = UCase(Sh_T.Cells(i, 7).value)
+                    V_D_Simp = Sh_T.Cells(i, 8).value
+                    V_D_Det = Sh_T.Cells(i, 9).value
+                    V_Fab = Sh_T.Cells(i, 10).value
+                    V_Mod = Sh_T.Cells(i, 11).value
+                    V_Serie = Sh_T.Cells(i, 12).value
+                    V_LocalF = Sh_T.Cells(i, 13).value
+                    V_Qtd = Sh_T.Cells(i, 14).value
+                    V_Um = Sh_T.Cells(i, 15).value
+                    V_Ano = IIf(IsDBNull(Sh_T.Cells(i, 16).value), 0, CInt(Sh_T.Cells(i, 16).value))
+                    V_Mes = IIf(IsDBNull(Sh_T.Cells(i, 17).value), 1, CInt(Sh_T.Cells(i, 17).value))
+                    V_Dia = IIf(IsDBNull(Sh_T.Cells(i, 18).value), 1, CInt(Sh_T.Cells(i, 18).value))
+                    V_Status = Sh_T.Cells(i, 19).value
+                    V_Estado = Sh_T.Cells(i, 20).value
+                    V_Obs = Sh_T.Cells(i, 21).value
+                    V_Alt = IIf(IsDBNull(Sh_T.Cells(i, 22).value), 0, Sh_T.Cells(i, 22).value)
+                    V_Larg = IIf(IsDBNull(Sh_T.Cells(i, 23).value), 0, Sh_T.Cells(i, 23).value)
+                    V_Comp = IIf(IsDBNull(Sh_T.Cells(i, 24).value), 0, Sh_T.Cells(i, 24).value)
+                    V_Area = IIf(IsDBNull(Sh_T.Cells(i, 25).value), 0, Sh_T.Cells(i, 25).value)
+                    V_Pe = IIf(IsDBNull(Sh_T.Cells(i, 26).value), 0, Sh_T.Cells(i, 26).value)
+                    V_Esforco = IIf(IsDBNull(Sh_T.Cells(i, 27).value), 0, Sh_T.Cells(i, 27).value)
+                    V_Obs_C = Sh_T.Cells(i, 28).value
+                    V_Consultor = Sh_T.Cells(i, 29).value
+                    V_Responsavel = Sh_T.Cells(i, 30).value
 
                     cmd.CommandText = "insert into Inventario (ID,Sequencial,Centro_Custo,Cod_Instalacao,Desc_Instalacao," &
                     "Local,Tag_Antigo,Tag_Novo,Desc_Simples,Desc_Detalhada,Fabricante,Modelo,Serie,Desc_Unificada," &
@@ -529,12 +523,24 @@ Public Class Inventário_Excel
                     cmd.ExecuteNonQuery()
                 Catch
                     MsgBox("Erro na Carga", vbCritical)
+                    cmd.Dispose()
+                    connectionS.Close()
+                    connectionS.Dispose()
+                    xlWorkBook.Close(False)
+                    xlApp.Quit()
+                    releaseObject(xlApp)
+                    releaseObject(xlWorkBook)
+                    GC.Collect()
                     Exit Sub
                 End Try
             Next i
             cmd.Dispose()
             connectionS.Close()
             connectionS.Dispose()
+            xlWorkBook.Close(False)
+            xlApp.Quit()
+            releaseObject(xlApp)
+            releaseObject(xlWorkBook)
             GC.Collect()
         End Using
 
