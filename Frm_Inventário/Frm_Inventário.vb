@@ -12,7 +12,6 @@ Public Class Frm_Inventário
     Public A_Instal As New ArrayList
     Public Cod_Instal As String
 
-
     Public consultor As String
     Public lider As String
     Public Foto As String
@@ -143,6 +142,16 @@ Public Class Frm_Inventário
         'Preencher ComboBoxes
         I_E.Preencher_CMB(CmbCC, CmbInstall, CmbLocal, CmbTagAntigo, CmbDesc, CmbFabricante, CmbModelo,
                           CmbLocalFisico, CmbConsultor, CmbResponsavel, A_Instal)
+        CmbCC.Text = ""
+        CmbInstall.Text = ""
+        CmbLocal.Text = ""
+        CmbTagAntigo.Text = ""
+        CmbDesc.Text = ""
+        CmbFabricante.Text = ""
+        CmbModelo.Text = ""
+        CmbLocalFisico.Text = ""
+        CmbConsultor.Text = ""
+        CmbResponsavel.Text = ""
 
     End Sub
 
@@ -530,4 +539,5 @@ TxtLargura, TxtComprimento, TxtArea, TxtPe, TxtEsforco, TxtObsCivil, CmbLocalFis
         End If
 
     End Sub
+
 End Class

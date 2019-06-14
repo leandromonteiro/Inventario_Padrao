@@ -5,18 +5,31 @@ Public Class Inventário_Excel
     Dim connstr As String = "Data Source=C:\Users\Public\INVENTARIO_PADRAO.db;;Version=3;New=True;Compress=True;Pooling=True"
     Public DS As New DataSet
     Public DTExpira As New DataTable
+    Dim CENTRO_CUSTO As New ArrayList
+    Dim COD_INSTALL As New ArrayList
+    Dim DESC_INSTALL As New ArrayList
+    Dim LOCAL As New ArrayList
+    Dim TAG As New ArrayList
+    Dim DESCRICAO As New ArrayList
+    Dim FABRICANTE As New ArrayList
+    Dim MODELO As New ArrayList
+    Dim LOCAL_FISICO As New ArrayList
+    Dim CONSULTOR As New ArrayList
+    Dim RESPONSAVEL As New ArrayList
 
     Public Sub Preencher_CMB(CmbCC As ComboBox, CmbInstall As ComboBox, CmbLocal As ComboBox, CmbTag As ComboBox,
                              CmbDesc As ComboBox, CmbFabricante As ComboBox, CmbModelo As ComboBox,
                              CmbLocalFisico As ComboBox, CmbConsultor As ComboBox, CmbResponsavel As ComboBox, A_Install As ArrayList)
-        Dim DT As New DataTable
         Try
             Dim connection As New SQLite.SQLiteConnection(connstr)
             Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_CC As New DataTable
+
             connection.Open()
-            'DT.Load(Command.ExecuteReader(CommandBehavior.CloseConnection))
-            DA.SelectCommand = New SQLite.SQLiteCommand("select * from Carga_Cmb;", connection)
-            DA.Fill(DT)
+            DA.SelectCommand = New SQLite.SQLiteCommand("select CENTRO_CUSTO from CENTRO_CUSTO;", connection)
+            DA.Fill(DT_CC)
+            CmbCC.DataSource = DT_CC
+            CmbCC.DisplayMember = "CENTRO_CUSTO"
             connection.Close()
             connection.Dispose()
             DA.Dispose()
@@ -25,62 +38,279 @@ Public Class Inventário_Excel
             MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
         End Try
 
-        'Inserir nos CMB
         Try
-            For i = 0 To DT.Rows.Count
-                If Not IsDBNull(DT.Rows(i)(0)) Then
-                    CmbCC.Items.Add(DT.Rows(i)(0))
-                End If
-                If Not IsDBNull(DT.Rows(i)(1)) Then
-                    CmbInstall.Items.Add(DT.Rows(i)(2))
-                    A_Install.Add(DT.Rows(i)(1))
-                End If
-                If Not IsDBNull(DT.Rows(i)(3)) Then
-                    CmbLocal.Items.Add(DT.Rows(i)(3))
-                End If
-                If Not IsDBNull(DT.Rows(i)(4)) Then
-                    CmbTag.Items.Add(DT.Rows(i)(4))
-                End If
-                If Not IsDBNull(DT.Rows(i)(5)) Then
-                    CmbDesc.Items.Add(DT.Rows(i)(5))
-                End If
-                If Not IsDBNull(DT.Rows(i)(6)) Then
-                    CmbFabricante.Items.Add(DT.Rows(i)(6))
-                End If
-                If Not IsDBNull(DT.Rows(i)(7)) Then
-                    CmbModelo.Items.Add(DT.Rows(i)(7))
-                End If
-                If Not IsDBNull(DT.Rows(i)(8)) Then
-                    CmbLocalFisico.Items.Add(DT.Rows(i)(8))
-                End If
-                If Not IsDBNull(DT.Rows(i)(9)) Then
-                    CmbConsultor.Items.Add(DT.Rows(i)(9))
-                End If
-                If Not IsDBNull(DT.Rows(i)(10)) Then
-                    CmbResponsavel.Items.Add(DT.Rows(i)(10))
-                End If
-            Next i
-        Catch
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_INST As New DataTable
+
+            DA.SelectCommand = New SQLite.SQLiteCommand("select INSTALL from INSTALL;", connection)
+            DA.Fill(DT_INST)
+            CmbInstall.DataSource = DT_INST
+            CmbInstall.DisplayMember = "INSTALL"
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch ex As Exception
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
         End Try
+
+        Try
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_ID As New DataTable
+
+            DA.SelectCommand = New SQLite.SQLiteCommand("select ID from INSTALL;", connection)
+            DA.Fill(DT_ID)
+            For i = 0 To DT_ID.Rows.Count - 1
+                A_Install.Add(DT_ID.Rows(i)(0))
+            Next
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch ex As Exception
+            'MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        Try
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_LOCAL As New DataTable
+
+            DA.SelectCommand = New SQLite.SQLiteCommand("select LOCAL from LOCAL;", connection)
+            DA.Fill(DT_LOCAL)
+            CmbLocal.DataSource = DT_LOCAL
+            CmbLocal.DisplayMember = "LOCAL"
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch ex As Exception
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        Try
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_TAG As New DataTable
+
+            DA.SelectCommand = New SQLite.SQLiteCommand("select TAG from TAG;", connection)
+            DA.Fill(DT_TAG)
+            CmbTag.DataSource = DT_TAG
+            CmbTag.DisplayMember = "TAG"
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch ex As Exception
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        Try
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_DESC As New DataTable
+
+            DA.SelectCommand = New SQLite.SQLiteCommand("select DESCRICAO from DESCRICAO;", connection)
+            DA.Fill(DT_DESC)
+            CmbDesc.DataSource = DT_DESC
+            CmbDesc.DisplayMember = "DESCRICAO"
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch ex As Exception
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        Try
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_FABRICANTE As New DataTable
+
+            DA.SelectCommand = New SQLite.SQLiteCommand("select FABRICANTE from FABRICANTE;", connection)
+            DA.Fill(DT_FABRICANTE)
+            CmbFabricante.DataSource = DT_FABRICANTE
+            CmbFabricante.DisplayMember = "FABRICANTE"
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch ex As Exception
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        Try
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_MODELO As New DataTable
+
+            DA.SelectCommand = New SQLite.SQLiteCommand("select MODELO from MODELO;", connection)
+            DA.Fill(DT_MODELO)
+            CmbModelo.DataSource = DT_MODELO
+            CmbModelo.DisplayMember = "MODELO"
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch ex As Exception
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        Try
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_LOCAL_FISICO As New DataTable
+
+            DA.SelectCommand = New SQLite.SQLiteCommand("select LOCAL_FISICO from LOCAL_FISICO;", connection)
+            DA.Fill(DT_LOCAL_FISICO)
+            CmbLocalFisico.DataSource = DT_LOCAL_FISICO
+            CmbLocalFisico.DisplayMember = "LOCAL_FISICO"
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch ex As Exception
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        Try
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_CONSULTOR As New DataTable
+
+            DA.SelectCommand = New SQLite.SQLiteCommand("select CONSULTOR from CONSULTOR;", connection)
+            DA.Fill(DT_CONSULTOR)
+            CmbConsultor.DataSource = DT_CONSULTOR
+            CmbConsultor.DisplayMember = "CONSULTOR"
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch ex As Exception
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
+        Try
+            Dim connection As New SQLite.SQLiteConnection(connstr)
+            Dim DA As New SQLite.SQLiteDataAdapter
+            Dim DT_RESPONSAVEL As New DataTable
+
+            DA.SelectCommand = New SQLite.SQLiteCommand("select RESPONSAVEL from RESPONSAVEL;", connection)
+            DA.Fill(DT_RESPONSAVEL)
+            CmbResponsavel.DataSource = DT_RESPONSAVEL
+            CmbResponsavel.DisplayMember = "RESPONSAVEL"
+            connection.Close()
+            connection.Dispose()
+            DA.Dispose()
+            GC.Collect()
+        Catch ex As Exception
+            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        End Try
+
     End Sub
 
     Public Sub Carga_Cmb(Caminho As String)
-        'Coloca os dados do Excel no DT
-        Dim DT As New DataTable
-        Try
-            Dim connection As New OleDb.OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Extended Properties='Excel 12.0;HDR=YES;IMEX=1';DATA SOURCE=" & Caminho & ";")
-            Dim DA As New OleDb.OleDbDataAdapter
-            connection.Open()
-            'DT.Load(Command.ExecuteReader(CommandBehavior.CloseConnection))
-            DA.SelectCommand = New OleDb.OleDbCommand("select * from [Carga$];", connection)
-            DA.Fill(DT)
-            connection.Close()
-            connection.Dispose()
-            DA.Dispose()
-            GC.Collect()
-        Catch
-            MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
-        End Try
+        'Coloca os dados do Excel nos ARRAYS
+
+        'Try
+        Dim xlApp As Excel.Application
+        Dim xlWorkBook As Excel.Workbook
+        Dim Sh_T As Excel.Worksheet
+        Dim Linhas As Single
+
+        'Try
+        xlApp = New Excel.Application
+            xlWorkBook = xlApp.Workbooks.Open(Caminho)
+        xlApp.Visible = False
+        Sh_T = xlWorkBook.Sheets(1)
+
+        Linhas = Sh_T.Range("A1000000").End(Excel.XlDirection.xlUp).Row
+        CENTRO_CUSTO.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                CENTRO_CUSTO.Add(Sh_T.Cells(i, 1).VALUE)
+            Next
+        End If
+        Linhas = Sh_T.Range("B1000000").End(Excel.XlDirection.xlUp).Row
+        COD_INSTALL.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                COD_INSTALL.Add(Sh_T.Cells(i, 2).VALUE)
+            Next
+        End If
+        Linhas = Sh_T.Range("C1000000").End(Excel.XlDirection.xlUp).Row
+        DESC_INSTALL.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                DESC_INSTALL.Add(Sh_T.Cells(i, 3).VALUE)
+            Next
+        End If
+        Linhas = Sh_T.Range("D1000000").End(Excel.XlDirection.xlUp).Row
+        LOCAL.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                LOCAL.Add(Sh_T.Cells(i, 4).VALUE)
+            Next
+        End If
+        Linhas = Sh_T.Range("E1000000").End(Excel.XlDirection.xlUp).Row
+        TAG.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                TAG.Add(Sh_T.Cells(i, 5).VALUE)
+            Next
+        End If
+        Linhas = Sh_T.Range("F1000000").End(Excel.XlDirection.xlUp).Row
+        DESCRICAO.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                DESCRICAO.Add(Sh_T.Cells(i, 6).VALUE)
+            Next
+        End If
+        Linhas = Sh_T.Range("G1000000").End(Excel.XlDirection.xlUp).Row
+        FABRICANTE.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                FABRICANTE.Add(Sh_T.Cells(i, 7).VALUE)
+            Next
+        End If
+        Linhas = Sh_T.Range("H1000000").End(Excel.XlDirection.xlUp).Row
+        MODELO.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                MODELO.Add(Sh_T.Cells(i, 8).VALUE)
+            Next
+        End If
+        Linhas = Sh_T.Range("I1000000").End(Excel.XlDirection.xlUp).Row
+        LOCAL_FISICO.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                LOCAL_FISICO.Add(Sh_T.Cells(i, 9).VALUE)
+            Next
+        End If
+        Linhas = Sh_T.Range("J1000000").End(Excel.XlDirection.xlUp).Row
+        CONSULTOR.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                CONSULTOR.Add(Sh_T.Cells(i, 10).VALUE)
+            Next
+        End If
+        Linhas = Sh_T.Range("K1000000").End(Excel.XlDirection.xlUp).Row
+        RESPONSAVEL.Clear()
+        If Linhas >= 2 Then
+            For i = 2 To Linhas
+                RESPONSAVEL.Add(Sh_T.Cells(i, 11).VALUE)
+            Next
+        End If
+
+        xlWorkBook.Close(False)
+        xlApp.Quit()
+        releaseObject(xlApp)
+        releaseObject(xlWorkBook)
+        'Catch
+        'MsgBox("Erro na consulta da Carga", MsgBoxStyle.Critical)
+        'End Try
 
         'Limpa a base e insere com os dados DT
         Try
@@ -88,8 +318,27 @@ Public Class Inventário_Excel
             Dim cmd As New SQLite.SQLiteCommand
             connectionD.Open()
             cmd.Connection = connectionD
-            cmd.CommandText = "delete from Carga_Cmb;"
+            cmd.CommandText = "delete from CENTRO_CUSTO;"
             cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from INSTALL;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from LOCAL;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from TAG;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from DESCRICAO;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from FABRICANTE;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from MODELO;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from LOCAL_FISICO;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from CONSULTOR;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from RESPONSAVEL;"
+            cmd.ExecuteNonQuery()
+
             cmd.Dispose()
             connectionD.Close()
             connectionD.Dispose()
@@ -102,57 +351,66 @@ Public Class Inventário_Excel
             Dim cmdS As New SQLite.SQLiteCommand
             connectionS.Open()
             cmdS.Connection = connectionS
-            For i = 0 To DT.Rows.Count - 1
-                'cmdS.CommandText = "insert into Carga_Cmb (Centro_Custo,Cod_Instalacao,Desc_Instalacao,Local," &
-                '        "Tag,Descricao,Fabricante,Modelo,Local_Fisico,Consultor,Responsável) values ('" &
-                '        DT.Rows(i)(0) & "','" & DT.Rows(i)(1) & "','" & DT.Rows(i)(2) & "','" & DT.Rows(i)(3) & "','" &
-                '        UCase(DT.Rows(i)(4)) & "','" & DT.Rows(i)(5) & "','" & DT.Rows(i)(6) & "','" & DT.Rows(i)(7) & "','" &
-                '        DT.Rows(i)(8) & "','" & DT.Rows(i)(9) & "','" & DT.Rows(i)(10) & "');"
-                'cmdS.ExecuteNonQuery()
-                cmdS.CommandText = "insert into Carga_Cmb (ID) values (" & i + 1 & ");"
-                cmdS.ExecuteNonQuery()
-
-                If Not IsDBNull(DT.Rows(i)(0)) Then
-                    cmdS.CommandText = "update Carga_Cmb set Centro_Custo='" & DT.Rows(i)(0) & "' where ID= " & i + 1 & ";"
+            If CENTRO_CUSTO.Count > 0 Then
+                For i = 0 To CENTRO_CUSTO.Count - 1
+                    cmdS.CommandText = "insert into CENTRO_CUSTO (CENTRO_CUSTO) values ('" & CENTRO_CUSTO(i) & "');"
                     cmdS.ExecuteNonQuery()
-                End If
-                If Not IsDBNull(DT.Rows(i)(1)) Then
-                    cmdS.CommandText = "update Carga_Cmb set Cod_Instalacao='" & DT.Rows(i)(1) & "',Desc_Instalacao= '" & DT.Rows(i)(2) & "' where ID= " & i + 1 & ";"
+                Next i
+            End If
+            If COD_INSTALL.Count > 0 Then
+                For i = 0 To COD_INSTALL.Count - 1
+                    cmdS.CommandText = "insert into INSTALL (ID,INSTALL) values ('" & COD_INSTALL(i) & "','" & DESC_INSTALL(i) & "');"
                     cmdS.ExecuteNonQuery()
-                End If
-                If Not IsDBNull(DT.Rows(i)(3)) Then
-                    cmdS.CommandText = "update Carga_Cmb set Local='" & DT.Rows(i)(3) & "' where ID= " & i + 1 & ";"
+                Next i
+            End If
+            If LOCAL.Count > 0 Then
+                For i = 0 To LOCAL.Count - 1
+                    cmdS.CommandText = "insert into LOCAL (LOCAL) values ('" & LOCAL(i) & "');"
                     cmdS.ExecuteNonQuery()
-                End If
-                If Not IsDBNull(DT.Rows(i)(4)) Then
-                    cmdS.CommandText = "update Carga_Cmb set Tag='" & DT.Rows(i)(4) & "' where ID= " & i + 1 & ";"
+                Next i
+            End If
+            If TAG.Count > 0 Then
+                For i = 0 To TAG.Count - 1
+                    cmdS.CommandText = "insert into TAG (TAG) values ('" & TAG(i) & "');"
                     cmdS.ExecuteNonQuery()
-                End If
-                If Not IsDBNull(DT.Rows(i)(5)) Then
-                    cmdS.CommandText = "update Carga_Cmb set Descricao='" & DT.Rows(i)(5) & "' where ID= " & i + 1 & ";"
+                Next i
+            End If
+            If DESCRICAO.Count > 0 Then
+                For i = 0 To DESCRICAO.Count - 1
+                    cmdS.CommandText = "insert into DESCRICAO (DESCRICAO) values ('" & DESCRICAO(i) & "');"
                     cmdS.ExecuteNonQuery()
-                End If
-                If Not IsDBNull(DT.Rows(i)(6)) Then
-                    cmdS.CommandText = "update Carga_Cmb set Fabricante='" & DT.Rows(i)(6) & "' where ID= " & i + 1 & ";"
+                Next i
+            End If
+            If FABRICANTE.Count > 0 Then
+                For i = 0 To FABRICANTE.Count - 1
+                    cmdS.CommandText = "insert into FABRICANTE (FABRICANTE) values ('" & FABRICANTE(i) & "');"
                     cmdS.ExecuteNonQuery()
-                End If
-                If Not IsDBNull(DT.Rows(i)(7)) Then
-                    cmdS.CommandText = "update Carga_Cmb set Modelo='" & DT.Rows(i)(7) & "' where ID= " & i + 1 & ";"
+                Next i
+            End If
+            If MODELO.Count > 0 Then
+                For i = 0 To MODELO.Count - 1
+                    cmdS.CommandText = "insert into MODELO (MODELO) values ('" & MODELO(i) & "');"
                     cmdS.ExecuteNonQuery()
-                End If
-                If Not IsDBNull(DT.Rows(i)(8)) Then
-                    cmdS.CommandText = "update Carga_Cmb set Local_Fisico='" & DT.Rows(i)(8) & "' where ID= " & i + 1 & ";"
+                Next i
+            End If
+            If LOCAL_FISICO.Count > 0 Then
+                For i = 0 To LOCAL_FISICO.Count - 1
+                    cmdS.CommandText = "insert into LOCAL_FISICO (LOCAL_FISICO) values ('" & LOCAL_FISICO(i) & "');"
                     cmdS.ExecuteNonQuery()
-                End If
-                If Not IsDBNull(DT.Rows(i)(9)) Then
-                    cmdS.CommandText = "update Carga_Cmb set Consultor='" & DT.Rows(i)(9) & "' where ID= " & i + 1 & ";"
+                Next i
+            End If
+            If CONSULTOR.Count > 0 Then
+                For i = 0 To CONSULTOR.Count - 1
+                    cmdS.CommandText = "insert into CONSULTOR (CONSULTOR) values ('" & CONSULTOR(i) & "');"
                     cmdS.ExecuteNonQuery()
-                End If
-                If Not IsDBNull(DT.Rows(i)(10)) Then
-                    cmdS.CommandText = "update Carga_Cmb set Responsável='" & DT.Rows(i)(10) & "' where ID= " & i + 1 & ";"
+                Next i
+            End If
+            If RESPONSAVEL.Count > 0 Then
+                For i = 0 To RESPONSAVEL.Count - 1
+                    cmdS.CommandText = "insert into RESPONSAVEL (RESPONSAVEL) values ('" & RESPONSAVEL(i) & "');"
                     cmdS.ExecuteNonQuery()
-                End If
-            Next i
+                Next i
+            End If
             cmdS.Dispose()
             connectionS.Close()
             connectionS.Dispose()
@@ -619,19 +877,36 @@ Public Class Inventário_Excel
 
     Public Sub Excluir_Carga_Cmb()
         Try
-            Using connection As New SQLite.SQLiteConnection(connstr)
-                SQLite.SQLiteConnection.ClearAllPools()
-                Dim cmd As New SQLite.SQLiteCommand
-                If connection.State = ConnectionState.Closed Then
-                    connection.Open()
-                End If
-                cmd.Connection = connection
-                cmd.CommandText = "Delete from Carga_Cmb;"
-                cmd.ExecuteNonQuery()
-                cmd.Dispose()
-                connection.Close()
-                connection.Dispose()
-            End Using
+            Dim connectionD As New SQLite.SQLiteConnection(connstr)
+            Dim cmd As New SQLite.SQLiteCommand
+            connectionD.Open()
+            cmd.Connection = connectionD
+            cmd.CommandText = "delete from CENTRO_CUSTO;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from COD_INSTALL;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from DESC_INSTALL;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from LOCAL;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from TAG;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from DESCRICAO;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from FABRICANTE;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from MODELO;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from LOCAL_FISICO;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from CONSULTOR;"
+            cmd.ExecuteNonQuery()
+            cmd.CommandText = "delete from RESPONSAVEL;"
+            cmd.ExecuteNonQuery()
+
+            cmd.Dispose()
+            connectionD.Close()
+            connectionD.Dispose()
             MsgBox("Dados Excluídos com Sucesso", MsgBoxStyle.Information)
         Catch
             MsgBox("Erro ao excluir dados", MsgBoxStyle.Critical)
@@ -952,6 +1227,16 @@ Public Class Inventário_Excel
             MsgBox("Dados Salvos com Sucesso", MsgBoxStyle.Information)
         Catch
             MsgBox("Erro ao atualizar dados", MsgBoxStyle.Critical)
+        End Try
+    End Sub
+    Private Sub releaseObject(ByVal obj As Object)
+        Try
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
+            obj = Nothing
+        Catch ex As Exception
+            obj = Nothing
+        Finally
+            GC.Collect()
         End Try
     End Sub
 End Class
